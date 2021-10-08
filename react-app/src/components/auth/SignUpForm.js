@@ -9,13 +9,16 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [age, setAge] = useState("")
+  const [weight, setWeight] = useState("")
+  const [height, setHeight] = useState("")
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(username, email, password,  age, weight, height));
       if (data) {
         setErrors(data)
       }
@@ -36,6 +39,18 @@ const SignUpForm = () => {
 
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
+  };
+
+  const updateAge = (e) => {
+    setAge(e.target.value);
+  };
+
+  const updateWeight = (e) => {
+    setWeight(e.target.value);
+  };
+
+  const updateHeight = (e) => {
+    setHeight(e.target.value);
   };
 
   if (user) {
@@ -86,8 +101,36 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
+      <div>
+        <label>Age</label>
+        <input
+          type='number'
+          name='age'
+          onChange={updateAge}
+          value={age}
+        ></input>
+      </div>
+      <div>
+        <label>Weight</label>
+        <input
+          type='number'
+          name='weight'
+          onChange={updateWeight}
+          value={weight}
+        ></input>
+      </div>
+      <div>
+        <label>Height</label>
+        <input
+          type='text'
+          name='height'
+          onChange={updateHeight}
+          value={height}
+        ></input>
+      </div>
       <button type='submit'>Sign Up</button>
     </form>
+    
   );
 };
 

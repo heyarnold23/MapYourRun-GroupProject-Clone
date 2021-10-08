@@ -29,10 +29,10 @@ class User(db.Model, UserMixin):
     height = db.Column(db.String(10),nullable=False)
     weight = db.Column(db.Integer,nullable=False)
 
-    friends = db.relationship("User", secondary=friends, back_populates = "users")
-    pending_friends = db.relationship("User", secondary=pending_friends, back_populates = "users")
+    friends_association = db.relationship("User", secondary=friends, back_populates = "users")
+    pending_friends_association = db.relationship("User", secondary=pending_friends, back_populates = "users")
 
-    runners_runs = db.relationship("Run", secondary=runners_runs,back_populates = "users")
+    runs_association = db.relationship("Run", secondary=runners_runs,back_populates = "users")
 
 
 

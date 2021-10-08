@@ -10,3 +10,5 @@ class Comment(db.Model):
     body = db.Column(db.Text, nullable = False)
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
     run_id = db.Column(db.Integer, db.ForeignKey("runs.id"), nullable = False)
+
+    author = db.relationship("User")
