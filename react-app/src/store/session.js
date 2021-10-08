@@ -1,6 +1,8 @@
-// constants
-const SET_USER = 'session/SET_USER';
-const REMOVE_USER = 'session/REMOVE_USER';
+const SET_USER = "session/SET_USER"
+const REMOVE_USER = "session/REMOVE_USER"
+const ADD_MODAL_TYPE = "session/ADD_MODAL_TYPE"
+const MODAL_VIEW = "session/MODAL_VIEW"
+const MODAL_REQUIRED = "session/MODAL_REQUIRED"
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -11,7 +13,25 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const initialState = { user: null };
+
+
+export const addModal = (type) => {
+  return {
+    type:ADD_MODAL_TYPE,
+    payload:type
+  }
+}
+
+export const toggleModalView = (visible) => {
+  return {
+    type:MODAL_VIEW,
+    payload:visible
+  }
+}
+
+
+
+const initialState = { user: null,modalView:null,modalType:null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/auth/', {
@@ -24,7 +44,7 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-  
+
     dispatch(setUser(data));
   }
 }
@@ -40,8 +60,8 @@ export const login = (email, password) => async (dispatch) => {
       password
     })
   });
-  
-  
+
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -85,7 +105,7 @@ export const signUp = (username, email, password, age, weight, height) => async 
       height
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))
@@ -101,12 +121,27 @@ export const signUp = (username, email, password, age, weight, height) => async 
 }
 
 export default function reducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_USER:
-      return { user: action.payload }
-    case REMOVE_USER:
-      return { user: null }
-    default:
-      return state;
-  }
+  const newState = {...state};
+    switch (action.type) {
+      case SET_USER:
+        newState.user = action.payload;
+        return newState;
+      case REMOVE_USER:
+        newState.user = null;
+        return newState;
+      case ADD_MODAL_TYPE:{
+        newState.modalType=action.payload
+        return newState
+      }
+      case MODAL_VIEW:{
+        newState.modalView=action.payload
+        return newState
+      }
+      case MODAL_REQUIRED:{
+        newState.modalRequired=action.payload
+        return newState
+      }
+      default:
+        return state;
+    }
 }

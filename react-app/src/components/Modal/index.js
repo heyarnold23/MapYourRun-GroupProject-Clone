@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../../context/Modal';
-import LoginForm from './LoginForm';
-import SignupForm from "./SignupForm"
+import LoginForm from '../auth/LoginForm';
+import SignupForm from "../auth/SignUpForm"
 import {addModal,toggleModalView} from "../../store/session"
 import {useDispatch,useSelector} from "react-redux"
 function FormModal() {
@@ -10,7 +10,7 @@ function FormModal() {
   const modalType= useSelector((state)=>state.session.modalType)
   const modalView = useSelector(state => state.session.modalView)
   let userForm
-  
+
   if(modalView && modalType==="login"){
     userForm = (<LoginForm/>)
   }

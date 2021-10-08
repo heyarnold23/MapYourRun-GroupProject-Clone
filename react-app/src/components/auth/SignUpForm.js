@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import {addModal} from "../../store/session"
+import "./UserForm.css"
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -24,6 +26,11 @@ const SignUpForm = () => {
       }
     }
   };
+
+  const handleClick = (e) => {
+    e.preventDefault()
+   dispatch(addModal("login"))
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -58,6 +65,7 @@ const SignUpForm = () => {
   }
 
   return (
+    <>
     <form onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
@@ -130,7 +138,8 @@ const SignUpForm = () => {
       </div>
       <button type='submit'>Sign Up</button>
     </form>
-    
+    <div id = "change-signin-type" onClick = {handleClick}>Already have an account, log in!</div>
+    </>
   );
 };
 
