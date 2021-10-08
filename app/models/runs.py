@@ -18,4 +18,4 @@ class Run(db.Model):
     completed = db.Column(db.Boolean, nullable = False)
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
-    runners_runs = db.relationship("User", secondary=runners_runs,back_populates = "runs")
+    runs_association = db.relationship("User", secondary=runners_runs,back_populates = "runs")
