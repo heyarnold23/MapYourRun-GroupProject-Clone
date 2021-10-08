@@ -3,8 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 runners_runs = db.Table(
     "runners_runs",
-    db.Column("runner_id", db.Integer, db.ForeignKey("users.id"), primaryKey=True),
-    db.Column("run_id", db.Integer, db.ForeignKey("runs.id"), primaryKey=True)
+    db.Column("runner_id", db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable = False),
+    db.Column("run_id", db.Integer, db.ForeignKey("runs.id"), primary_key=True, nullable = False)
     )
 
 class Run(db.Model):
@@ -16,6 +16,6 @@ class Run(db.Model):
     distance = db.Column(db.Float, nullable = False)
     time = db.Column(db.Float, nullable = False)
     completed = db.Column(db.Boolean, nullable = False)
-    runner_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     runners_runs = db.relationship("User", secondary=runners_runs,back_populates = "runs")

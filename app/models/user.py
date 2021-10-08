@@ -7,14 +7,14 @@ from .runs import runners_runs
 
 friends = db.Table(
     "friends",
-    db.Column("runner1_id", db.Integer, db.ForeignKey("users.id"), primaryKey=True),
-    db.Column("runner2_id", db.Integer, db.ForeignKey("users.id"), primaryKey=True)
+    db.Column("runner1_id", db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable = False),
+    db.Column("runner2_id", db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable = False)
 )
 
 pending_friends = db.Table(
     "pending_friends",
-    db.Column("acceptor_id", db.Integer, db.ForeignKey("users.id"), primaryKey=True),
-    db.Column("requester_id", db.Integer, db.ForeignKey("users.id"), primaryKey=True)
+    db.Column("acceptor_id", db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable = False),
+    db.Column("requester_id", db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable = False)
 )
 
 

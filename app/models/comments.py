@@ -8,5 +8,5 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text, nullable = False)
-    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    run_id = db.Column(db.Integer, db.ForeignKey("runs.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
+    run_id = db.Column(db.Integer, db.ForeignKey("runs.id"), nullable = False)
