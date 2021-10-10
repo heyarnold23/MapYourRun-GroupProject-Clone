@@ -7,14 +7,14 @@ from .runs import runners_runs
 
 friends = db.Table(
     "friends",
-    db.Column("runner1_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("runner2_id", db.Integer, db.ForeignKey("users.id"))
+    db.Column("runner1_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("runner2_id", db.Integer, db.ForeignKey("users.id"), primary_key=True)
 )
 
 pending_friends = db.Table(
     "pending_friends",
-    db.Column("acceptor_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("requester_id", db.Integer, db.ForeignKey("users.id"))
+    db.Column("acceptor_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("requester_id", db.Integer, db.ForeignKey("users.id"), primary_key=True)
 )
 
 
@@ -29,13 +29,13 @@ class User(db.Model, UserMixin):
     height = db.Column(db.String(10),nullable=False)
     weight = db.Column(db.Integer,nullable=False)
 
-    friends_association = db.relationship("User", secondary=friends, primaryjoin=(friends.c.runner1_id),
-    secondaryjoin=(friends.c.runner2_id), backref=db.backref("friends", lazy="dynamic"), lazy="dynamic")
+    friends_association = db.relationship("User", secondary=friends, primaryjoin=(friends.c.runner1_id == id),
+    secondaryjoin=(friends.c.runner2_id == id), backref=db.backref("friends", lazy="dynamic"), lazy="dynamic")
 
-    pending_friends_association = db.relationship("User", secondary=pending_friends, primaryjoin=(pending_friends.c.acceptor_id),
-    secondaryjoin=(pending_friends.c.requester_id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
+    pending_friends_association = db.relationship("User", secondary=pending_friends, primaryjoin=(pending_friends.c.acceptor_id == id),
+    secondaryjoin=(pending_friends.c.requester_id == id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
 
-    runs = db.relationship("Run", secondary=runners_runs,back_populates = "users")
+    user_runs = db.relationship("Run", back_populates="runnings")
 
 
 
