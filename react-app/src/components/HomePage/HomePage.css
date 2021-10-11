@@ -1,3 +1,12 @@
+*, ::before, ::after {
+  box-sizing: inherit;
+}
+
+h2 {
+  color: black;
+  letter-spacing: 6px;
+}
+
 .splash_2_div {
     position: relative;
     display: inline;
@@ -18,4 +27,41 @@
 
 .app_text_wrapper {
   margin-top: 100px;
+}
+
+#overlap_div {
+  background-image: url("./public/background.jpg");
+}
+
+.heading_text {
+  font-family: 'Neue Plak UA Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: pre-line;
+}
+
+.bar {
+  border-color: black;
+  width: 87px;
+}
+
+.subheading {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.2rem;
+  vertical-align: baseline;
+}
+
+.cities {
+  margin: 32px auto;
+  max-width: 700px;
+  text-align: center;
+  display: flex;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  justify-content: space-between;
+}
+.city {
+  
 }
