@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch ,useSelector} from 'react-redux';
-import {addModal,toggleModalView} from "../store/session"
-import LogoutButton from "./auth/LogoutButton"
-import FormModal from "./Modal"
+import {addModal,toggleModalView} from "../../store/session"
+import LogoutButton from "../auth/LogoutButton"
+import FormModal from "../Modal"
 
 function UserButtons({ user }) {
   const dispatch = useDispatch();
