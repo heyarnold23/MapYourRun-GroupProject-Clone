@@ -1,9 +1,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import geocodingReducer from './geocoding';
 
 const rootReducer = combineReducers({
   session,
+  geocodingReducer
 });
 
 
