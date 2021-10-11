@@ -1,0 +1,21 @@
+.splash_2_div {
+    position: relative;
+    display: inline;
+  }
+#overlay_img {
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+}
+
+.splash_3_div {
+  display: flex;
+}
+
+#splash_3 {
+  align-self: flex-end;
+}
+
+.app_text_wrapper {
+  margin-top: 100px;
+}
