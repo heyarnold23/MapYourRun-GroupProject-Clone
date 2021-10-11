@@ -3,6 +3,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import {addModal,toggleModalView} from "../../store/session"
 import LogoutButton from "../auth/LogoutButton"
 import FormModal from "../Modal"
+import "./UserButtons.css"
 
 function UserButtons({ user }) {
   const dispatch = useDispatch();

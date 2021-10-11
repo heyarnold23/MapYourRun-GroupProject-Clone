@@ -1,7 +1,27 @@
 .map-inner-container{
-    height: 400px;
+    height: 100%;
 }
 
 #map-outer-container{
-    height:400px;
+    position:absolute;
+    right:0px;
+    left:500px;
+    height:100%;
+}
+
+.mapboxgl-canvas-container{
+    height:100%
+}
+
+#create-route-page{
+    position:fixed;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    top:46px;
+}
+
+#left-side{
+    position:fixed;
+    left:0;
 }
