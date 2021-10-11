@@ -63,5 +63,7 @@ h2 {
   justify-content: space-between;
 }
 .city {
-  
+  list-style: none;
+  margin-top: 10px;
+  text-decoration: none;
 }
