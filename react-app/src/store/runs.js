@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf";
-
 
 const GET_RUNS = 'runs/LOAD';
 
@@ -11,19 +9,16 @@ const getRuns = (runsObject) => {
     }
 }
 
-export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch => {
-    const response = await csrfFetch('/api/runs', {
+export const setRuns = (id,start_point,end_point,distance,time) => async dispatch => {
+    const body = JSON.stringify({start_point, end_point, distance, time, runner_id:id })
+
+
+    const response = await fetch('/api/runs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          startPoint,
-          endPoint,
-          distance,
-          time,
-          runnerId:id
-        }),
+        body: body
     });
 
     if(response.ok){
