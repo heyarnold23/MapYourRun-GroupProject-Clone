@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getRunsThunk} from '../../store/runs'
-import {getCommentsThunk} from'../../store/comments'
 import './ActivityFeed.css'
+import CommentsFeed from '../Comments';
 
 export default function ActivityFeed() {
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
-  const comments = useSelector(store => store?.comments)
 
   useEffect(() => {
-    dispatch(getCommentsThunk())
     dispatch(getRunsThunk())
   },[dispatch])
 
@@ -24,6 +22,7 @@ export default function ActivityFeed() {
           </div>
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
+            let runId = runs.id
             return(
               <>
               <div id='cardDiv'>
@@ -46,6 +45,7 @@ export default function ActivityFeed() {
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
                         {run.distance}
+                        {run.id}
                       </div>
                       <div className='descriptionDiv'>
                         Distance(mi)
@@ -72,7 +72,7 @@ export default function ActivityFeed() {
                     {/* implement a show button functionality here */}
                     {/* Maybe make a comments component and have it be a child here on show menu */}
                     <div id='commentsButton'>
-                      commentsButton
+                      <CommentsFeed runId={runId} />
                     </div>
                     <div id='createdDate'>
                       created
