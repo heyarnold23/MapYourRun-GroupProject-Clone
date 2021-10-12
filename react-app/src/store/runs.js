@@ -1,3 +1,6 @@
+import { csrfFetch } from "./csrf";
+
+
 const GET_RUNS = 'runs/LOAD';
 
 
@@ -9,7 +12,7 @@ const getRuns = (runsObject) => {
 }
 
 export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch => {
-    const response = await fetch('/api/runs', {
+    const response = await csrfFetch('/api/runs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,13 +43,10 @@ export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch 
 
 
 export const getRunsThunk = () => async (dispatch) => {
-    console.log('inside runsthuunkkkkkk');
     const response = await fetch('/api/runs')
 
-    console.log('responnnnsseseee', response);
     let run_obj = await response.json()
 
-    console.log('this is runs arrrrraayyy',run_obj)
     if(response.ok){
         dispatch(getRuns(run_obj))
     }
