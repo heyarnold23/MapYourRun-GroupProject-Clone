@@ -22,7 +22,8 @@ export default function ActivityFeed() {
           </div>
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
-            let runId = runs.id
+            let runId = run.id
+            console.log('this is runiddddd',runId);
             return(
               <>
               <div id='cardDiv'>
@@ -72,12 +73,14 @@ export default function ActivityFeed() {
                     {/* implement a show button functionality here */}
                     {/* Maybe make a comments component and have it be a child here on show menu */}
                     <div id='commentsButton'>
-                      <CommentsFeed runId={runId} />
+                      CommentButton
                     </div>
                     <div id='createdDate'>
                       created
                     </div>
                   </div>
+                  {/* If conditional here to show comments feed if CommentButton is clicked */}
+                  <CommentsFeed runId={runId} />
 
 
 

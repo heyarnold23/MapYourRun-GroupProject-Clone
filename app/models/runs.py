@@ -15,7 +15,6 @@ class Run(db.Model):
     end_point = db.Column(db.String(256), nullable = False)
     distance = db.Column(db.Float, nullable = False)
     time = db.Column(db.Float, nullable = False)
-    completed = db.Column(db.Boolean, nullable = False)
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")

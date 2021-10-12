@@ -4,6 +4,13 @@ from app.models import Comment
 
 comment_routes = Blueprint('comments', __name__)
 
+@comment_routes.route('/<int:id>')
+def commentsById(id):
+    print(id)
+    comments = Comment.query.filter(
+        Comment.run_id == id
+    )
+    return {comment.id:comment.to_dict() for comment in comments}
 
 @comment_routes.route('')
 def comments():

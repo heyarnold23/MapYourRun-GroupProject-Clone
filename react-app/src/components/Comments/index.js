@@ -2,27 +2,28 @@ import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getCommentsThunk} from'../../store/comments'
 
-export default function CommentsFeed({id}) {
+export default function CommentsFeed({runId}) {
 
     const dispatch = useDispatch()
-    const comments= useSelector(store => store?.comments)
+    const comments = useSelector(store => store?.comments)
 
     useEffect(() => {
         dispatch(getCommentsThunk())
       },[dispatch])
 
-console.log(id)
+
+console.log(comments);
     return (
         <div>
             <div>
                 <div>
-                {id}
+                {runId}
                 </div>
                 <div>
-                    
+
                 </div>
                 <div>
-                    
+
                 </div>
             </div>
             <div>
@@ -30,10 +31,10 @@ console.log(id)
 
                 </div>
                 <div>
-                    
+
                 </div>
                 <div>
-                    
+
                 </div>
             </div>
 
