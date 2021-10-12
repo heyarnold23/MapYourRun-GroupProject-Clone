@@ -84,7 +84,6 @@ const CreateRoute = () => {
                 dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
             }
         }
-
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
             map.current.on('move', () => {
