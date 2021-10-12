@@ -62,6 +62,7 @@ const CreateRoute = () => {
             updateStartPoint(`${position.coords.latitude},${position.coords.longitude}`)
             setLat(position.coords.latitude)
             setLng(position.coords.longitude)
+            console.log("position set")
         });
 
     },[])
@@ -91,9 +92,6 @@ const CreateRoute = () => {
 
         }
         });
-        // if(document.getElementsByClassName("mapboxgl-marker").length !== markerCount) setMarkerCount(document.getElementsByClassName("mapboxgl-marker").length)
-        //         console.log(markerCount)
-
 
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
@@ -133,36 +131,8 @@ const CreateRoute = () => {
 
         return (
             <div id = "create-route-page">
-                <div id = "left-side">
-                    <form >
-                        <div>
-                            {errors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div>
-                        <div>
-                            <label>Start Point</label>
-                            <input
-                            type='text'
-                            name='startPoint'
-                            onChange={updateStartPoint}
-                            value={startPoint}
-                            ></input>
-                        </div>
-                        <div>
-                            <label>End Point</label>
-                            <input
-                            type='text'
-                            name='endPoint'
-                            onChange={updateEndPoint}
-                            value={endPoint}
-                            ></input>
-                        </div>
-                        <button type='submit'>Create</button>
-                    </form>
-                </div>
                 <div id = "map-outer-container">
-                    <div ref={mapContainer} className="map-inner-container" />
+                    <div ref={mapContainer} className="map-container" />
                 </div>
             </div>
 
