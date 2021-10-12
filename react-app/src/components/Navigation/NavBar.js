@@ -9,27 +9,27 @@ const NavBar = () => {
   let user = useSelector(state => state.session.user)
 
   return (
-    <nav>
+    <nav id = "navbar-list-container">
       <ul id = "navbar-list">
         <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
+          <NavLink to='/' exact={true} className = "navbar-li" activeClassName='active'>
             MapYourRun
           </NavLink>
         </li>
         <li>
-          <NavLink to='/dashboard' exact={true} activeClassName='active'>
+          <NavLink to='/dashboard' exact={true} className = "navbar-li" activeClassName='active'>
             Dashboard
           </NavLink></li>
         <li>
-          <NavLink to='/social' exact={true} activeClassName='active'>
+          <NavLink to='/social' exact={true} className = "navbar-li" activeClassName='active'>
             Social
           </NavLink></li>
         <li>
-          <NavLink to='/new-route' exact={true} activeClassName='active'>
+          <NavLink to='/new-route' exact={true} className = "navbar-li" activeClassName='active'>
             Create Route
           </NavLink></li>
         <li>
-          <NavLink to='/activity' exact={true} activeClassName='active'>
+          <NavLink to='/activity' exact={true} className = "navbar-li" activeClassName='active'>
             Activity Feed
           </NavLink></li>
         <li>
