@@ -6,6 +6,7 @@ import App from './App';
 import configureStore from './store';
 import { ModalProvider } from './context/Modal';
 import * as runActions from './store/runs'
+import * as commentsActions from './store/comments'
 
 const store = configureStore();
 
@@ -13,6 +14,7 @@ const store = configureStore();
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.runActions = runActions;
+  window.commentsActions = commentsActions;
 }
 
 ReactDOM.render(

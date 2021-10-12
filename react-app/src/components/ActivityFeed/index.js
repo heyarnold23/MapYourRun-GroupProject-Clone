@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getRunsThunk} from '../../store/runs'
+import {getCommentsThunk} from'../../store/comments'
 import './ActivityFeed.css'
 
 export default function ActivityFeed() {
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
+  const comments = useSelector(store => store?.comments)
 
   useEffect(() => {
+    dispatch(getCommentsThunk())
     dispatch(getRunsThunk())
   },[dispatch])
 
