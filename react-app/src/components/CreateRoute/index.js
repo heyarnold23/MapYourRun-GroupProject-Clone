@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import "./CreateRoute.css"
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
+import { setRuns } from '../../store/runs';
 
 
 const CreateRoute = () => {
@@ -15,6 +16,7 @@ const CreateRoute = () => {
     const [endPoint,updateEndPoint] = useState("")
     const [distance,setDistance] = useState("")
     const [time,setTime] = useState("")
+    const currentUser = useSelector(state=>state.session.user)
 
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
 
@@ -72,6 +74,7 @@ const CreateRoute = () => {
                 console.log("End Point: ",endPoint)
                 console.log("Distance: ",distance)
                 console.log("Time: ",time)
+                dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
             }
         },[startPoint,endPoint,time,distance])
 

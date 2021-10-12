@@ -2,7 +2,7 @@ const SET_RUNS = "runs/SET_RUNS"
 
 
 
-export const set_runs = (id) => async dispatch => {
+export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch => {
     const response = await fetch('/api/runs', {
         method: 'POST',
         headers: {
