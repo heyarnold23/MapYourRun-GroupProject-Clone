@@ -1,3 +1,4 @@
+
 const GET_RUNS = 'runs/LOAD';
 
 
@@ -8,19 +9,16 @@ const getRuns = (runsObject) => {
     }
 }
 
-export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch => {
+export const setRuns = (id,start_point,end_point,distance,time) => async dispatch => {
+    const body = JSON.stringify({start_point, end_point, distance, time, runner_id:id })
+
+
     const response = await fetch('/api/runs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          startPoint,
-          endPoint,
-          distance,
-          time,
-          runnerId:id
-        }),
+        body: body
     });
 
     if(response.ok){
@@ -40,13 +38,10 @@ export const setRuns = (id,startPoint,endPoint,distance,time) => async dispatch 
 
 
 export const getRunsThunk = () => async (dispatch) => {
-    console.log('inside runsthuunkkkkkk');
     const response = await fetch('/api/runs')
 
-    console.log('responnnnsseseee', response);
     let run_obj = await response.json()
 
-    console.log('this is runs arrrrraayyy',run_obj)
     if(response.ok){
         dispatch(getRuns(run_obj))
     }
