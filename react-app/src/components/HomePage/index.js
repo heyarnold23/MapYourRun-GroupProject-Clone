@@ -30,8 +30,9 @@ const HomePage = () => {
             </div>
           </div>
           <div className="splash_2_div">
-            <img src={Splash2}></img>
+            <img src={Splash2} id="splash2"></img>
             <img src={Overlay} id="overlay_img"></img>
+ 
           </div>
           <div className="splash_3_div">
             <div className="app_text_wrapper">
@@ -54,11 +55,11 @@ const HomePage = () => {
             <img src={Splash3} id="splash_3"></img>
           </div>
           <div id="overlap_div">
-            <div className="heading_text2">
+            <div className="heading_text3">
               <h2>
-                <hr className="bar2"></hr>
+                <hr className="bar3"></hr>
                 <span>Find Your Path Anywhere</span>
-                <hr className="bar2"></hr>
+                <hr className="bar3"></hr>
               </h2>
             </div>
             <p className="subheading">

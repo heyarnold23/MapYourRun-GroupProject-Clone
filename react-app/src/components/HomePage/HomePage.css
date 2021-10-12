@@ -47,6 +47,7 @@ h2 {
   right: 0;
 }
 
+
 .splash_3_div {
   display: flex;
 }
@@ -65,13 +66,29 @@ h2 {
 
 .heading_text2 {
   font-family: 'Neue Plak UA Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
   text-transform: uppercase;
   white-space: pre-line;
   z-index: 1;
 }
 
 .bar2 {
+  border-color: black;
+  width: 87px;
+  border-top: 5px solid black;
+}
+
+.heading_text3 {
+  font-family: 'Neue Plak UA Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: pre-line;
+  z-index: 1;
+}
+
+.bar3 {
   border-color: black;
   width: 87px;
   border-top: 5px solid black;
