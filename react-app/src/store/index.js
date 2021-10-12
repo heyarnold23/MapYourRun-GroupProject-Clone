@@ -2,10 +2,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import runsReducer from './runs';
+import geocodingReducer from './geocoding';
 
 const rootReducer = combineReducers({
   session,
+  geocodingReducer,
   runs: runsReducer,
+
 });
 
 
