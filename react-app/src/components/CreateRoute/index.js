@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import React, {useEffect, useState, useRef, useCallback} from "react"
+import React, {useEffect, useState, useRef} from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -7,7 +7,7 @@ import "./CreateRoute.css"
 import { getData } from '../../store/geocoding';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
-import Geocoder from "react-map-gl-geocoder";
+
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
@@ -39,6 +39,24 @@ const CreateRoute = () => {
         updateEndPoint(`${e.lngLat.lat},${e.lngLat.lng}`)
     }
 
+
+    useEffect(()=>{
+        if(markerCount === 2){
+            const geojson = {
+                "type": "FeatureCollection",
+                "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                    "type": "LineString",
+                    "coordinates": []
+                  }
+                }]
+              };
+
+        }
+
+    },[markerCount])
+
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(function(position) {
             updateStartPoint(`${position.coords.latitude},${position.coords.longitude}`)
@@ -69,7 +87,9 @@ const CreateRoute = () => {
                     .addTo(map.current);
 
                 setMarkerCount(markerCount=>markerCount+1)
-            }
+
+
+        }
         });
         // if(document.getElementsByClassName("mapboxgl-marker").length !== markerCount) setMarkerCount(document.getElementsByClassName("mapboxgl-marker").length)
         //         console.log(markerCount)
@@ -88,23 +108,12 @@ const CreateRoute = () => {
             if (!map.current || markerCount > 2) {
                 return; // wait for map to initialize
             }
+
+            map.current.off("click",markerCreator)
             map.current.on('style.load', () => {
                 map.current.once('click', markerCreator);
             });
 
-            if(markerCount === 2){
-                const geojson = {
-                    "type": "FeatureCollection",
-                    "features": [{
-                      "type": "Feature",
-                      "geometry": {
-                        "type": "LineString",
-                        "coordinates": []
-                      }
-                    }]
-                  };
-
-            }
 
         },[markerCount])
 
@@ -116,6 +125,9 @@ const CreateRoute = () => {
             if(state.geocoding) return state.geocoding.data
         })
         // console.log("Geocoding Data: ",data)
+        useEffect(()=>{
+
+        },[])
 
 
 
@@ -150,11 +162,6 @@ const CreateRoute = () => {
                     </form>
                 </div>
                 <div id = "map-outer-container">
-                    <Geocoder
-                        mapRef={map}
-                        mapboxApiAccessToken={mapboxgl.accessToken}
-                        position="top-left"
-                    />
                     <div ref={mapContainer} className="map-inner-container" />
                 </div>
             </div>
