@@ -8,12 +8,13 @@ export default function ActivityFeed() {
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
 
+  console.log(runs['comments'])
+
   useEffect(() => {
     dispatch(getRunsThunk())
   },[dispatch])
 
-  console.log('this is runnnnnsss',runs);
-  console.log(runs['1']);
+
   return (
     <>
         <div id='middle'>
@@ -22,11 +23,10 @@ export default function ActivityFeed() {
           </div>
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
-            let runId = run.id
-            console.log('this is runiddddd',runId);
+            // let runId = run.id
+            // console.log('this is runiddddd',runId);
             return(
-              <>
-              <div id='cardDiv'>
+              <div key={run.id} id='cardDiv'>
                 <div id='profilePicDiv'>
                   Picture
                 </div>
@@ -63,6 +63,7 @@ export default function ActivityFeed() {
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
                         {run.time}
+                        {run.comments[0].id}
                       </div>
                       <div className='descriptionDiv'>
                         Duration
@@ -80,7 +81,7 @@ export default function ActivityFeed() {
                     </div>
                   </div>
                   {/* If conditional here to show comments feed if CommentButton is clicked */}
-                  <CommentsFeed runId={runId} />
+                  {/* {runs.comments[0]} */}
 
 
 
@@ -91,7 +92,6 @@ export default function ActivityFeed() {
 
 
               </div>
-              </>
             )
             })}
         </div>
