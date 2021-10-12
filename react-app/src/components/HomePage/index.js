@@ -14,7 +14,7 @@ const HomePage = () => {
 
 
     return (
-        <div>
+        <div className='mainDiv'>
           <div className="splash_1_div">
             <img src={Splash1}></img>
             <div className="heading_text1">
@@ -27,13 +27,13 @@ const HomePage = () => {
                    backed by the world's largest digital <br />
                    health and fitness community.
                 </p>
-                
+
             </div>
           </div>
           <div className="splash_2_div">
             <img src={Splash2} id="splash2"></img>
             <img src={splash2Overlay} id="overlay_img"></img>
- 
+
           </div>
           <div className="splash_3_div">
             <div className="app_text_wrapper">
@@ -99,7 +99,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        
+
     )
 }
 
