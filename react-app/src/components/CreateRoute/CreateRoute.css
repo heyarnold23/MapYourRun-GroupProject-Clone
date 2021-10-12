@@ -2,7 +2,12 @@
     height: 100%;
 }
 
-#map-outer-container{
+.mapboxgl-control-container{
+    position:fixed;
+    left:0;
+    top:60px;
+}
+.map-container {
     position:absolute;
     right:0px;
     left:500px;
@@ -18,7 +23,7 @@
     right:0px;
     left:0px;
     bottom:0px;
-    top:46px;
+    top:60px;
 }
 
 #left-side{
