@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import HomePage from "./components/HomePage"
 import CreateRoute from "./components/CreateRoute"
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,6 +38,7 @@ function App() {
           <CreateRoute />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }
