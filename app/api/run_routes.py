@@ -17,8 +17,9 @@ def runs():
 
 
 @run_routes.route('', methods=["POST"])
-@login_required
+# @login_required
 def post():
+    print("INSIDE POSTTTTTINGGGGGGG")
     form = RunForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

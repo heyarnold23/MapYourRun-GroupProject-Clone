@@ -27,6 +27,5 @@ class Run(db.Model):
             'end_point': self.end_point,
             'distance': self.distance,
             'time': self.time,
-            'completed': self.completed,
             'runner_id': self.runner_id
         }
