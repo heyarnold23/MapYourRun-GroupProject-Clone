@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import React, {useEffect, useState, useRef} from "react"
+import React, {useEffect, useState, useRef, useCallback} from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "./CreateRoute.css"
 import { getData } from '../../store/geocoding';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
+import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
+import Geocoder from "react-map-gl-geocoder";
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
@@ -23,8 +25,19 @@ const CreateRoute = () => {
     const [lng, setLng] = useState("");
     const [lat, setLat] = useState("");
     const [zoom, setZoom] = useState(9);
-    const markerCount = useRef(null)
-    markerCount.
+    const [markerCount,setMarkerCount] = useState(0)
+
+
+    const markerCreator = (e) => {
+
+        let coordinates = e.lngLat;
+        new mapboxgl.Marker()
+            .setLngLat(coordinates)
+            .addTo(map.current);
+        setMarkerCount(markerCount=>markerCount+1)
+        console.log(e.lngLat)
+        updateEndPoint(`${e.lngLat.lat},${e.lngLat.lng}`)
+    }
 
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -32,6 +45,7 @@ const CreateRoute = () => {
             setLat(position.coords.latitude)
             setLng(position.coords.longitude)
         });
+
     },[])
 
         useEffect(() => {
@@ -43,23 +57,23 @@ const CreateRoute = () => {
                     center: [lng, lat],
                     zoom: zoom
                 });
+                map.current.directions = new MapboxDirections({
+                    accessToken: mapboxgl.accessToken,
+                    unit: 'metric',
+                    profile: 'mapbox/driving'
+                  });
+                  map.current.addControl(map.current.directions, 'top-left');
+
                 marker = new mapboxgl.Marker() //create new marker
                 .setLngLat([lng, lat])
                     .addTo(map.current);
 
-                map.current.on('style.load', function() {
-                    map.current.on('click', function(e) {
-                        let coordinates = e.lngLat;
-                        new mapboxgl.Marker()
-                        .setLngLat(coordinates)
-                        .addTo(map.current);
-                        markerCount+=1
-                        console.log("MARKERS: ",markerCount)
-                    });
-                    });
+                setMarkerCount(markerCount=>markerCount+1)
             }
-
         });
+        // if(document.getElementsByClassName("mapboxgl-marker").length !== markerCount) setMarkerCount(document.getElementsByClassName("mapboxgl-marker").length)
+        //         console.log(markerCount)
+
 
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
@@ -70,6 +84,30 @@ const CreateRoute = () => {
             });
         });
 
+        useEffect(()=>{
+            if (!map.current || markerCount > 2) {
+                return; // wait for map to initialize
+            }
+            map.current.on('style.load', () => {
+                map.current.once('click', markerCreator);
+            });
+
+            if(markerCount === 2){
+                const geojson = {
+                    "type": "FeatureCollection",
+                    "features": [{
+                      "type": "Feature",
+                      "geometry": {
+                        "type": "LineString",
+                        "coordinates": []
+                      }
+                    }]
+                  };
+
+            }
+
+        },[markerCount])
+
         // useEffect(()=>{
         //     dispatch(getData(forwardUrl))
         // },[])
@@ -78,10 +116,6 @@ const CreateRoute = () => {
             if(state.geocoding) return state.geocoding.data
         })
         // console.log("Geocoding Data: ",data)
-        useEffect(()=>{
-
-        },[])
-
 
 
 
@@ -116,6 +150,11 @@ const CreateRoute = () => {
                     </form>
                 </div>
                 <div id = "map-outer-container">
+                    <Geocoder
+                        mapRef={map}
+                        mapboxApiAccessToken={mapboxgl.accessToken}
+                        position="top-left"
+                    />
                     <div ref={mapContainer} className="map-inner-container" />
                 </div>
             </div>
