@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from "react-router-dom"
 import { NavLink } from 'react-router-dom'
 import "./HomePage.css"
 import Splash1 from "./public/splash1.png"
 import Splash2 from "./public/splash2.png"
-import Overlay from "./public/splashOverlay.png"
+import splash2Overlay from "./public/splashOverlay.png"
 import Splash3 from "./public/splash3.png"
 import Splash4 from "./public/splash4.png"
 import Splash4Overlay from "./public/splash4Overlay.png"
 import Splash5 from "./public/splash5.png"
 
 const HomePage = () => {
+
+
 
     return (
         <div>
@@ -23,7 +24,7 @@ const HomePage = () => {
                 <hr className="bar1"></hr>
               </h2>
                 <p id="p1">The best mobile run tracking experience, <br />
-                  backed by the world's largest digital <br />
+                   backed by the world's largest digital <br />
                    health and fitness community.
                 </p>
                 
@@ -31,7 +32,7 @@ const HomePage = () => {
           </div>
           <div className="splash_2_div">
             <img src={Splash2} id="splash2"></img>
-            <img src={Overlay} id="overlay_img"></img>
+            <img src={splash2Overlay} id="overlay_img"></img>
  
           </div>
           <div className="splash_3_div">
