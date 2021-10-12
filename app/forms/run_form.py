@@ -6,8 +6,8 @@ from wtforms.validators import DataRequired, Email, ValidationError
 
 class RunForm(FlaskForm):
     start_point = StringField(
-        'startPoint', validators=[DataRequired()])
-    end_point = StringField('endPoint', validators=[DataRequired()])
+        'start_point', validators=[DataRequired()])
+    end_point = StringField('end_point', validators=[DataRequired()])
     distance = FloatField('distance', validators=[DataRequired()])
     time = FloatField('time', validators=[DataRequired()])
     runner_id = IntegerField('runner_id', validators=[DataRequired()])
