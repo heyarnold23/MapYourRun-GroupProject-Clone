@@ -11,7 +11,7 @@ const getRuns = (runsObject) => {
 
 export const getRunsThunk = () => async (dispatch) => {
     console.log('inside runsthuunkkkkkk');
-    const response = await fetch('/api/runs/')
+    const response = await fetch('/api/runs')
 
     console.log('responnnnsseseee', response);
     let run_obj = await response.json()
@@ -33,9 +33,10 @@ export default function runsReducer(state = initialState, action) {
     const newState = {...state}
     switch (action.type) {
         case GET_RUNS:
-            const newState = {};
-            action.payload.forEach(run => {newState[run.id] = run});
-            return newState;
+            // const newState = {};
+            // action.payload.forEach(run => {newState[run.id] = run});
+            // return newState;
+            return action.payload
         default:
             return state
     }

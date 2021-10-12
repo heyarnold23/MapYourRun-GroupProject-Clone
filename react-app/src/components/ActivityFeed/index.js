@@ -12,6 +12,7 @@ export default function ActivityFeed() {
   },[dispatch])
 
   console.log('this is runnnnnsss',runs);
+  console.log(runs['1']);
   return (
     <>
         <div>
@@ -20,14 +21,13 @@ export default function ActivityFeed() {
             return(
 
                 <div key={run.id} className='single-run'>
-                    <h1>{run.runner_id}</h1>
-                    <h1>{run.id}</h1>
+                    <h1>this is runner id {run.runner_id}</h1>
+                    <h1>this is run id {run.id}</h1>
                 </div>
 
             )
             })}
         </div>
-        <h1>Hello</h1>
     </>
 
   )

@@ -19,3 +19,15 @@ class Run(db.Model):
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")
+
+# to dict function here
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'start_point': self.start_point,
+            'end_point': self.end_point,
+            'distance': self.distance,
+            'time': self.time,
+            'completed': self.completed,
+            'runner_id': self.runner_id
+        }
