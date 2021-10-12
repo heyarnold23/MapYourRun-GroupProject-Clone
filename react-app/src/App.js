@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import HomePage from "./components/HomePage/"
 import CreateRoute from "./components/CreateRoute"
 import Footer from './components/Footer';
+import ActivityFeed from './components/ActivityFeed';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,6 +37,9 @@ function App() {
         </Route>
         <Route exact path = "/new-route">
           <CreateRoute />
+        </Route>
+        <Route exact path = "/activity">
+          <ActivityFeed />
         </Route>
       </Switch>
       <Footer />

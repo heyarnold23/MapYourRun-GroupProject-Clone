@@ -13,3 +13,12 @@ class Comment(db.Model):
 
     author = db.relationship("User")
     run = db.relationship("Run")
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'body': self.body,
+            'author_id': self.author_id,
+            'run_id': self.run_id,
+        }
