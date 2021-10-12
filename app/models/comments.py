@@ -12,7 +12,7 @@ class Comment(db.Model):
     run_id = db.Column(db.Integer, db.ForeignKey("runs.id"), nullable = False)
 
     author = db.relationship("User")
-    run = db.relationship("Run")
+    run = db.relationship("Run", back_populates='comments')
 
 
     def to_dict(self):

@@ -19,15 +19,16 @@ def runs():
 @run_routes.route('', methods=["POST"])
 @login_required
 def post():
+    print("INSIDE POSTTTTTINGGGGGGG")
     form = RunForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         run = Run(
-            start_point=form.data['startPoint'],
-            end_point=form.data['endPoint'],
+            start_point=form.data['start_point'],
+            end_point=form.data['end_point'],
             distance=form.data['distance'],
             time=form.data['time'],
-            runner_id=form.data['runnerId']
+            runner_id=form.data['runner_id']
         )
         db.session.add(run)
         db.session.commit()

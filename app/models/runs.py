@@ -18,6 +18,7 @@ class Run(db.Model):
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")
+    comments = db.relationship("Comment", back_populates = 'run')
 
 # to dict function here
     def to_dict(self):
@@ -27,6 +28,6 @@ class Run(db.Model):
             'end_point': self.end_point,
             'distance': self.distance,
             'time': self.time,
-            'completed': self.completed,
-            'runner_id': self.runner_id
+            'runner_id': self.runner_id,
+            'comments': [comment.to_dict() for comment in self.comments]
         }
