@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react'
 import "./HomePage.css"
 import Splash1 from "./public/splash1.png"
 import Splash2 from "./public/splash2.png"
@@ -16,7 +15,7 @@ const HomePage = () => {
     return (
         <div className='mainDiv'>
           <div className="splash_1_div">
-            <img src={Splash1}></img>
+            <img src={Splash1} alt="running peeps"></img>
             <div className="heading_text1">
               <h2>
                 <hr className="bar1"></hr>
@@ -31,8 +30,8 @@ const HomePage = () => {
             </div>
           </div>
           <div className="splash_2_div">
-            <img src={Splash2} id="splash2"></img>
-            <img src={splash2Overlay} id="overlay_img"></img>
+            <img src={Splash2} id="splash2" alt="grid map"></img>
+            <img src={splash2Overlay} id="overlay_img" alt="shoe"></img>
 
           </div>
           <div className="splash_3_div">
@@ -53,7 +52,7 @@ const HomePage = () => {
               <p>Analyze your data in the app or on the web, then conquer
                  that 5K or marathon using our adaptive training plans.</p>
             </div>
-            <img src={Splash3} id="splash_3"></img>
+            <img src={Splash3} id="splash_3" alt="application example"></img>
           </div>
           <div id="overlap_div">
             <div className="heading_text3">
@@ -90,11 +89,11 @@ const HomePage = () => {
               </ul>
             </div>
             <div className="splash_4_div">
-              <img src={Splash4} className="map_img"></img>
-              <img src={Splash4Overlay} id="overlay4_img"></img>
+              <img src={Splash4} className="map_img" alt="map"></img>
+              <img src={Splash4Overlay} id="overlay4_img" alt="city run example"></img>
             </div>
             <div className="splash_5_div">
-            <img src={Splash5}></img>
+            <img src={Splash5} alt="2021 is your year"></img>
 
             </div>
           </div>
