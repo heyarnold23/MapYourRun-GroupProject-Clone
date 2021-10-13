@@ -15,7 +15,8 @@ export default function ActivityFeed() {
   const [errors, setErrors] = useState([]);
 
 
-  const openMenu = () => {
+  const openMenu = (id) => {
+    console.log('this is inside openMenu', id);
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -30,14 +31,14 @@ export default function ActivityFeed() {
     setBody('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, id) => {
+      console.log('inside handleSubmit',id);
       e.preventDefault();
-
 
       const newComment = {
         body,
         author_id: sessionUser.id,
-        run_id: 1
+        run_id: id
       };
 
       console.log('this is bodddyyyyyyyyyy',body);
@@ -117,7 +118,7 @@ export default function ActivityFeed() {
                     {/* Maybe make a comments component and have it be a child here on show menu */}
 
                     {!showMenu && (
-                      <span id='commentsButton' onClick={openMenu}>
+                      <span id='commentsButton' onClick={() => {openMenu(run.id)}}>
                         <FaRegComments />
                       </span>
                     )}
@@ -161,7 +162,7 @@ export default function ActivityFeed() {
                         Picture
                       </div>
                       <div className='formField'>
-                      <form onSubmit={handleSubmit} className='commentInput'>
+                      <form onSubmit={(event)=> handleSubmit(event, run.id)} className='commentInput'>
                             <textarea
                                 rows='1'
                                 value={body}
@@ -187,41 +188,6 @@ export default function ActivityFeed() {
             )
             })}
         </div>
-
-        {/* <div id='dropdown'>
-          Explore
-        </div>
-        <div id='cardDiv'>
-          <div id='profilePicDiv'>
-            Placeholder
-          </div>
-          <div id='mainDetailsDiv'>
-            <div id='nameDiv'>
-              name
-            </div>
-            <div id='screenshot'>
-              screenshot
-            </div>
-            <div id='runDetailsDiv'>
-              <div id='distanceDiv'>
-
-              </div>
-
-            </div>
-
-
-
-
-
-          </div>
-
-
-
-
-        </div> */}
-
-
-
     </>
 
   )
