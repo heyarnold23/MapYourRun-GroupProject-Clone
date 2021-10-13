@@ -1,7 +1,18 @@
-#header {
-    margin-top: 20px;
+#title {
+    text-align: center;
+    font-size: 4rem;
 }
 
 .runs {
     margin-top: 10px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+}
+
+#line {
+    width: 80%;
+    border-top: 3px solid black;
 }

@@ -9,15 +9,16 @@ export default function Dashboard() {
     const runs = useSelector(store => store?.runs)
     let runArr;
     let distance = 0;
-    // console.log(runArr)
+    let calories = 0;
+    console.log(sessionUser)
 
     if(runs) {
         runArr = Object.values(runs)
         runArr = runArr.filter(run => run.runner_id === sessionUser.id)
          runArr.map(run => {
             distance += Math.floor(run.distance)
-            console.log(distance)
         })
+        calories = distance * 102;
     }
 
     useEffect(() => {
@@ -27,12 +28,27 @@ export default function Dashboard() {
     return (
         <>
         <div>
-
-            
-            {/* <div><h1 id="header">Dashboard</h1></div>
-            {runArr.map(run => (
-                <div key={run.id} className="runs">{Math.floor(run.distance)}</div>
-            ))} */}
+            <h1 id="title">My Dashboard</h1>
+            <div className="stats">
+                <h3>Distance Ran: {distance} miles</h3>
+                <h3>Calories Burnt: {calories}</h3>
+                <h3>Age: {sessionUser.age}</h3>
+                <h3>Height: {sessionUser.height}</h3>
+                <h3>Weight: {sessionUser.weight} lbs</h3>
+            </div>
+        </div>
+        <hr id="line"></hr>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th className="table_head">Start Point</th>
+                        <th className="table_head">End Point</th>
+                        <th className="table_head">Distance</th>
+                        <th className="table_head">Time to Complete</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
         </>
     )
