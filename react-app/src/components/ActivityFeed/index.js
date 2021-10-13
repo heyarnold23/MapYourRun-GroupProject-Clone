@@ -139,9 +139,11 @@ export default function ActivityFeed() {
                       <div className='formField'>
                         FormBox
                       </div>
-                      <button className='formButton'>
-                        Submit
-                      </button>
+                      <div className='formButtonDiv'>
+                        <button className='formButton'>
+                          Submit
+                        </button>
+                      </div>
                     </div>
                   </>
                   )}

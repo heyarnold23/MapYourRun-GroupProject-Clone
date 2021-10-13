@@ -128,3 +128,16 @@
     border-top: 1px solid #DFE0E5;
     width: 100%;
 }
+
+.formPic{
+    width: 25%;
+    margin-left: 10px;
+}
+
+.formField{
+    width: 80%;
+}
+
+.formButtonDiv{
+    width: 25%;
+}
