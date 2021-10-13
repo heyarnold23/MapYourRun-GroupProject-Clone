@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-#cardDiv{
+.cardDiv{
     display: flex;
     flex-direction: row;
     width: 630px;

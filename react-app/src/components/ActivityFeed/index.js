@@ -13,11 +13,14 @@ export default function ActivityFeed() {
   const [showMenu, setShowMenu] = useState(false);
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState([]);
+  const [cardId, setCardId] = useState();
 
+  console.log('this is cardIDDDDDDDD',cardId);
 
   const openMenu = (id) => {
-    console.log('this is inside openMenu', id);
+    // console.log('this is inside openMenu', id);
     if (showMenu) return;
+    setCardId(id)
     setShowMenu(true);
   };
 
@@ -70,7 +73,7 @@ export default function ActivityFeed() {
             // let runId = run.id
             // console.log('this is runiddddd',runId);
             return(
-              <div key={run.id} id='cardDiv'>
+              <div key={run.id} className='cardDiv' id={run.id}>
                 <div id='profilePicDiv'>
                   Picture
                 </div>
@@ -118,7 +121,7 @@ export default function ActivityFeed() {
                     {/* Maybe make a comments component and have it be a child here on show menu */}
 
                     {!showMenu && (
-                      <span id='commentsButton' onClick={() => {openMenu(run.id)}}>
+                      <span id='commentsButton' onClick={() => {openMenu(run?.id)}}>
                         <FaRegComments />
                       </span>
                     )}
@@ -137,7 +140,7 @@ export default function ActivityFeed() {
                   {/* <div id='comments'>
                       {run?.comments?.map(comment => comment.body)}
                   </div> */}
-                  {showMenu && (
+                  {(showMenu && cardId === run.id) && (
                     <>
                     {run?.comments?.map(comment =>
                       <div className='commentDiv'>
