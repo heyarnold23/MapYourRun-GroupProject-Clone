@@ -4,12 +4,15 @@ import {getRunsThunk} from '../../store/runs'
 import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
 import {FaRegComments} from 'react-icons/fa'
+import { getCommentsThunk, setComments } from '../../store/comments';
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
   const [showMenu, setShowMenu] = useState(false);
+  const [body, setBody] = useState('');
+  const [errors, setErrors] = useState([]);
 
 
   const openMenu = () => {
@@ -22,6 +25,27 @@ export default function ActivityFeed() {
     setShowMenu(false)
     // setBody(comment.body)
   }
+
+  const reset = () => {
+    setBody('');
+  };
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+
+      const newComment = {
+        body,
+        author_id: sessionUser.id,
+        run_id: 1
+      };
+
+      console.log('this is bodddyyyyyyyyyy',body);
+      console.log('this is id',sessionUser.id);
+      dispatch(setComments(newComment));
+
+      reset();
+  };
 
   useEffect(() => {
     dispatch(getRunsThunk())
@@ -137,7 +161,18 @@ export default function ActivityFeed() {
                         Picture
                       </div>
                       <div className='formField'>
-                        FormBox
+                      <form onSubmit={handleSubmit}>
+                            <textarea
+                                rows='1'
+                                className='commentInput'
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)}
+                                name="body"
+                                placeholder="Add a comment"
+                            ></textarea>
+                            <button className='submitCancel' onClick={!openMenu}type="submit">Submit</button>
+                            <button className='submitCancel' onClick={closeMenu}>Cancel</button>
+                      </form>
                       </div>
                       <div className='formButtonDiv'>
                         <button className='formButton'>
