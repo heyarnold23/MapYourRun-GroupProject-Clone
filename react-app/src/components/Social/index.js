@@ -30,7 +30,7 @@ const removeFriendClick = (friendId) => {
 return (
     <>
         <h1>Friend Requests</h1>
-            {pendingFriends.map(pendingFriend=>{
+            { pendingFriends && pendingFriends.map(pendingFriend=>{
                 return (<div>
                     {pendingFriend.username}
                     <button onClick = {()=>acceptClick(pendingFriend.id)}>Accept</button>
@@ -38,7 +38,7 @@ return (
                 </div>)
             })}
         <h1>Friends</h1>
-            {friends.map(friend=>{
+            {friends && friends.map(friend=>{
                 return (<div>
                     {friend.username}
                     <button onClick = {()=>removeFriendClick(friend.id)}>Remove Friend</button>

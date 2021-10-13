@@ -43,7 +43,7 @@ function App() {
           <ActivityFeed />
         </Route>
         <Route exact path = "/social">
-
+          <Social/>
         </Route>
       </Switch>
       <Footer />
