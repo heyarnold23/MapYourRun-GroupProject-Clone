@@ -1,19 +1,66 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getRunsThunk} from '../../store/runs'
 import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
+import {FaRegComments} from 'react-icons/fa'
+import { getCommentsThunk, setComments } from '../../store/comments';
 
 export default function ActivityFeed() {
+  const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
+  const [showMenu, setShowMenu] = useState(false);
+  const [body, setBody] = useState('');
+  const [errors, setErrors] = useState([]);
+  const [cardId, setCardId] = useState();
 
+  console.log('this is cardIDDDDDDDD',cardId);
 
+  const openMenu = (id) => {
+    // console.log('this is inside openMenu', id);
+    if (showMenu) return;
+    setCardId(id)
+    setShowMenu(true);
+  };
+
+  const closeMenu = (e) => {
+    e.preventDefault()
+    setShowMenu(false)
+    // setBody(comment.body)
+  }
+
+  const reset = () => {
+    setBody('');
+  };
+
+  const handleSubmit = async (e, id) => {
+      console.log('inside handleSubmit',id);
+      e.preventDefault();
+
+      const newComment = {
+        body,
+        author_id: sessionUser.id,
+        run_id: id
+      };
+
+      console.log('this is bodddyyyyyyyyyy',body);
+      console.log('this is id',sessionUser.id);
+      dispatch(setComments(newComment));
+
+      reset();
+  };
 
   useEffect(() => {
     dispatch(getRunsThunk())
   },[dispatch])
 
+
+  if(!sessionUser){
+    return (
+        <div>sign in first</div>
+    )
+  }
 
   return (
     <>
@@ -26,14 +73,14 @@ export default function ActivityFeed() {
             // let runId = run.id
             // console.log('this is runiddddd',runId);
             return(
-              <div key={run.id} id='cardDiv'>
+              <div key={run.id} className='cardDiv' id={run.id}>
                 <div id='profilePicDiv'>
                   Picture
                 </div>
                 <div id='mainDetailsDiv'>
                   <div id='nameDiv'>
                     <p id='name'>
-                      name went for a run
+                      {run?.user_name.username} went for a run
                     </p>
                     <button className='delete'>
                       X
@@ -72,58 +119,78 @@ export default function ActivityFeed() {
                   <div id='lastDiv'>
                     {/* implement a show button functionality here */}
                     {/* Maybe make a comments component and have it be a child here on show menu */}
-                    <div id='commentsButton'>
-                      CommentButton
-                    </div>
+
+                    {!showMenu && (
+                      <span id='commentsButton' onClick={() => {openMenu(run?.id)}}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                    {showMenu && (
+                      <span id='commentsButton' onClick={closeMenu}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
                     <div id='createdDate'>
                       created
                     </div>
                   </div>
-                  <div id='comments'>
-                      {run?.comments?.map(comment => comment.body)}
-                  </div>
-
                   {/* If conditional here to show comments feed if CommentButton is clicked */}
+                  {/* <div id='comments'>
+                      {run?.comments?.map(comment => comment.body)}
+                  </div> */}
+                  {(showMenu && cardId === run.id) && (
+                    <>
+                    {run?.comments?.map(comment =>
+                      <div className='commentDiv'>
+                        <div className='commentPicDiv'>
+                          Picture
+                        </div>
+                        <div className='nameBodyDiv'>
+                          <div className='commentNameDiv'>
+                            {comment?.user_name?.username}
+                          </div>
+                          <div className='commentBodyDiv'>
+                            {comment.body}
+                          </div>
+                        </div>
+                        <div className='commentCreatedDiv'>
+                          created
+                        </div>
+                      </div>
+                    )}
+                    <div className='commentForm'>
+                      <div className='formPic'>
+                        Picture
+                      </div>
+                      <div className='formField'>
+                      <form onSubmit={(event)=> handleSubmit(event, run.id)} className='commentInput'>
+                            <textarea
+                                rows='1'
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)}
+                                name="body"
+                                placeholder="Add a comment"
+                            ></textarea>
+                            <div className='formButtonDiv'>
+                              <button className='formButton' onClick={!openMenu}type="submit">Submit</button>
+                            </div>
+                      </form>
+                      </div>
+                      {/* <div className='formButtonDiv'>
+                        <button className='formButton'>
+                          Submit
+                        </button>
+                      </div> */}
+                    </div>
+                  </>
+                  )}
                 </div>
               </div>
             )
             })}
         </div>
-
-        {/* <div id='dropdown'>
-          Explore
-        </div>
-        <div id='cardDiv'>
-          <div id='profilePicDiv'>
-            Placeholder
-          </div>
-          <div id='mainDetailsDiv'>
-            <div id='nameDiv'>
-              name
-            </div>
-            <div id='screenshot'>
-              screenshot
-            </div>
-            <div id='runDetailsDiv'>
-              <div id='distanceDiv'>
-
-              </div>
-
-            </div>
-
-
-
-
-
-          </div>
-
-
-
-
-        </div> */}
-
-
-
     </>
 
   )

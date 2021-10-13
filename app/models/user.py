@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
     secondaryjoin=(pending_friends.c.requester_id == id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
 
     user_runs = db.relationship("Run", back_populates="runnings")
-
+    user_comments = db.relationship('Comment', back_populates='author')
 
 
 
@@ -58,5 +58,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'age':self.age,
             'weight':self.weight,
-            'height':self.height
+            'height':self.height,
+            "friends":[user.to_dict() for user in self.friends_association],
+            "pending_friends":[user.to_dict() for user in self.pending_friends_association]
         }
