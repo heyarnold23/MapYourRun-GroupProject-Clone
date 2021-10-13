@@ -89,6 +89,7 @@
 
 #commentsButton{
     margin-left: 10px;
+    cursor: pointer;
 }
 
 #createdDate{
@@ -107,14 +108,19 @@
 .nameBodyDiv{
     display: flex;
     flex-direction: column;
+    width: 80%;
+
 }
 
 .commentPicDiv{
     margin-left: 10px;
+    width: 25%;
 }
 
 .commentCreatedDiv{
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    width: 25%;
+    text-align: center;
 }
 
 .commentForm{

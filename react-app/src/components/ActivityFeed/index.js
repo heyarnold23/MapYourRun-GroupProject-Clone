@@ -1,15 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getRunsThunk} from '../../store/runs'
 import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
+import {FaRegComments} from 'react-icons/fa'
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
+  const [showMenu, setShowMenu] = useState(false);
 
 
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  const closeMenu = (e) => {
+    e.preventDefault()
+    setShowMenu(false)
+    // setBody(comment.body)
+  }
 
   useEffect(() => {
     dispatch(getRunsThunk())
@@ -79,9 +91,9 @@ export default function ActivityFeed() {
                   <div id='lastDiv'>
                     {/* implement a show button functionality here */}
                     {/* Maybe make a comments component and have it be a child here on show menu */}
-                    <div id='commentsButton'>
-                      CommentButton
-                    </div>
+                    <span id='commentsButton' onClick={openMenu}>
+                      <FaRegComments />
+                    </span>
                     <div id='createdDate'>
                       created
                     </div>
@@ -90,35 +102,39 @@ export default function ActivityFeed() {
                   {/* <div id='comments'>
                       {run?.comments?.map(comment => comment.body)}
                   </div> */}
-                  {run?.comments?.map(comment =>
-                    <div className='commentDiv'>
-                      <div className='commentPicDiv'>
+                  {showMenu && (
+                    <>
+                    {run?.comments?.map(comment =>
+                      <div className='commentDiv'>
+                        <div className='commentPicDiv'>
+                          Picture
+                        </div>
+                        <div className='nameBodyDiv'>
+                          <div className='commentNameDiv'>
+                            {comment?.user_name?.username}
+                          </div>
+                          <div className='commentBodyDiv'>
+                            {comment.body}
+                          </div>
+                        </div>
+                        <div className='commentCreatedDiv'>
+                          created
+                        </div>
+                      </div>
+                    )}
+                    <div className='commentForm'>
+                      <div className='formPic'>
                         Picture
                       </div>
-                      <div className='nameBodyDiv'>
-                        <div className='commentNameDiv'>
-                          {comment?.user_name?.username}
-                        </div>
-                        <div className='commentBodyDiv'>
-                          {comment.body}
-                        </div>
+                      <div className='formField'>
+                        FormBox
                       </div>
-                      <div className='commentCreatedDiv'>
-                        created
-                      </div>
+                      <button className='formButton'>
+                        Submit
+                      </button>
                     </div>
+                  </>
                   )}
-                  <div className='commentForm'>
-                    <div className='formPic'>
-                      Picture
-                    </div>
-                    <div className='formField'>
-                      FormBox
-                    </div>
-                    <button className='formButton'>
-                      Submit
-                    </button>
-                  </div>
                 </div>
               </div>
             )
