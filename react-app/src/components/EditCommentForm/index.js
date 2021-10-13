@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { editComment } from '../../store/comments';
+import { deleteCommentThunk, editComment } from '../../store/comments';
 import { useDispatch } from 'react-redux';
 // import { deleteComment } from '../../store/comments';
 import {MdDeleteForever} from 'react-icons/md'
 import {FiEdit} from 'react-icons/fi'
-
 import './EditCommentForm.css'
 
 export default function EditCommentForm ({comment}) {
@@ -46,16 +45,16 @@ export default function EditCommentForm ({comment}) {
         }
     };
 
-    // const handleDelete = async (e) => {
-    //     e.preventDefault();
+    const handleDelete = async (e) => {
+        e.preventDefault();
 
-    //     const commentData = {
-    //         userId: sessionUser.id,
-    //         id
-    //     };
+        const commentData = {
+            // userId: sessionUser.id,
+            id: comment.id
+        };
 
-    //     dispatch(deleteComment(commentData))
-    // }
+        dispatch(deleteCommentThunk(commentData))
+    }
 
     // const handleCancelClick = (e) => {
     //     e.preventDefault();
@@ -67,7 +66,7 @@ export default function EditCommentForm ({comment}) {
             {!showMenu && (
             <>
                 <span className='otherEditAndDelete' onClick={openMenu}><FiEdit /></span>
-                {/* <span className='otherEditAndDelete' onClick={handleDelete}><MdDeleteForever /></span> */}
+                <span className='otherEditAndDelete' onClick={handleDelete}><MdDeleteForever /></span>
             </>
             )}
             {showMenu && (

@@ -9,7 +9,6 @@ comment_routes = Blueprint('comments', __name__)
 
 @comment_routes.route('/<int:id>')
 def commentsById(id):
-    print(id)
     comments = Comment.query.filter(
         Comment.run_id == id
     )
@@ -18,10 +17,19 @@ def commentsById(id):
 @comment_routes.route('/edit/<int:id>', methods=["PUT"])
 @login_required
 def updateComment(id):
-    print(id)
     comment = Comment.query.get(id)
     comment.body = request.json.get('body', comment.body)
     db.session.commit()
+
+@comment_routes.route('/delete/<int:id>')
+@login_required
+def deleteComment(id):
+    comment = Comment.query.get(id)
+    db.session.delete(comment)
+    db.session.commit()
+    return {
+        'deleted_comment': comment.to_dict()
+    }
 
 @comment_routes.route('')
 def comments():

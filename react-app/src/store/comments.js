@@ -1,6 +1,6 @@
 const GET_COMMENTS = 'comments/LOAD'
 const UPDATE_COMMENT = "comments/update";
-
+const DELETE_COMMENT = 'comment/DELETE'
 
 const getComments = (commentsObj) => {
     return {
@@ -13,6 +13,15 @@ const update = (comment) => ({
     type: UPDATE_COMMENT,
     comment,
 });
+
+const deleteComment = (deletedComment) => {
+    return {
+        type: DELETE_COMMENT,
+        payload: deletedComment
+    }
+}
+
+
 
 export const getCommentsThunk = () => async (dispatch) => {
     const response = await fetch('/api/comments')
@@ -66,6 +75,15 @@ export const editComment = (commentData) => async (dispatch) => {
 };
 
 
+export const deleteCommentThunk = (commentData) => async (dispatch) => {
+    const response = await fetch(`/api/comments/delete/${commentData.id}`);
+    if(response.ok){
+        dispatch(deleteComment(commentData.id))
+    }else{
+        //error stuff
+    }
+}
+
 const initialState = {}
 export default function commentsReducer(state= initialState, action) {
     let newState = {...state}
@@ -80,6 +98,9 @@ export default function commentsReducer(state= initialState, action) {
                 [action.comment.id]: action.comment,
             };
         }
+        case DELETE_COMMENT:
+            delete newState[action.payload]
+            return newState
         default:
             return state
     }
