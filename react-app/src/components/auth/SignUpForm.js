@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import {addModal} from "../../store/session"
-import "./UserForm.css"
+import "../Modal/UserForm.css"
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -66,79 +66,81 @@ const SignUpForm = () => {
 
   return (
     <>
-    <form onSubmit={onSignUp}>
+    <div id = "modal-inner-container" style = {{height:"350px"}}>
+        <h4 id = "signup-title">Log In</h4>
+        <div id = "form-outer-container">
+          <h2 id = "welcome-title">Welcome to MapYourRun</h2>
+
+      <form id="user-form" onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label>User Name</label>
+      <div id="form-inputs">
         <input
           type='text'
           name='username'
           onChange={updateUsername}
           value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
+          placeholder="User Name"
+        />
+
+
         <input
           type='text'
           name='email'
           onChange={updateEmail}
           value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
+          placeholder="Email"
+        />
+
         <input
           type='password'
           name='password'
           onChange={updatePassword}
           value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
+          placeholder="Password"
+        />
+
         <input
           type='password'
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
-        ></input>
-      </div>
-      <div>
-        <label>Age</label>
+          placeholder="Repeat Password"
+        />
+
         <input
           type='number'
           name='age'
           onChange={updateAge}
           value={age}
-        ></input>
-      </div>
-      <div>
-        <label>Weight</label>
+          placeholder="Age"
+        />
+
         <input
           type='number'
           name='weight'
           onChange={updateWeight}
           value={weight}
-        ></input>
-      </div>
-      <div>
-        <label>Height</label>
+          placeholder="Weight"
+        />
+
         <input
           type='text'
           name='height'
           onChange={updateHeight}
           value={height}
-        ></input>
+          placeholder="Height"
+        />
       </div>
       <button type='submit'>Sign Up</button>
     </form>
     <div id = "change-signin-type" onClick = {handleClick}>Already have an account, log in!</div>
+    </div>
+      </div>
     </>
   );
 };

@@ -1,5 +1,5 @@
 from app.models import db
-from app.models.user import friends, pending_friends
+from app.models import User,friends, pending_friends
 
 
 # Adds a demo user, you can add other users here if you want
@@ -21,5 +21,7 @@ def seed_social():
 def undo_social():
     db.session.execute('TRUNCATE pending_friends RESTART IDENTITY CASCADE;')
     db.session.execute('TRUNCATE friends RESTART IDENTITY CASCADE;')
-    
     db.session.commit()
+
+
+

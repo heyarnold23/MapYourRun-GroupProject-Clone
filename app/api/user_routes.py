@@ -1,8 +1,20 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User
+from app.models import User, db
 
 user_routes = Blueprint('users', __name__)
+
+
+@user_routes.route("/<int:id>/friends/accept")
+# @login_required
+def dummy(id):
+    requester_id = 2
+    acceptor = User.query.get(id)
+    requester = User.query.get(requester_id)
+    acceptor.friends_association.append(requester)
+    print(f"\n\n\n\n\n\n\n\n")
+    return acceptor.to_dict()
+    #delete from pending friends and add to friends
 
 
 @user_routes.route('/')
@@ -34,12 +46,15 @@ def pending_friends(id):
 
 
 @user_routes.route("/<int:id>/friends/accept",methods=["POST"])
-@login_required
+# @login_required
 def accept_friend(id):
-    user = User.query.get(id)
+    acceptor = User.query.get(id)
     requester_id = request.data.requester_id
+    requester = User.query.get(requester_id)
+    # acceptor.friends_association.append(requester)
+    return {"friends":acceptor.friends_association}
+    print(acceptor.friends_association)
     #delete from pending friends and add to friends
-
 
 
 @user_routes.route("/<int:id>/friends/deny",methods=["POST"])

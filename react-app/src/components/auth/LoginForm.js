@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import {addModal} from "../../store/session"
-import "./UserForm.css"
+import "../Modal/UserForm.css"
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
@@ -38,14 +38,17 @@ const LoginForm = () => {
 
   return (
     <>
-    <form onSubmit={onLogin}>
+    <div id = "modal-inner-container" style = {{height:"350px"}}>
+        <h4 id = "signup-title">Log In</h4>
+        <div id = "form-outer-container">
+          <h2 id = "welcome-title">Welcome to MapYourRun</h2>
+    <form id="user-form" onSubmit={onLogin}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
+      <div id="form-inputs">
         <input
           name='email'
           type='text'
@@ -53,9 +56,6 @@ const LoginForm = () => {
           value={email}
           onChange={updateEmail}
         />
-      </div>
-      <div>
-        <label htmlFor='password'>Password</label>
         <input
           name='password'
           type='password'
@@ -63,10 +63,12 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
       </div>
+        <button type='submit'>Login</button>
     </form>
     <div id = "change-signin-type" onClick = {handleClick}>Dont have an account, Sign up instead!</div>
+    </div>
+      </div>
     </>
   );
 };
