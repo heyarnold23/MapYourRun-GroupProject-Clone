@@ -32,9 +32,9 @@ const deleteComment = (deletedComment) => {
 export const getCommentsThunk = () => async (dispatch) => {
     const response = await fetch('/api/comments')
 
-    let comments_obj = await response.json();
 
     if (response.ok){
+        let comments_obj = await response.json();
         dispatch(getComments(comments_obj))
     }
 }

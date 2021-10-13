@@ -14,10 +14,9 @@ export default function ActivityFeed() {
   const commentsObject = useSelector(state => state?.comments)
 
   const dispatch = useDispatch()
+
   const [showMenu, setShowMenu] = useState(false);
-  const [showEditMenu, setShowEditMenu] = useState(false);
   const [body, setBody] = useState('');
-  const [errors, setErrors] = useState([]);
   const [cardId, setCardId] = useState();
   const [commentTest, setCommentTest] = useState(false);
 
