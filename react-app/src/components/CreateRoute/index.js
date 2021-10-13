@@ -16,6 +16,7 @@ const CreateRoute = () => {
     const [endPoint,updateEndPoint] = useState("")
     const [distance,setDistance] = useState("")
     const [time,setTime] = useState("")
+    const [formFilled,toggleFormFilled] = useState(false)
     const currentUser = useSelector(state=>state.session.user)
 
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
@@ -56,7 +57,7 @@ const CreateRoute = () => {
                     // https://docs.mapbox.com/api/navigation/#route-object
                     let routes = e.route
 
-                    let distance = routes.map(r => r.distance)
+                    let distance = routes.map(r => r.distance) * 0.621371
                     console.log("distance: ",distance)
                     updateStartPoint(`${map.current.directions.getOrigin().geometry.coordinates[0]},${map.current.directions.getOrigin().geometry.coordinates[1]}`)
                     updateEndPoint(`${map.current.directions.getDestination().geometry.coordinates[0]},${map.current.directions.getDestination().geometry.coordinates[1]}`)
@@ -70,15 +71,19 @@ const CreateRoute = () => {
 
         useEffect(()=>{
             if(startPoint && endPoint && distance && time){
+                toggleFormFilled(true)
+            } else toggleFormFilled(false)
+        },[startPoint,endPoint,time,distance])
+
+        const onSubmit = (e) => {
+            if(startPoint && endPoint && distance && time){
                 console.log("Start Point: ",startPoint)
                 console.log("End Point: ",endPoint)
                 console.log("Distance: ",distance)
                 console.log("Time: ",time)
                 dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
             }
-        },[startPoint,endPoint,time,distance])
-
-
+        }
 
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
@@ -92,9 +97,12 @@ const CreateRoute = () => {
 
         return (
             <div id = "create-route-page">
-                <div id = "map-outer-container">
-                    <div ref={mapContainer} className="map-container" />
-                </div>
+                {formFilled && (
+                <form onSubmit={onSubmit}>
+                    <button id = "create-route-submit" type="submit">Create Run</button>
+                </form>
+                )}
+                <div ref={mapContainer} className="map-container" />
             </div>
 
         )
