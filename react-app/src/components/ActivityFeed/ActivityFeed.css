@@ -132,14 +132,25 @@
 }
 
 .formPic{
-    width: 25%;
+    width: 23.7%;
     margin-left: 10px;
 }
 
 .formField{
-    width: 80%;
+    display: flex;
+    width: 100%;
+
 }
 
+.commentInput{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+
 .formButtonDiv{
+    display: flex;
     width: 25%;
 }

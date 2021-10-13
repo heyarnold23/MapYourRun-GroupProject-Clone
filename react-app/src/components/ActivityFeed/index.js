@@ -161,24 +161,24 @@ export default function ActivityFeed() {
                         Picture
                       </div>
                       <div className='formField'>
-                      <form onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit} className='commentInput'>
                             <textarea
                                 rows='1'
-                                className='commentInput'
                                 value={body}
                                 onChange={(e) => setBody(e.target.value)}
                                 name="body"
                                 placeholder="Add a comment"
                             ></textarea>
-                            <button className='submitCancel' onClick={!openMenu}type="submit">Submit</button>
-                            <button className='submitCancel' onClick={closeMenu}>Cancel</button>
+                            <div className='formButtonDiv'>
+                              <button className='formButton' onClick={!openMenu}type="submit">Submit</button>
+                            </div>
                       </form>
                       </div>
-                      <div className='formButtonDiv'>
+                      {/* <div className='formButtonDiv'>
                         <button className='formButton'>
                           Submit
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </>
                   )}
