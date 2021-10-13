@@ -55,7 +55,7 @@ const CreateRoute = () => {
                     // https://docs.mapbox.com/api/navigation/#route-object
                     let routes = e.route
 
-                    let distance = routes.map(r => r.distance) * 0.621371
+                    let distance = routes.map(r => r.distance) * 0.621371 / 1000;
                     console.log("distance: ",distance)
                     updateStartPoint(`${map.current.directions.getOrigin().geometry.coordinates[0]},${map.current.directions.getOrigin().geometry.coordinates[1]}`)
                     updateEndPoint(`${map.current.directions.getDestination().geometry.coordinates[0]},${map.current.directions.getDestination().geometry.coordinates[1]}`)
