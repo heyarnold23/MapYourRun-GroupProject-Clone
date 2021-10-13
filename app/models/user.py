@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
     secondaryjoin=(pending_friends.c.requester_id == id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
 
     user_runs = db.relationship("Run", back_populates="runnings")
-
+    user_comments = db.relationship('Comment', back_populates='author')
 
 
 

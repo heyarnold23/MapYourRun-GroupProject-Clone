@@ -11,7 +11,7 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
     run_id = db.Column(db.Integer, db.ForeignKey("runs.id"), nullable = False)
 
-    author = db.relationship("User")
+    author = db.relationship("User", back_populates='user_comments')
     run = db.relationship("Run", back_populates='comments')
 
 
@@ -21,4 +21,6 @@ class Comment(db.Model):
             'body': self.body,
             'author_id': self.author_id,
             'run_id': self.run_id,
+            # 'comments': [comment.to_dict() for comment in self.comments]
+            'user_name': self.author.to_dict()
         }
