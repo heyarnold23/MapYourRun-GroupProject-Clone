@@ -5,6 +5,7 @@ import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
 
 export default function ActivityFeed() {
+  const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
 
@@ -14,6 +15,12 @@ export default function ActivityFeed() {
     dispatch(getRunsThunk())
   },[dispatch])
 
+
+  if(!sessionUser){
+    return (
+        <div>sign in first</div>
+    )
+  }
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function ActivityFeed() {
                 <div id='mainDetailsDiv'>
                   <div id='nameDiv'>
                     <p id='name'>
-                      name went for a run
+                      {run?.user_name.username} went for a run
                     </p>
                     <button className='delete'>
                       X
@@ -79,11 +86,29 @@ export default function ActivityFeed() {
                       created
                     </div>
                   </div>
-                  <div id='comments'>
-                      {run?.comments?.map(comment => comment.body)}
-                  </div>
-
                   {/* If conditional here to show comments feed if CommentButton is clicked */}
+                  {/* <div id='comments'>
+                      {run?.comments?.map(comment => comment.body)}
+                  </div> */}
+                  {run?.comments?.map(comment =>
+                    <div className='commentDiv'>
+                      <div className='commentPicDiv'>
+                        Picture
+                      </div>
+                      <div className='nameBodyDiv'>
+                        <div className='commentNameDiv'>
+                          {comment?.user_name?.username}
+                        </div>
+                        <div className='commentBodyDiv'>
+                          {comment.body}
+                        </div>
+                      </div>
+                      <div className='commentCreatedDiv'>
+                        created
+                      </div>
+                    </div>
+                  )}
+
                 </div>
               </div>
             )
