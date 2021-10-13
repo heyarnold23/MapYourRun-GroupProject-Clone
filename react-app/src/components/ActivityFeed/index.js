@@ -5,12 +5,15 @@ import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
 import {FaRegComments} from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
+import EditCommentForm from '../EditCommentForm';
+
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
   const [showMenu, setShowMenu] = useState(false);
+  const [showEditMenu, setShowEditMenu] = useState(false);
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState([]);
   const [cardId, setCardId] = useState();
@@ -53,6 +56,7 @@ export default function ActivityFeed() {
 
   useEffect(() => {
     dispatch(getRunsThunk())
+    dispatch(getCommentsThunk())
   },[dispatch])
 
 
@@ -155,6 +159,10 @@ export default function ActivityFeed() {
                             {comment.body}
                           </div>
                         </div>
+                        {sessionUser.id === comment?.user_name?.id ?
+                          // setShowEditMenu(true) &&
+                          <EditCommentForm comment={comment}/> : null
+                        }
                         <div className='commentCreatedDiv'>
                           created
                         </div>
