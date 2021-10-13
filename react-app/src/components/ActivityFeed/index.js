@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getRunsThunk} from '../../store/runs'
 import './ActivityFeed.css'
-import CommentsFeed from '../Comments';
 
 export default function ActivityFeed() {
   const dispatch = useDispatch()
