@@ -28,7 +28,8 @@ export default function Dashboard() {
     return (
         <>
         <div>
-            <h1 id="title">{sessionUser.username}'s Dashboard</h1>
+            <h1 id="title">{sessionUser.username.split("")[0].toUpperCase() + sessionUser.username.slice(1)
+}'s Dashboard</h1>
             <div className="stats">
                 <h3>Distance Ran: {distance} miles</h3>
                 <h3>Calories Burnt: {calories}</h3>
