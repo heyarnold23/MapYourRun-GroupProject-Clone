@@ -28,7 +28,7 @@ function UserButtons({ user }) {
   }, [showMenu]);
 
   const modalView = useSelector(state=>state.session.modalView)
-  const modalRequired = useSelector(state=>state.session.modalRequired)
+
 
   if(!user){
     return (
@@ -70,7 +70,7 @@ function UserButtons({ user }) {
           <div id = "hamburger-icon">
             ☰
           </div>
-          <img id = "profile-image" src = {user && user.image}></img>
+          <img id = "profile-image" src = {user && user.image} alt="users"></img>
         </button>
         {showMenu && (
           <div id = "profile-dropdown-outer" style = {{height:"35px"}}>

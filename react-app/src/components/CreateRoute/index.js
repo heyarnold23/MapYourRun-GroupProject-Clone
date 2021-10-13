@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import React, {useEffect, useState, useRef} from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
@@ -11,7 +10,6 @@ import { setRuns } from '../../store/runs';
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
-    const [errors, setErrors] = useState([]);
     const [startPoint,updateStartPoint] = useState("")
     const [endPoint,updateEndPoint] = useState("")
     const [distance,setDistance] = useState("")
