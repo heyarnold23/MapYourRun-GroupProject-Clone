@@ -91,9 +91,19 @@ export default function ActivityFeed() {
                   <div id='lastDiv'>
                     {/* implement a show button functionality here */}
                     {/* Maybe make a comments component and have it be a child here on show menu */}
-                    <span id='commentsButton' onClick={openMenu}>
-                      <FaRegComments />
-                    </span>
+
+                    {!showMenu && (
+                      <span id='commentsButton' onClick={openMenu}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                    {showMenu && (
+                      <span id='commentsButton' onClick={closeMenu}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
                     <div id='createdDate'>
                       created
                     </div>
