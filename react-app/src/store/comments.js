@@ -1,4 +1,5 @@
 const GET_COMMENTS = 'comments/LOAD'
+const ADD_COMMENT = 'comments/addComment'
 const UPDATE_COMMENT = "comments/update";
 const DELETE_COMMENT = 'comment/DELETE'
 
@@ -8,6 +9,11 @@ const getComments = (commentsObj) => {
         payload: commentsObj
     }
 }
+
+const addComment = (newComment) => ({
+    type: ADD_COMMENT,
+    newComment
+})
 
 const update = (comment) => ({
     type: UPDATE_COMMENT,
@@ -36,8 +42,6 @@ export const getCommentsThunk = () => async (dispatch) => {
 
 export const setComments = (newComment) => async dispatch => {
     // const commentBody = JSON.stringify({body: newComment.body, author_id: newComment.author_id, run_id: newComment.run_id})
-
-
     const response = await fetch('/api/comments', {
         method: 'POST',
         headers: {
@@ -48,7 +52,8 @@ export const setComments = (newComment) => async dispatch => {
 
     if(response.ok){
         const data = await response.json();
-        return null;
+        dispatch(addComment(data));
+        return (data);
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -89,9 +94,16 @@ export default function commentsReducer(state= initialState, action) {
     let newState = {...state}
     switch (action.type) {
         case GET_COMMENTS:
+            console.log("THIS IS ACTION PAYLOAD",action.payload)
             newState = {...state, ...action.payload}
             // return action.payload
             return newState
+        case ADD_COMMENT:
+            return {
+                ...state,
+                    [action.newComment.id]: action.newComment,
+                    // ...action.newComment,
+                };
         case UPDATE_COMMENT: {
             return {
                 ...state,

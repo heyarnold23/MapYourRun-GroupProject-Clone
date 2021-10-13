@@ -10,15 +10,19 @@ import EditCommentForm from '../EditCommentForm';
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
-  const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
+  const commentsObject = useSelector(state => state?.comments)
+
+  const dispatch = useDispatch()
   const [showMenu, setShowMenu] = useState(false);
   const [showEditMenu, setShowEditMenu] = useState(false);
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState([]);
   const [cardId, setCardId] = useState();
+  const [commentTest, setCommentTest] = useState(false);
 
-  console.log('this is cardIDDDDDDDD',cardId);
+
+  console.log('this is commentsObject',commentsObject);
 
   const openMenu = (id) => {
     // console.log('this is inside openMenu', id);
@@ -40,6 +44,13 @@ export default function ActivityFeed() {
   const handleSubmit = async (e, id) => {
       console.log('inside handleSubmit',id);
       e.preventDefault();
+
+    if (commentTest) {
+      setCommentTest(false)
+    }
+    else {
+      setCommentTest(true)
+    }
 
       const newComment = {
         body,
@@ -147,7 +158,7 @@ export default function ActivityFeed() {
                   {(showMenu && cardId === run.id) && (
                     <>
                     {run?.comments?.map(comment =>
-                      <div className='commentDiv'>
+                      <div key={comment.id}className='commentDiv'>
                         <div className='commentPicDiv'>
                           Picture
                         </div>
@@ -182,7 +193,7 @@ export default function ActivityFeed() {
                                 placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' onClick={!openMenu}type="submit">Submit</button>
+                              <button className='formButton' type="submit">Submit</button>
                             </div>
                       </form>
                       </div>
