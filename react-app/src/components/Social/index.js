@@ -10,16 +10,17 @@ const Social = () => {
     const pendingFriends = useSelector(state=>state.social.pending_friends)
 
     useEffect(()=>{
+        if(!currentUser)return
         dispatch(getFriends(currentUser.id))
         dispatch(getPendingFriends(currentUser.id))
     },[])
 
 const acceptClick = (pendingFriendId) => {
-    dispatch(acceptFriend(currentUser.id,pendingFriendId))
+    currentUser && dispatch(acceptFriend(currentUser.id,pendingFriendId))
     //need to dispatch, delete pending friends entry, add friends entry
 }
 const denyClick = (pendingFriendId) => {
-    dispatch(denyFriend(currentUser.id,pendingFriendId))
+    currentUser && dispatch(denyFriend(currentUser.id,pendingFriendId))
     //need to dispatch, delete pending friends entry
 }
 

@@ -14,6 +14,7 @@ def seed_users():
     db.session.add(marnie)
     db.session.add(bobbie)
     marnie.friends_association.append(bobbie)
+    demo.pending_friends_association.append(bobbie)
     db.session.commit()
 
 
