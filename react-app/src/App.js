@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage/"
 import CreateRoute from "./components/CreateRoute"
 import Footer from './components/Footer';
 import ActivityFeed from './components/ActivityFeed';
+import Dashboard from './components/Dashboard';
 import Social from "./components/Social"
 
 function App() {
@@ -37,8 +38,11 @@ function App() {
         <Route exact path = "/activity">
           <ActivityFeed />
         </Route>
+        <Route exact path = "/dashboard">
+          <Dashboard />
+        </Route>
         <Route exact path = "/social">
-
+          <Social />
         </Route>
       </Switch>
       <Footer />
