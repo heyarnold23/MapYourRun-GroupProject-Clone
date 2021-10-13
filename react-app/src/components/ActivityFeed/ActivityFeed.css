@@ -116,3 +116,9 @@
 .commentCreatedDiv{
     margin-right: 10px;
 }
+
+.commentForm{
+    display: flex;
+    border-top: 1px solid #DFE0E5;
+    width: 100%;
+}

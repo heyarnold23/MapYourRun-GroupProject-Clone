@@ -108,7 +108,17 @@ export default function ActivityFeed() {
                       </div>
                     </div>
                   )}
-
+                  <div className='commentForm'>
+                    <div className='formPic'>
+                      Picture
+                    </div>
+                    <div className='formField'>
+                      FormBox
+                    </div>
+                    <button className='formButton'>
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             )
