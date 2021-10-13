@@ -4,7 +4,7 @@ import { getRunsThunk } from '../../store/runs';
 import './Dashboard.css'
 
 export default function Dashboard() {
-    const sessionUser = useSelector(state => state.session.user);
+    const sessionUser = useSelector(state => state.session?.user);
     const dispatch = useDispatch()
     const runs = useSelector(store => store?.runs)
     let runArr;
@@ -14,7 +14,7 @@ export default function Dashboard() {
 
     if(runs) {
         runArr = Object.values(runs)
-        runArr = runArr.filter(run => run.runner_id === sessionUser.id)
+        runArr = runArr.filter(run => run?.runner_id === sessionUser?.id)
          runArr.map(run => {
             distance += Math.floor(run.distance)
         })
@@ -28,14 +28,14 @@ export default function Dashboard() {
     return (
         <>
         <div>
-            <h1 id="title">{sessionUser.username.split("")[0].toUpperCase() + sessionUser.username.slice(1)
+            <h1 id="title">{sessionUser?.username?.split("")[0].toUpperCase() + sessionUser?.username?.slice(1)
 }'s Dashboard</h1>
             <div className="stats">
                 <h3>Distance Ran: {distance} miles</h3>
-                <h3>Calories Burnt: {calories}</h3>
-                <h3>Age: {sessionUser.age}</h3>
-                <h3>Height: {sessionUser.height}</h3>
-                <h3>Weight: {sessionUser.weight} lbs</h3>
+                <h3>Calories Burned: {calories}</h3>
+                <h3>Age: {sessionUser?.age}</h3>
+                <h3>Height: {sessionUser?.height}</h3>
+                <h3>Weight: {sessionUser?.weight} lbs</h3>
             </div>
         </div>
         <hr id="line"></hr>
@@ -52,10 +52,10 @@ export default function Dashboard() {
                 <tbody>
                     {runArr.map(run => (
                         <tr key={run.id} className="runs_table_rows">
-                            <td className="table_data">{run.start_point}</td>
-                            <td className="table_data">{run.end_point}</td>
-                            <td className="table_data">{run.distance.toFixed(1)}</td>
-                            <td className="table_data">{Math.floor(run.time / 60)}</td>
+                            <td className="table_data">{run?.start_point}</td>
+                            <td className="table_data">{run?.end_point}</td>
+                            <td className="table_data">{run?.distance.toFixed(1)} miles</td>
+                            <td className="table_data">{Math.floor(run?.time / 60)}</td>
                         </tr>
                     ))}
                 </tbody>

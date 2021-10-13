@@ -19,7 +19,6 @@
 
 table {
     width: 80%;
-    background-color: rgb(220, 231, 235);
     border: 1px solid lightgray;
 }
 
@@ -30,6 +29,8 @@ table, th, td {
 .table_head {
     font-size: 1.2rem;
     padding-right: 4rem;
+    padding: 2rem;
+    background-color: rgb(235, 241, 243);
 }
 
 /* .runs_table_rows{
@@ -44,5 +45,5 @@ table, th, td {
 
 .table_data {
     text-align: center;
-    padding-top: 1rem;
+    padding: 2rem;
 }
