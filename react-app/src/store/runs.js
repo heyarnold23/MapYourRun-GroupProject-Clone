@@ -22,7 +22,6 @@ export const setRuns = (id,start_point,end_point,distance,time) => async dispatc
     });
 
     if(response.ok){
-        const data = await response.json();
         return null;
     } else if (response.status < 500) {
         const data = await response.json();

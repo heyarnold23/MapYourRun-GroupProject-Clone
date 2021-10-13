@@ -12,6 +12,7 @@ import HomePage from "./components/HomePage/"
 import CreateRoute from "./components/CreateRoute"
 import Footer from './components/Footer';
 import ActivityFeed from './components/ActivityFeed';
+import Social from "./components/Social"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route exact path = "/activity">
           <ActivityFeed />
+        </Route>
+        <Route exact path = "/social">
+
         </Route>
       </Switch>
       <Footer />
