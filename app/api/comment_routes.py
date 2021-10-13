@@ -15,6 +15,14 @@ def commentsById(id):
     )
     return {comment.id:comment.to_dict() for comment in comments}
 
+@comment_routes.route('/edit/<int:id>', methods=["PUT"])
+@login_required
+def updateComment(id):
+    print(id)
+    comment = Comment.query.get(id)
+    comment.body = request.json.get('body', comment.body)
+    db.session.commit()
+
 @comment_routes.route('')
 def comments():
     print("Comments hitting hard")
