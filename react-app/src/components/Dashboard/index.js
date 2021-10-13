@@ -10,7 +10,7 @@ export default function Dashboard() {
     let runArr;
     let distance = 0;
     let calories = 0;
-    console.log(sessionUser)
+    // console.log(sessionUser)
 
     if(runs) {
         runArr = Object.values(runs)
@@ -28,7 +28,7 @@ export default function Dashboard() {
     return (
         <>
         <div>
-            <h1 id="title">My Dashboard</h1>
+            <h1 id="title">{sessionUser.username}'s Dashboard</h1>
             <div className="stats">
                 <h3>Distance Ran: {distance} miles</h3>
                 <h3>Calories Burnt: {calories}</h3>
@@ -38,16 +38,26 @@ export default function Dashboard() {
             </div>
         </div>
         <hr id="line"></hr>
-        <div>
-            <table>
+        <div id="table_div">
+            <table id="runs_table">
                 <thead>
-                    <tr>
+                    <tr className="runs_table_rows">
                         <th className="table_head">Start Point</th>
                         <th className="table_head">End Point</th>
                         <th className="table_head">Distance</th>
-                        <th className="table_head">Time to Complete</th>
+                        <th className="table_head">Minutes to Complete</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {runArr.map(run => (
+                        <tr key={run.id} className="runs_table_rows">
+                            <td className="table_data">{run.start_point}</td>
+                            <td className="table_data">{run.end_point}</td>
+                            <td className="table_data">{run.distance.toFixed(1)}</td>
+                            <td className="table_data">{Math.floor(run.time / 60)}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
         </>
