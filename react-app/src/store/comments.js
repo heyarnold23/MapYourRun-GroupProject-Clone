@@ -18,6 +18,33 @@ export const getCommentsThunk = () => async (dispatch) => {
 }
 
 
+export const setComments = (newComment) => async dispatch => {
+    // const commentBody = JSON.stringify({body: newComment.body, author_id: newComment.author_id, run_id: newComment.run_id})
+
+
+    const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newComment)
+    });
+
+    if(response.ok){
+        const data = await response.json();
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+          return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+      }
+
+}
+
+
 const initialState = {}
 export default function commentsReducer(state= initialState, action) {
     const newState = {...state}

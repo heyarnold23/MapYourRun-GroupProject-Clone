@@ -29,5 +29,6 @@ class Run(db.Model):
             'distance': self.distance,
             'time': self.time,
             'runner_id': self.runner_id,
+            'user_name': self.runnings.to_dict(),
             'comments': [comment.to_dict() for comment in self.comments]
         }
