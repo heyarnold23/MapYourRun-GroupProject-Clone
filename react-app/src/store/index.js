@@ -3,11 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session'
 import runsReducer from './runs';
 import commentsReducer from './comments'
+import socialReducer from './social';
 
 const rootReducer = combineReducers({
   session,
   runs: runsReducer,
   comments: commentsReducer,
+  social:socialReducer
+
 });
 
 

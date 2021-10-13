@@ -1,4 +1,6 @@
 const GET_COMMENTS = 'comments/LOAD'
+const UPDATE_COMMENT = "comments/update";
+const DELETE_COMMENT = 'comment/DELETE'
 
 const getComments = (commentsObj) => {
     return {
@@ -6,6 +8,20 @@ const getComments = (commentsObj) => {
         payload: commentsObj
     }
 }
+
+const update = (comment) => ({
+    type: UPDATE_COMMENT,
+    comment,
+});
+
+const deleteComment = (deletedComment) => {
+    return {
+        type: DELETE_COMMENT,
+        payload: deletedComment
+    }
+}
+
+
 
 export const getCommentsThunk = () => async (dispatch) => {
     const response = await fetch('/api/comments')
@@ -45,12 +61,46 @@ export const setComments = (newComment) => async dispatch => {
 }
 
 
+export const editComment = (commentData) => async (dispatch) => {
+    const response = await fetch (`/api/comments/edit/${commentData.id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(commentData),
+    });
+    if(response.ok) {
+      const editComment = await response.json();
+      dispatch(update(editComment));
+      return editComment;
+    }
+};
+
+
+export const deleteCommentThunk = (commentData) => async (dispatch) => {
+    const response = await fetch(`/api/comments/delete/${commentData.id}`);
+    if(response.ok){
+        dispatch(deleteComment(commentData.id))
+    }else{
+        //error stuff
+    }
+}
+
 const initialState = {}
 export default function commentsReducer(state= initialState, action) {
-    // const newState = {...state}
+    let newState = {...state}
     switch (action.type) {
         case GET_COMMENTS:
-            return action.payload
+            newState = {...state, ...action.payload}
+            // return action.payload
+            return newState
+        case UPDATE_COMMENT: {
+            return {
+                ...state,
+                [action.comment.id]: action.comment,
+            };
+        }
+        case DELETE_COMMENT:
+            delete newState[action.payload]
+            return newState
         default:
             return state
     }
