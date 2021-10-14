@@ -39,9 +39,12 @@ def post():
 @login_required
 def edit_run(id):
     run  = Run.query.get(id)
+    print(id)
     run.start_point = request.json.get('start_point', run.start_point)
     run.end_point = request.json.get('end_point', run.end_point)
     run.distance = request.json.get('distance', run.distance)
+    print(run.distance)
+    print(request.json.get('distance', run.distance))
     run.time = request.json.get("time", run.time)
     run.runner_id = request.json.get("runner_id", run.runner_id)
     db.session.commit()
