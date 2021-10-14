@@ -6,7 +6,7 @@ import CommentsFeed from '../Comments';
 import {FaRegComments} from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
 import EditCommentForm from '../EditCommentForm';
-
+import { setRequest } from '../../store/social';
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
@@ -105,6 +105,22 @@ export default function ActivityFeed() {
 
       reset();
   };
+
+  const sendRequest = async (e, id) => {
+    e.preventDefault();
+
+    console.log(sessionUser.id, id);
+
+    const newRequest = {
+      // id: sessionUser.id,
+      // friend_id: id
+      id: id,
+      friend_id: sessionUser.id
+    };
+
+    dispatch(setRequest(newRequest));
+
+  }
 
   useEffect(() => {
     dispatch(getRunsThunk())
@@ -358,8 +374,12 @@ export default function ActivityFeed() {
                     <p id='name'>
                       {run?.user_name.username} went for a run
                     </p>
-                    {/* <div className='delete'>
-                    </div> */}
+                    <div className='addFriend'>
+                      {/* <button onClick={sendRequest}> */}
+                      <button onClick={(event)=> sendRequest(event, run.runner_id)}>
+                        Add Friend
+                      </button>
+                    </div>
                   </div>
                   <div id='screenshot'>
                     screenshot

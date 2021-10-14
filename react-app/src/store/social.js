@@ -1,5 +1,7 @@
 const SET_FRIENDS = "social/SET_FRIENDS"
 const SET_PENDING_FRIENDS = "social/SET_PENDING_FRIENDS"
+const ADD_REQUEST = 'social/ADD_REQUEST'
+
 
 export const setFriends = (friends) => {
     return {
@@ -14,6 +16,11 @@ export const setPendingFriends = (pending_friends) => {
         payload:pending_friends
     }
 }
+
+export const addRequest = (pendingReq) => ({
+    type: ADD_REQUEST,
+    pendingReq
+})
 
 export const getPendingFriends = (id) => async dispatch => {
     const res = await fetch(`/api/users/${id}/pending_friends`,{
@@ -57,6 +64,31 @@ export const getFriends = (id) => async dispatch => {
     } else {
         return ['An error occurred. Please try again.']
       }
+}
+
+export const setRequest = (pendingReq) => async dispatch => {
+    // const commentBody = JSON.stringify({body: pendingReq.body, author_id: pendingReq.author_id, run_id: pendingReq.run_id})
+    const response = await fetch(`/api/users/${pendingReq.id}/pending_friends`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pendingReq)
+    });
+
+    if(response.ok){
+        const data = await response.json();
+        dispatch(addRequest(data));
+        return (data);
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+          return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+      }
+
 }
 
 export const acceptFriend = (id,requester_id) => async dispatch => {
@@ -138,6 +170,12 @@ export default function socialReducer(state= initialState, action) {
         case SET_PENDING_FRIENDS:
             newState = {...state,...action.payload}
             return newState
+        case ADD_REQUEST:
+            return {
+                ...state,
+                    [action.pendingReq.id]: action.pendingReq,
+                    // ...action.newComment,
+                };
         default:
             return state
     }

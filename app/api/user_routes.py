@@ -76,7 +76,7 @@ def add_pending_friend(id):
     user = User.query.get(id)
     friend_id = int(request.json['friend_id'])
     friend = User.query.get(friend_id)
-    user.friends_association.append(friend) #needs to add the user to pending friends here
+    user.pending_friends_association.append(friend) #needs to add the user to pending friends here
     db.session.commit()
     return user.to_dict()
     #add to pending friends
