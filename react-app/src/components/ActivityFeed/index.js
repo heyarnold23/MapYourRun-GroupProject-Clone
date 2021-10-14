@@ -72,7 +72,101 @@ export default function ActivityFeed() {
 
   if(!sessionUser){
     return (
-        <div>sign in first</div>
+      <>
+        <div id='middle'>
+          <div id='dropdown'>
+                <button>Explore</button>
+          </div>
+            {Object.keys(runs)?.map(id => {
+            let run = runs[id]
+            // let runId = run.id
+            // console.log('this is runiddddd',runId);
+            return(
+              <div key={run.id} className='cardDiv' id={run.id}>
+                <div id='profilePicDiv'>
+                  Picture
+                </div>
+                <div id='mainDetailsDiv'>
+                  <div id='nameDiv'>
+                    <p id='name'>
+                      {run?.user_name.username} went for a run
+                    </p>
+                    {/* <div className='delete'>
+                    </div> */}
+                  </div>
+                  <div id='screenshot'>
+                    screenshot
+                  </div>
+                  <div id='runDetailsDiv'>
+                    <div className='detailDiv'>
+                      <div className='inDetailDiv'>
+                        {run.distance}
+                        {run.id}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Distance(mi)
+                      </div>
+                    </div>
+                    <div className='detailDiv middle'>
+                      <div className='inDetailDiv'>
+                        {run.time}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Avg Pace(min/mi)
+                      </div>
+                    </div>
+                    <div className='detailDiv'>
+                      <div className='inDetailDiv'>
+                        {run.time}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Duration
+                      </div>
+                    </div>
+                  </div>
+                  <div id='lastDiv'>
+                    {/* implement a show button functionality here */}
+                    {/* Maybe make a comments component and have it be a child here on show menu */}
+
+                    {!showMenu && (
+                      <span id='commentsButton' onClick={() => {openMenu(run?.id)}}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                    {showMenu && (
+                      <span id='commentsButton' onClick={closeMenu}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                    {/* <div id='createdDate'>
+                      created
+                    </div> */}
+                  </div>
+                  {/* If conditional here to show comments feed if CommentButton is clicked */}
+                  {/* <div id='comments'>
+                      {run?.comments?.map(comment => comment.body)}
+                  </div> */}
+                  {(showMenu && cardId === run.id) && (
+                    <>
+                      <CommentsFeed id={run.id}/>
+                      <div className='commentForm'>
+                        {/* <div className='formPic'>
+                          Picture
+                        </div> */}
+                        <div className='signInPls'>
+                        Sign in to comment
+                        </div>
+                      </div>
+                  </>
+                  )}
+                </div>
+              </div>
+            )
+            })}
+        </div>
+      </>
     )
   }
 

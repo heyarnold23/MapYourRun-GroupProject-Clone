@@ -22,6 +22,31 @@ export default function CommentsFeed({id}) {
     console.log('this is filteredComments', filteredComments);
 
 
+    if(!sessionUser){
+        return (
+            <>
+                {filteredComments.map((comment) =>
+                <div key={comment.id}className='commentDiv'>
+                    <div className='commentPicDiv'>
+                        Picture
+                    </div>
+                    <div className='nameBodyDiv'>
+                        <div className='commentNameDiv'>
+                        {comment?.user_name?.username}
+                        </div>
+                        <div className='commentBodyDiv'>
+                        {comment.body}
+                        </div>
+                    </div>
+                </div>
+                )}
+            </>
+        )
+    }
+
+
+
+
     return (
         <>
             {filteredComments.map((comment) =>
