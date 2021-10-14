@@ -96,9 +96,8 @@ export default function ActivityFeed() {
                     <p id='name'>
                       {run?.user_name.username} went for a run
                     </p>
-                    <button className='delete'>
-                      X
-                    </button>
+                    {/* <div className='delete'>
+                    </div> */}
                   </div>
                   <div id='screenshot'>
                     screenshot
@@ -146,9 +145,9 @@ export default function ActivityFeed() {
                       </span>
                     )}
 
-                    <div id='createdDate'>
+                    {/* <div id='createdDate'>
                       created
-                    </div>
+                    </div> */}
                   </div>
                   {/* If conditional here to show comments feed if CommentButton is clicked */}
                   {/* <div id='comments'>

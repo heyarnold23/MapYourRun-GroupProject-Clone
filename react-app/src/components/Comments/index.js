@@ -41,9 +41,9 @@ export default function CommentsFeed({id}) {
                     // setShowEditMenu(true) &&
                     <EditCommentForm comment={comment}/> : null
                 }
-                <div className='commentCreatedDiv'>
+                {/* <div className='commentCreatedDiv'>
                     created
-                </div>
+                </div> */}
             </div>
             )}
         </>
