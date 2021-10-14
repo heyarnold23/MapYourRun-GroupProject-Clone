@@ -51,12 +51,78 @@
     left: 7rem;
   }
 
-  #profile-button {
-    background-color: #008CBA;
-    font-size: 1rem;
-    height: 3rem;
-    width: 5rem;
+ 
+
+
+#profile-button:hover{
+    box-shadow: 2px 2px 6px;
+}
+
+#profile-button> img{
+    width:27px;
+    height:27px;
+
+
+}
+
+#profile-dropdown-outer{
+    width:240px;
+    margin:auto;
     position: absolute;
-    right: 7rem;
-    top: .5rem ;
-  }
+    top:68px;
+    right:115px;
+    border-radius: 10px;
+    height:70px;
+    background-color:white;
+    box-shadow: 0px 1px 12px lightgrey;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-dropdown{
+    margin:auto;
+    width:90%;
+    list-style-type:none;
+    background-color:white;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: left;
+    border-radius: 10px;
+    height:80%;
+    background-color: inherit;
+    align-items: center;
+}
+
+#login-div{
+    /* border-bottom:1px solid black; */
+    padding-bottom:5px;
+    border-bottom:1px solid lightgrey;
+}
+
+.profile-dropdown > div {
+    width:100%;
+    flex-grow:1;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+
+}
+
+.profile-dropdown button {
+    width:100%;
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    color:rgb(34, 34, 34);
+    font-family:Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-weight:600;
+    font-size:12px;
+}
+
+.profile-dropdown > div:hover{
+    background-color: lightgray;
+    /* border-radius: 35px; */
+}

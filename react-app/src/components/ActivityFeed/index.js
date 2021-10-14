@@ -125,6 +125,7 @@ export default function ActivityFeed() {
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
+    return 
   },[dispatch])
 
   /******** If NOT logged in, BELOW will render **********/

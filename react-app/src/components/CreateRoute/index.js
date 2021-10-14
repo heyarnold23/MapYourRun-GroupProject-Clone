@@ -6,10 +6,13 @@ import "./CreateRoute.css"
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import { setRuns } from '../../store/runs';
+import {useLocation} from "react-router-dom"
+import { editRun } from "../../store/runs";
 
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
+    const location = useLocation()
     const [startPoint,updateStartPoint] = useState("")
     const [endPoint,updateEndPoint] = useState("")
     const [distance,setDistance] = useState("")
@@ -24,8 +27,18 @@ const CreateRoute = () => {
     const [lng, setLng] = useState("");
     const [lat, setLat] = useState("");
     const [zoom, setZoom] = useState(9);
+    const [data,setData] = useState("")
 
 
+
+    console.log("LOCATION STATE OUTER ",location.state)
+    useEffect(()=>{
+        console.log("LOCATION STATE INNER ",location.state)
+        if(!location.state)return
+        setData(location.state)
+        console.log("STATE INNER",data)
+    },[])
+    console.log("STATE OUTER",data)
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(function(position) {
             updateStartPoint(`${position.coords.latitude},${position.coords.longitude}`)
@@ -35,6 +48,54 @@ const CreateRoute = () => {
 
     },[])
 
+
+    const screenshot = () => {
+        return map.current.getCanvas().toDataURL("image/png",1.0);
+    }
+
+    const fly = () => {
+
+        let [startLat,startLong] = startPoint.split(",").map(x=>Number(x))
+        let [endLat,endLong] = endPoint.split(",").map(x=>Number(x))
+        let finalLat = (startLat+endLat)/2
+        let finalLong = (startLong+endLong)/2
+        //if latitude is greater, it means more north
+        //if longitude greater, it means more east.
+        let maxLat = Math.max(startLat,endLat)
+        let maxLong = Math.max(startLong,endLong)
+
+        let minLat = Math.min(startLat,endLat)
+        let minLong = Math.min(startLong,endLong)
+
+        let northEast = [maxLat+0.1,maxLong+0.1]
+        let southWest = [minLat-0.1,minLong-0.1]
+
+        if(maxLat && maxLong && minLat && minLong){
+                map.current.fitBounds([
+                northEast, // southwestern corner of the bounds
+                southWest // northeastern corner of the bounds
+            ])
+        }
+
+
+    }
+
+    const onSubmit = (e) => {
+        const image = screenshot()
+        if(startPoint && endPoint && distance && time){
+            if(data){
+                dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
+            }
+            else{
+                console.log("IMAGE: ", image)
+                dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
+            }
+
+        }
+
+
+    }
+
         useEffect(() => {
             if (map.current) return; // initialize map only once
             if(lng && lat){
@@ -42,7 +103,8 @@ const CreateRoute = () => {
                     container: mapContainer.current,
                     style: 'mapbox://styles/mapbox/streets-v11',
                     center: [lng, lat],
-                    zoom: zoom
+                    zoom: zoom,
+                    preserveDrawingBuffer: true
                 });
                 map.current.directions = new MapboxDirections({
                     accessToken: mapboxgl.accessToken,
@@ -61,6 +123,7 @@ const CreateRoute = () => {
                     updateEndPoint(`${map.current.directions.getDestination().geometry.coordinates[0]},${map.current.directions.getDestination().geometry.coordinates[1]}`)
                     setDistance(distance)
                     setTime(distance*60*8)
+                    fly()
 
                 })
 
@@ -70,18 +133,11 @@ const CreateRoute = () => {
         useEffect(()=>{
             if(startPoint && endPoint && distance && time){
                 toggleFormFilled(true)
+                fly()
             } else toggleFormFilled(false)
         },[startPoint,endPoint,time,distance])
 
-        const onSubmit = (e) => {
-            if(startPoint && endPoint && distance && time){
-                console.log("Start Point: ",startPoint)
-                console.log("End Point: ",endPoint)
-                console.log("Distance: ",distance)
-                console.log("Time: ",time)
-                dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
-            }
-        }
+
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
             map.current.on('move', () => {
@@ -91,12 +147,16 @@ const CreateRoute = () => {
             });
         });
 
-
         return (
             <div id = "create-route-page">
                 {formFilled && (
                 <form onSubmit={onSubmit}>
-                    <button id = "create-route-submit" type="submit">Create Run</button>
+                    {data ? (
+                        <button id = "create-route-submit" type="submit">Edit Run</button>
+                    ) : (
+                        <button id = "create-route-submit" type="submit">Create Run</button>
+                    )}
+
                 </form>
                 )}
                 <div ref={mapContainer} className="map-container" />

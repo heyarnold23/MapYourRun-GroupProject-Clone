@@ -16,6 +16,7 @@ class Run(db.Model):
     distance = db.Column(db.Float, nullable = False)
     time = db.Column(db.Float, nullable = False)
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
+    image_url = db.Column(db.Text, nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")
     comments = db.relationship("Comment", back_populates = 'run')

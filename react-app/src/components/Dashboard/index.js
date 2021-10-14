@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import { getRunsThunk } from '../../store/runs';
+import { NavLink } from 'react-router-dom';
 import './Dashboard.css'
 import { addModal, toggleModalView} from '../../store/session';
-
+import { deleteRun } from '../../store/runs';
 export default function Dashboard() {
     const sessionUser = useSelector(state => state.session?.user);
     const dispatch = useDispatch()
@@ -11,6 +12,11 @@ export default function Dashboard() {
     let runArr;
     let distance = 0;
     let calories = 0;
+
+    const deleteClick = (runId) => {
+        dispatch(deleteRun(runId))
+        return
+    }
 
     if(runs) {
         runArr = Object.values(runs)
@@ -23,6 +29,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         dispatch(getRunsThunk())
+        return
       },[dispatch])
 
     return (
@@ -46,7 +53,7 @@ export default function Dashboard() {
                         <th className="table_head">Start Point</th>
                         <th className="table_head">End Point</th>
                         <th className="table_head">Distance</th>
-                        <th className="table_head">Minutes to Complete</th>
+                        <th className="table_head">Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +62,11 @@ export default function Dashboard() {
                             <td className="table_data">{run?.start_point}</td>
                             <td className="table_data">{run?.end_point}</td>
                             <td className="table_data">{run?.distance.toFixed(1)} miles</td>
-                            <td className="table_data">{Math.floor(run?.time / 60)}</td>
+                            <td className="table_data">
+                                {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
+                                <NavLink to = {{pathname:"/new-route",state:run}} className = "edit-run-link">Edit</NavLink>
+                                <button onClick = {()=>deleteClick(run.id)} className = "delete-run-button">Delete</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
