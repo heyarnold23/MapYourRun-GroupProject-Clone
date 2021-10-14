@@ -19,8 +19,17 @@ export const deleteRun = (id) => async dispatch => {
         },
     });
 
+    const runs_response = await fetch(`/api/runs`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    });
+
+
+
     if(response.ok){
-        // const data = await response.json();
+        const runs_data = await runs_response.json()
+        dispatch(getRuns(runs_data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -46,8 +55,16 @@ export const editRun = (id,runner_id,start_point,end_point,distance,time) => asy
         body: body
     });
 
+    const runs_response = await fetch(`/api/runs`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+    });
+
+
     if(response.ok){
-        // const data = await response.json();
+        const runs_data = await runs_response.json()
+        dispatch(getRuns(runs_data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
