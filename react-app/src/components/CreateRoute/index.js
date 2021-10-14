@@ -67,8 +67,10 @@ const CreateRoute = () => {
         let minLat = Math.min(startLat,endLat)
         let minLong = Math.min(startLong,endLong)
 
-        let northEast = [maxLat+0.1,maxLong+0.1]
-        let southWest = [minLat-0.1,minLong-0.1]
+        // let northEast = [maxLat+0.1,maxLong+0.1]
+        // let southWest = [minLat-0.1,minLong-0.1]
+        let northEast = [maxLat+0.0001,maxLong+0.0001]
+        let southWest = [minLat-0.0001,minLong-0.0001]
 
         if(maxLat && maxLong && minLat && minLong){
                 map.current.fitBounds([
