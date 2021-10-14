@@ -65,7 +65,7 @@ export const acceptFriend = (id,requester_id) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{requester_id:requester_id}
+        body:JSON.stringify({requester_id:requester_id})
     })
 
     if(res.ok){
@@ -89,7 +89,7 @@ export const denyFriend = (id,requester_id) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{requester_id:requester_id}
+        body:JSON.stringify({requester_id:requester_id})
     })
 
     if(res.ok){
@@ -111,7 +111,7 @@ export const removeFriend = (id,friendId) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{friend_id:friendId}
+        body:JSON.stringify({friend_id:friendId})
     })
     if(res.ok){
         const data = await res.json();

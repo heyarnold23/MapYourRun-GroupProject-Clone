@@ -37,11 +37,12 @@ def pending_friends(id):
 @user_routes.route("/<int:id>/friends/accept",methods=["POST"])
 @login_required
 def accept_friend(id):
-    requester_id = request.data.requester_id
+    requester_id = int(request.json['requester_id'])
     acceptor = User.query.get(id)
     requester = User.query.get(requester_id)
     acceptor.friends_association.append(requester)
     acceptor.pending_friends_association.remove(requester)
+    db.session.commit()
     return acceptor.to_dict()
     #delete from pending friends and add to friends
 
@@ -50,9 +51,10 @@ def accept_friend(id):
 @login_required
 def delete_pending_friend(id):
     user = User.query.get(id)
-    requester_id = request.data.requester_id
+    requester_id = int(request.json['requester_id'])
     requester = User.query.get(requester_id)
     user.pending_friends_association.remove(requester)
+    db.session.commit()
     return user.to_dict()
     #delete from pending friends
 
@@ -60,18 +62,21 @@ def delete_pending_friend(id):
 @login_required
 def remove_friend(id):
     user = User.query.get(id)
-    friend_id = request.data.friend_id
+    friend_id = int(request.json['friend_id'])
     friend = User.query.get(friend_id)
     user.friends_association.remove(friend)
+    db.session.commit()
     return user.to_dict()
+
     #delete from friends
 
 @user_routes.route("/<int:id>/pending_friends",methods=["POST"])
 @login_required
 def add_pending_friend(id):
     user = User.query.get(id)
-    friend_id = request.data.friend_id
+    friend_id = int(request.json['friend_id'])
     friend = User.query.get(friend_id)
     user.friends_association.append(friend) #needs to add the user to pending friends here
+    db.session.commit()
     return user.to_dict()
     #add to pending friends
