@@ -77,6 +77,9 @@ export const editComment = (commentData) => async (dispatch) => {
       dispatch(update(editComment));
       return editComment;
     }
+    else{
+        console.log("RESPONSE WAS NOT OK");
+    }
 };
 
 

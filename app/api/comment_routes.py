@@ -17,9 +17,11 @@ def commentsById(id):
 @comment_routes.route('/edit/<int:id>', methods=["PUT"])
 @login_required
 def updateComment(id):
+    print("inside api routeee id", id)
     comment = Comment.query.get(id)
     comment.body = request.json.get('body', comment.body)
     db.session.commit()
+    return comment.to_dict()
 
 @comment_routes.route('/delete/<int:id>')
 @login_required
