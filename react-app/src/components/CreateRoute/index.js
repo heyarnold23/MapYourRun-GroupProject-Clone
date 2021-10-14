@@ -86,7 +86,7 @@ const CreateRoute = () => {
         const onSubmit = (e) => {
             if(startPoint && endPoint && distance && time){
                 if(data){
-                    dispatch(editRun(data.id,currentUser.id,start_point,end_point,distance,time))
+                    dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time))
                 }
                 else{
                     dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
