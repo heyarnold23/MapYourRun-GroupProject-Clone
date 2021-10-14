@@ -6,12 +6,13 @@ import { getFriends, getPendingFriends, acceptFriend, denyFriend, removeFriend} 
 const Social = () => {
     const dispatch = useDispatch()
     const currentUser = useSelector(state=>state.session.user)
-    const friends = useSelector(state=>state.social.friends)
+    // const friends = useSelector(state=>state.social.friends)
+    const friends = currentUser.friends
     const pendingFriends = useSelector(state=>state.social.pending_friends)
 
     useEffect(()=>{
         if(!currentUser)return
-        dispatch(getFriends(currentUser.id))
+        // dispatch(getFriends(currentUser.id))
         dispatch(getPendingFriends(currentUser.id))
     },[])
 
