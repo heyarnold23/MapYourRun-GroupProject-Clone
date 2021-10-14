@@ -4,12 +4,16 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserButtons from './UserButtons';
 import "./Navigation.css"
+import Logo from './public/logo.png'
 
 const NavBar = () => {
   let user = useSelector(state => state.session.user)
 
   return (
     <nav id = "navbar-list-container">
+              <NavLink to='/' exact={true} id="logo_link" >
+                <img src={Logo} alt="Logo" id="logo"></img>
+               </NavLink>
       <ul id = "navbar-list">
         <li>
           <NavLink to='/' exact={true} className = "navbar-li" activeClassName='active'>

@@ -42,10 +42,10 @@ function UserButtons({ user }) {
           </div>
         </button>
         {showMenu && (
-          <div id = "profile-dropdown-outer" style = {{height:"80px"}}>
+          <div  style = {{height:"80px"}}>
           <div className="profile-dropdown">
             <div id = "login-div" >
-              <button onClick = {()=>{
+              <button id="login_button_overlay" onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("login"))
               }}>Log In</button>
@@ -68,9 +68,8 @@ function UserButtons({ user }) {
       <>
         <button id = "profile-button" onClick={openMenu}>
           <div id = "hamburger-icon">
-            ☰
+            ☰ 👤
           </div>
-          <img id = "profile-image" src = {user && user.image} alt="users"></img>
         </button>
         {showMenu && (
           <div id = "profile-dropdown-outer" style = {{height:"35px"}}>
