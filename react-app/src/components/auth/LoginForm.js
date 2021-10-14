@@ -56,7 +56,7 @@ const LoginForm = () => {
           value={email}
           onChange={updateEmail}
         />
-        <input
+        <input style = {{borderBottom:0, borderRadius:"10px"}}
           name='password'
           type='password'
           placeholder='Password'

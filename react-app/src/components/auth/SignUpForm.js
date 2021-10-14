@@ -66,8 +66,8 @@ const SignUpForm = () => {
 
   return (
     <>
-    <div id = "modal-inner-container" style = {{height:"350px"}}>
-        <h4 id = "signup-title">Log In</h4>
+    <div id = "modal-inner-container" >
+        <h4 id = "signup-title">Sign Up</h4>
         <div id = "form-outer-container">
           <h2 id = "welcome-title">Welcome to MapYourRun</h2>
 
@@ -128,7 +128,7 @@ const SignUpForm = () => {
           placeholder="Weight"
         />
 
-        <input
+        <input style = {{borderBottom:0, borderRadius:"10px"}}
           type='text'
           name='height'
           onChange={updateHeight}

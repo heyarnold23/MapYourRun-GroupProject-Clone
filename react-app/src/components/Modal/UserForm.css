@@ -6,7 +6,7 @@
 }
 
 #user-form input {
-    width:100%;
+    width:99%;
     height:45px;
     border:none;
     border-radius:inherit;
@@ -64,7 +64,7 @@
     flex-direction: column;
     align-items: center;
     width:600px;
-    height:525px;
+    height:585px;
     border-radius: 20px;
 
 }
