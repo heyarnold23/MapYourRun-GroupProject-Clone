@@ -50,6 +50,7 @@ export default function Dashboard() {
             <table id="runs_table">
                 <thead>
                     <tr className="runs_table_rows">
+                        <th className="table_head">Map</th>
                         <th className="table_head">Start Point</th>
                         <th className="table_head">End Point</th>
                         <th className="table_head">Distance</th>
@@ -59,6 +60,7 @@ export default function Dashboard() {
                 <tbody>
                     {runArr.map(run => (
                         <tr key={run.id} className="runs_table_rows">
+                            <td className="table_data"><img className="map">{run?.image_url}</img></td>
                             <td className="table_data">{run?.start_point}</td>
                             <td className="table_data">{run?.end_point}</td>
                             <td className="table_data">{run?.distance.toFixed(1)} miles</td>
