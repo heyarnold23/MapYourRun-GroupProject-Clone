@@ -51,15 +51,7 @@
     left: 7rem;
   }
 
-  #profile-button {
-    background-color: #008CBA;
-    font-size: 1rem;
-    height: 3rem;
-    width: 5rem;
-    position: absolute;
-    right: 7rem;
-    top: .5rem ;
-  }
+ 
 
 
 #profile-button:hover{
