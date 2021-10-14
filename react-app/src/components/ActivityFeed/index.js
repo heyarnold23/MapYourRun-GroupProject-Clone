@@ -125,7 +125,7 @@ export default function ActivityFeed() {
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
-    return 
+    return
   },[dispatch])
 
   /******** If NOT logged in, BELOW will render **********/
@@ -154,12 +154,12 @@ export default function ActivityFeed() {
                     </div> */}
                   </div>
                   <div id='screenshot'>
-                    screenshot
+                  {(<img src = {run?.image_url} width="200px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {run.distance}
+                        {run.distance.toFixed(1)}
                         {run.id}
                       </div>
                       <div className='descriptionDiv'>
@@ -168,7 +168,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv middle'>
                       <div className='inDetailDiv'>
-                        {run.time}
+                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Avg Pace(min/mi)
@@ -176,7 +176,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {run.time}
+                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Duration
@@ -264,12 +264,12 @@ export default function ActivityFeed() {
                     </p>
                   </div>
                   <div id='screenshot'>
-                    screenshot
+                    {(<img src = {friend?.image_url} width="200px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {friend.distance}
+                        {friend.distance.toFixed(1)}
                         {friend.id}
                       </div>
                       <div className='descriptionDiv'>
@@ -278,7 +278,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv middle'>
                       <div className='inDetailDiv'>
-                        {friend.time}
+                      {Math.floor(friend?.time/3600) < 1 ? "" : `${Math.floor(friend?.time/3600)} hour${Math.floor(friend?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(friend?.time/3600) < 1 ? `${(((friend?.time/3600)%1)*60).toFixed(0)} minute${Number(((friend?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((friend?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Avg Pace(min/mi)
@@ -286,7 +286,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {friend.time}
+                      {Math.floor(friend?.time/3600) < 1 ? "" : `${Math.floor(friend?.time/3600)} hour${Math.floor(friend?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(friend?.time/3600) < 1 ? `${(((friend?.time/3600)%1)*60).toFixed(0)} minute${Number(((friend?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((friend?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Duration
@@ -383,12 +383,12 @@ export default function ActivityFeed() {
                     </div>
                   </div>
                   <div id='screenshot'>
-                    screenshot
+                  {(<img src = {run?.image_url} width="200px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {run.distance}
+                        {run.distance.toFixed(1)}
                         {run.id}
                       </div>
                       <div className='descriptionDiv'>
@@ -397,7 +397,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv middle'>
                       <div className='inDetailDiv'>
-                        {run.time}
+                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Avg Pace(min/mi)
@@ -405,7 +405,7 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
-                        {run.time}
+                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
                         Duration
