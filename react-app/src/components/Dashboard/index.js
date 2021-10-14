@@ -63,7 +63,7 @@ export default function Dashboard() {
                             <td className="table_data">{run?.end_point}</td>
                             <td className="table_data">{run?.distance.toFixed(1)} miles</td>
                             <td className="table_data">
-                                {(Math.floor(run?.time/3600))}:{((run?.time/3600)%1).toFixed(2)}
+                                {(Math.floor(run?.time/3600))}:{(((run?.time/3600)%1)*60).toFixed(0)}
                                 <NavLink to = {{pathname:"/new-route",state:run}} className = "edit-run-link">Edit</NavLink>
                                 <button onClick = {()=>deleteClick(run.id)} className = "delete-run-button">Delete</button>
                             </td>
