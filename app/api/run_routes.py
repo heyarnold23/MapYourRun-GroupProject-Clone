@@ -35,7 +35,7 @@ def post():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@run_routes.routes('/<int:id>', methods=["PUT"])
+@run_routes.route('/<int:id>', methods=["PUT"])
 @login_required
 def edit_run(id):
     run  = Run.query.get(id)
