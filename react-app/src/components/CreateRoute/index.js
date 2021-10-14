@@ -18,7 +18,6 @@ const CreateRoute = () => {
     const [distance,setDistance] = useState("")
     const [time,setTime] = useState("")
     const [formFilled,toggleFormFilled] = useState(false)
-    const [image,seImage] = useState("")
     const currentUser = useSelector(state=>state.session.user)
 
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
@@ -51,14 +50,10 @@ const CreateRoute = () => {
 
 
     const screenshot = () => {
-        let img  = map.current.getCanvas().toDataURL("image/png",1.0);
-        let width = "600px"
-        let height = "400px"
-        setTesty((<img src = {img} width = {width} height = {height}></img>))
+        return map.current.getCanvas().toDataURL("image/png",1.0);
     }
 
-    const fly = (e) => {
-        e.preventDefault()
+    const fly = () => {
 
         let [startLat,startLong] = startPoint.split(",").map(x=>Number(x))
         let [endLat,endLong] = endPoint.split(",").map(x=>Number(x))
@@ -72,28 +67,33 @@ const CreateRoute = () => {
         let minLat = Math.min(startLat,endLat)
         let minLong = Math.min(startLong,endLong)
 
-        let northEast = [maxLat+0.05,maxLong+0.05]
-        let southWest = [minLat-0.05,minLong-0.05]
+        let northEast = [maxLat+0.1,maxLong+0.1]
+        let southWest = [minLat-0.1,minLong-0.1]
 
-        map.current.fitBounds([
-            northEast, // southwestern corner of the bounds
-            southWest // northeastern corner of the bounds
-        ])
+        if(maxLat && maxLong && minLat && minLong){
+                map.current.fitBounds([
+                northEast, // southwestern corner of the bounds
+                southWest // northeastern corner of the bounds
+            ])
+        }
 
 
     }
 
     const onSubmit = (e) => {
-        fly()
+        const image = screenshot()
         if(startPoint && endPoint && distance && time){
             if(data){
                 dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
             }
             else{
+                console.log("IMAGE: ", image)
                 dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
             }
 
         }
+
+
     }
 
         useEffect(() => {
@@ -123,6 +123,7 @@ const CreateRoute = () => {
                     updateEndPoint(`${map.current.directions.getDestination().geometry.coordinates[0]},${map.current.directions.getDestination().geometry.coordinates[1]}`)
                     setDistance(distance)
                     setTime(distance*60*8)
+                    fly()
 
                 })
 
@@ -132,6 +133,7 @@ const CreateRoute = () => {
         useEffect(()=>{
             if(startPoint && endPoint && distance && time){
                 toggleFormFilled(true)
+                fly()
             } else toggleFormFilled(false)
         },[startPoint,endPoint,time,distance])
 
@@ -145,12 +147,6 @@ const CreateRoute = () => {
             });
         });
 
-        if(testy){
-            return (<div id = "screenshot-container">
-            {testy}
-        </div>
-            )
-        }
         return (
             <div id = "create-route-page">
                 {formFilled && (
