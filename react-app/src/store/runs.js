@@ -1,11 +1,19 @@
 
 const GET_RUNS = 'runs/LOAD';
+const SET_DELETED = 'runs/SET_DELETED'
 
 
 const getRuns = (runsObject) => {
     return {
         type: GET_RUNS,
         payload: runsObject
+    }
+}
+
+const setDeleted = (id) => {
+    return {
+        type: SET_DELETED,
+        payload: id
     }
 }
 
@@ -19,17 +27,10 @@ export const deleteRun = (id) => async dispatch => {
         },
     });
 
-    const runs_response = await fetch(`/api/runs`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-    });
-
 
 
     if(response.ok){
-        const runs_data = await runs_response.json()
-        dispatch(getRuns(runs_data))
+        dispatch(setDeleted(id))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -129,6 +130,13 @@ export default function runsReducer(state = initialState, action) {
             newState = {...state, ...action.payload}
             // return action.payload
             return newState
+        case SET_DELETED:
+            for(let key in newState) {
+                if (key === action.payload.toString()) {
+                    delete newState[key]
+                }
+            }
+            return newState;
         default:
             return state
     }
