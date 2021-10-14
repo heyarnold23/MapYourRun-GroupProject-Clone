@@ -10,15 +10,18 @@ import EditCommentForm from '../EditCommentForm';
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
-  const dispatch = useDispatch()
   const runs = useSelector(store => store?.runs)
-  const [showMenu, setShowMenu] = useState(false);
-  const [showEditMenu, setShowEditMenu] = useState(false);
-  const [body, setBody] = useState('');
-  const [errors, setErrors] = useState([]);
-  const [cardId, setCardId] = useState();
+  const commentsObject = useSelector(state => state?.comments)
 
-  console.log('this is cardIDDDDDDDD',cardId);
+  const dispatch = useDispatch()
+
+  const [showMenu, setShowMenu] = useState(false);
+  const [body, setBody] = useState('');
+  const [cardId, setCardId] = useState();
+  const [commentTest, setCommentTest] = useState(false);
+
+
+  console.log('this is commentsObject',commentsObject);
 
   const openMenu = (id) => {
     // console.log('this is inside openMenu', id);
@@ -40,6 +43,13 @@ export default function ActivityFeed() {
   const handleSubmit = async (e, id) => {
       console.log('inside handleSubmit',id);
       e.preventDefault();
+
+    if (commentTest) {
+      setCommentTest(false)
+    }
+    else {
+      setCommentTest(true)
+    }
 
       const newComment = {
         body,
@@ -146,28 +156,7 @@ export default function ActivityFeed() {
                   </div> */}
                   {(showMenu && cardId === run.id) && (
                     <>
-                    {run?.comments?.map(comment =>
-                      <div className='commentDiv'>
-                        <div className='commentPicDiv'>
-                          Picture
-                        </div>
-                        <div className='nameBodyDiv'>
-                          <div className='commentNameDiv'>
-                            {comment?.user_name?.username}
-                          </div>
-                          <div className='commentBodyDiv'>
-                            {comment.body}
-                          </div>
-                        </div>
-                        {sessionUser.id === comment?.user_name?.id ?
-                          // setShowEditMenu(true) &&
-                          <EditCommentForm comment={comment}/> : null
-                        }
-                        <div className='commentCreatedDiv'>
-                          created
-                        </div>
-                      </div>
-                    )}
+                      <CommentsFeed id={run.id}/>
                     <div className='commentForm'>
                       <div className='formPic'>
                         Picture
@@ -182,7 +171,7 @@ export default function ActivityFeed() {
                                 placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' onClick={!openMenu}type="submit">Submit</button>
+                              <button className='formButton' type="submit">Submit</button>
                             </div>
                       </form>
                       </div>
