@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+#dropdown{
+    display: flex;
+}
+
 .cardDiv{
     display: flex;
     flex-direction: row;
