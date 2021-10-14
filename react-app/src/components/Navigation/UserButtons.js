@@ -42,7 +42,7 @@ function UserButtons({ user }) {
           </div>
         </button>
         {showMenu && (
-          <div  style = {{height:"80px"}}>
+          <div id = "profile-dropdown-outer" style = {{height:"80px"}}>
           <div className="profile-dropdown">
             <div id = "login-div" >
               <button id="login_button_overlay" onClick = {()=>{
