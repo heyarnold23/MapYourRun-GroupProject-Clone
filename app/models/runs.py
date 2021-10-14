@@ -18,7 +18,7 @@ class Run(db.Model):
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")
-    comments = db.relationship("Comment", back_populates = 'run')
+    comments = db.relationship("Comment", back_populates = 'run', cascade="all, delete")
 
 # to dict function here
     def to_dict(self):
