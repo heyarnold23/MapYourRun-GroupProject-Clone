@@ -27,7 +27,8 @@ def post():
             end_point=form.data['end_point'],
             distance=form.data['distance'],
             time=form.data['time'],
-            runner_id=form.data['runner_id']
+            runner_id=form.data['runner_id'],
+            image_url=form.data['image_url']
         )
         db.session.add(run)
         db.session.commit()
@@ -43,10 +44,9 @@ def edit_run(id):
     run.start_point = request.json.get('start_point', run.start_point)
     run.end_point = request.json.get('end_point', run.end_point)
     run.distance = request.json.get('distance', run.distance)
-    print(run.distance)
-    print(request.json.get('distance', run.distance))
     run.time = request.json.get("time", run.time)
     run.runner_id = request.json.get("runner_id", run.runner_id)
+    run.image_url = request.json.get("image_url", run.image_url)
     db.session.commit()
     return run.to_dict()
 

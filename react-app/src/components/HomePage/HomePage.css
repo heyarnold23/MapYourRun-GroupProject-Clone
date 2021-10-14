@@ -20,6 +20,7 @@ h2 {
 
 .splash_1_div {
   display: flex;
+  margin-top: 2rem;
 }
 
 .heading_text1 {
@@ -49,6 +50,7 @@ h2 {
     position: relative;
     display: inline;
   }
+  
 #overlay_img {
   position: absolute;
   bottom: 100px;
@@ -74,9 +76,6 @@ h2 {
 
 .heading_text2 {
   font-family: 'Neue Plak UA Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  position: absolute;
-  left: 0;
-  top: 0;
   text-transform: uppercase;
   white-space: pre-line;
   z-index: 1;
