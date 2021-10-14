@@ -43,7 +43,7 @@ def edit_run(id):
     run.end_point = request.json.get('end_point', run.end_point)
     run.distance = request.json.get('distance', run.distance)
     run.time = request.json.get("time", run.time)
-    run.runner_id = request.json("runner_id", run.runner_id)
+    run.runner_id = request.json.get("runner_id", run.runner_id)
     db.session.commit()
     return run.to_dict()
 
