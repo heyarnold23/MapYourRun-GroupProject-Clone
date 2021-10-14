@@ -10,16 +10,17 @@ const Social = () => {
     const pendingFriends = useSelector(state=>state.social.pending_friends)
 
     useEffect(()=>{
+        if(!currentUser)return
         dispatch(getFriends(currentUser.id))
         dispatch(getPendingFriends(currentUser.id))
     },[])
 
 const acceptClick = (pendingFriendId) => {
-    dispatch(acceptFriend(currentUser.id,pendingFriendId))
+    currentUser && dispatch(acceptFriend(currentUser.id,pendingFriendId))
     //need to dispatch, delete pending friends entry, add friends entry
 }
 const denyClick = (pendingFriendId) => {
-    dispatch(denyFriend(currentUser.id,pendingFriendId))
+    currentUser && dispatch(denyFriend(currentUser.id,pendingFriendId))
     //need to dispatch, delete pending friends entry
 }
 
@@ -30,7 +31,7 @@ const removeFriendClick = (friendId) => {
 return (
     <>
         <h1>Friend Requests</h1>
-            {pendingFriends.map(pendingFriend=>{
+            { pendingFriends && pendingFriends.map(pendingFriend=>{
                 return (<div>
                     {pendingFriend.username}
                     <button onClick = {()=>acceptClick(pendingFriend.id)}>Accept</button>
@@ -38,7 +39,7 @@ return (
                 </div>)
             })}
         <h1>Friends</h1>
-            {friends.map(friend=>{
+            {friends && friends.map(friend=>{
                 return (<div>
                     {friend.username}
                     <button onClick = {()=>removeFriendClick(friend.id)}>Remove Friend</button>

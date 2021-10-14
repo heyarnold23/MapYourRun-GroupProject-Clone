@@ -65,12 +65,13 @@ export const acceptFriend = (id,requester_id) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{requester_id:requester_id}
+        body:JSON.stringify({requester_id:requester_id})
     })
 
     if(res.ok){
         const data = await res.json();
-        dispatch(setFriends(data))
+        dispatch(setFriends({"friends":data.friends}))
+        dispatch(setPendingFriends({"pending_friends":data.pending_friends}))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();
@@ -88,12 +89,12 @@ export const denyFriend = (id,requester_id) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{requester_id:requester_id}
+        body:JSON.stringify({requester_id:requester_id})
     })
 
     if(res.ok){
         const data = await res.json();
-        dispatch(setFriends(data))
+        dispatch(setPendingFriends({"pending_friends":data.pending_friends}))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();
@@ -110,11 +111,11 @@ export const removeFriend = (id,friendId) => async dispatch => {
         headers: {
             'Content-Type': 'application/json',
           },
-        body:{friend_id:friendId}
+        body:JSON.stringify({friend_id:friendId})
     })
     if(res.ok){
         const data = await res.json();
-        dispatch(setFriends(data))
+        dispatch(setFriends({"friends":data.friends}))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();
@@ -129,6 +130,7 @@ export const removeFriend = (id,friendId) => async dispatch => {
 const initialState = {}
 export default function socialReducer(state= initialState, action) {
     let newState = {...state}
+    console.log("PAYLOAD: " , action.payload)
     switch (action.type) {
         case SET_FRIENDS:
             newState = {...state,...action.payload}
