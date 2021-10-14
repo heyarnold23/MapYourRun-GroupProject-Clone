@@ -1,14 +1,20 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import UserButtons from './UserButtons';
 import "./Navigation.css"
 import Logo from './public/logo.png'
-
+import { addModal,toggleModalView } from '../../store/session';
 const NavBar = () => {
   let user = useSelector(state => state.session.user)
-
+  const dispatch = useDispatch()
+  const onClick = (e) => {
+      if(user)return
+      e.preventDefault()
+      dispatch(addModal("login"))
+      dispatch(toggleModalView(true))
+  }
   return (
     <nav id = "navbar-list-container">
               <NavLink to='/' exact={true} id="logo_link" >
@@ -21,15 +27,15 @@ const NavBar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/dashboard' exact={true} className = "navbar-li" activeClassName='active'>
+          <NavLink to='/dashboard' onClick = {onClick} exact={true} className = "navbar-li" activeClassName='active'>
             Dashboard
           </NavLink></li>
         <li>
-          <NavLink to='/social' exact={true} className = "navbar-li" activeClassName='active'>
+          <NavLink to='/social' onClick = {onClick} exact={true} className = "navbar-li" activeClassName='active'>
             Social
           </NavLink></li>
         <li>
-          <NavLink to='/new-route' exact={true} className = "navbar-li" activeClassName='active'>
+          <NavLink to='/new-route' onClick = {onClick} exact={true} className = "navbar-li" activeClassName='active'>
             Create Route
           </NavLink></li>
         <li>
