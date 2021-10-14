@@ -156,28 +156,7 @@ export default function ActivityFeed() {
                   </div> */}
                   {(showMenu && cardId === run.id) && (
                     <>
-                    {run?.comments?.map(comment =>
-                      <div key={comment.id}className='commentDiv'>
-                        <div className='commentPicDiv'>
-                          Picture
-                        </div>
-                        <div className='nameBodyDiv'>
-                          <div className='commentNameDiv'>
-                            {comment?.user_name?.username}
-                          </div>
-                          <div className='commentBodyDiv'>
-                            {comment.body}
-                          </div>
-                        </div>
-                        {sessionUser.id === comment?.user_name?.id ?
-                          // setShowEditMenu(true) &&
-                          <EditCommentForm comment={comment}/> : null
-                        }
-                        <div className='commentCreatedDiv'>
-                          created
-                        </div>
-                      </div>
-                    )}
+                      <CommentsFeed id={run.id}/>
                     <div className='commentForm'>
                       <div className='formPic'>
                         Picture
