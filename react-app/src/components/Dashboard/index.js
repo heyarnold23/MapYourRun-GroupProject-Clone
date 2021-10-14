@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import { getRunsThunk } from '../../store/runs';
 import './Dashboard.css'
+import { addModal, toggleModalView} from '../../store/session';
 
 export default function Dashboard() {
     const sessionUser = useSelector(state => state.session?.user);
@@ -10,7 +11,6 @@ export default function Dashboard() {
     let runArr;
     let distance = 0;
     let calories = 0;
-    // console.log(sessionUser)
 
     if(runs) {
         runArr = Object.values(runs)
