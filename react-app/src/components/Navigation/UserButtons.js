@@ -37,12 +37,10 @@ function UserButtons({ user }) {
           <div id = "hamburger-icon">
             ☰
           </div>
-          <div id = "profile-image">
-            👤
-          </div>
+
         </button>
         {showMenu && (
-          <div id = "profile-dropdown-outer" style = {{height:"80px"}}>
+          <div id = "profile-dropdown-outer">
           <div className="profile-dropdown">
             <div id = "login-div" >
               <button id="login_button_overlay" onClick = {()=>{
@@ -68,7 +66,7 @@ function UserButtons({ user }) {
       <>
         <button id = "profile-button" onClick={openMenu}>
           <div id = "hamburger-icon">
-            ☰ 👤
+            ☰ 
           </div>
         </button>
         {showMenu && (
