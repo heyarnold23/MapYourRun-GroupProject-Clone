@@ -74,9 +74,9 @@ export default function ActivityFeed() {
     return (
       <>
         <div id='middle'>
-          <div id='dropdown'>
+          {/* <div id='dropdown'>
                 <button>Explore</button>
-          </div>
+          </div> */}
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
             // let runId = run.id
