@@ -30,10 +30,13 @@ const HomePage = () => {
             </div>
           </div>
           <div className="splash_2_div">
+            <div className="splash2_wrapper"></div>
+            <div className="heading_2_wrapper">
             <img src={Splash2} id="splash2" alt="grid map"></img>
             <img src={splash2Overlay} id="overlay_img" alt="shoe"></img>
-
+            </div>
           </div>
+          
           <div className="splash_3_div">
             <div className="app_text_wrapper">
               <div>

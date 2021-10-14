@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField
+from wtforms import StringField, FloatField, TextField
 from wtforms.fields.core import IntegerField
 from wtforms.validators import DataRequired, Email, ValidationError
 
@@ -11,3 +11,4 @@ class RunForm(FlaskForm):
     distance = FloatField('distance', validators=[DataRequired()])
     time = FloatField('time', validators=[DataRequired()])
     runner_id = IntegerField('runner_id', validators=[DataRequired()])
+    image_url = TextField('image_url', validators=[DataRequired()])
