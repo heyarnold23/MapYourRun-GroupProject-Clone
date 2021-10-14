@@ -6,10 +6,13 @@ import "./CreateRoute.css"
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import { setRuns } from '../../store/runs';
+import {useLocation} from "react-router-dom"
+import { editRun } from "../../store/runs";
 
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
+    const location = useLocation()
     const [startPoint,updateStartPoint] = useState("")
     const [endPoint,updateEndPoint] = useState("")
     const [distance,setDistance] = useState("")
@@ -24,8 +27,15 @@ const CreateRoute = () => {
     const [lng, setLng] = useState("");
     const [lat, setLat] = useState("");
     const [zoom, setZoom] = useState(9);
-
-
+    const [data,setData] = useState("")
+    console.log("LOCATION STATE OUTER ",location.state)
+    useEffect(()=>{
+        console.log("LOCATION STATE INNER ",location.state)
+        if(!location.state)return
+        setData(location.state)
+        console.log("STATE INNER",data)
+    },[])
+    console.log("STATE OUTER",data)
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(function(position) {
             updateStartPoint(`${position.coords.latitude},${position.coords.longitude}`)
@@ -75,11 +85,12 @@ const CreateRoute = () => {
 
         const onSubmit = (e) => {
             if(startPoint && endPoint && distance && time){
-                console.log("Start Point: ",startPoint)
-                console.log("End Point: ",endPoint)
-                console.log("Distance: ",distance)
-                console.log("Time: ",time)
-                dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
+                if(data){
+                    dispatch(editRun(data.id,currentUser.id,data.start_point,data.end_point,data.distance,data.time))
+                }
+                else{
+                    dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
+                }
             }
         }
         useEffect(() => {
@@ -96,7 +107,12 @@ const CreateRoute = () => {
             <div id = "create-route-page">
                 {formFilled && (
                 <form onSubmit={onSubmit}>
-                    <button id = "create-route-submit" type="submit">Create Run</button>
+                    {data ? (
+                        <button id = "create-route-submit" type="submit">Edit Run</button>
+                    ) : (
+                        <button id = "create-route-submit" type="submit">Create Run</button>
+                    )}
+
                 </form>
                 )}
                 <div ref={mapContainer} className="map-container" />
