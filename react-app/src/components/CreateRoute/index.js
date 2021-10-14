@@ -18,6 +18,7 @@ const CreateRoute = () => {
     const [distance,setDistance] = useState("")
     const [time,setTime] = useState("")
     const [formFilled,toggleFormFilled] = useState(false)
+    const [image,seImage] = useState("")
     const currentUser = useSelector(state=>state.session.user)
 
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
@@ -28,6 +29,9 @@ const CreateRoute = () => {
     const [lat, setLat] = useState("");
     const [zoom, setZoom] = useState(9);
     const [data,setData] = useState("")
+
+
+
     console.log("LOCATION STATE OUTER ",location.state)
     useEffect(()=>{
         console.log("LOCATION STATE INNER ",location.state)
@@ -45,6 +49,53 @@ const CreateRoute = () => {
 
     },[])
 
+
+    const screenshot = () => {
+        let img  = map.current.getCanvas().toDataURL("image/png",1.0);
+        let width = "600px"
+        let height = "400px"
+        setTesty((<img src = {img} width = {width} height = {height}></img>))
+    }
+
+    const fly = (e) => {
+        e.preventDefault()
+
+        let [startLat,startLong] = startPoint.split(",").map(x=>Number(x))
+        let [endLat,endLong] = endPoint.split(",").map(x=>Number(x))
+        let finalLat = (startLat+endLat)/2
+        let finalLong = (startLong+endLong)/2
+        //if latitude is greater, it means more north
+        //if longitude greater, it means more east.
+        let maxLat = Math.max(startLat,endLat)
+        let maxLong = Math.max(startLong,endLong)
+
+        let minLat = Math.min(startLat,endLat)
+        let minLong = Math.min(startLong,endLong)
+
+        let northEast = [maxLat+0.05,maxLong+0.05]
+        let southWest = [minLat-0.05,minLong-0.05]
+
+        map.current.fitBounds([
+            northEast, // southwestern corner of the bounds
+            southWest // northeastern corner of the bounds
+        ])
+
+
+    }
+
+    const onSubmit = (e) => {
+        fly()
+        if(startPoint && endPoint && distance && time){
+            if(data){
+                dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
+            }
+            else{
+                dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
+            }
+
+        }
+    }
+
         useEffect(() => {
             if (map.current) return; // initialize map only once
             if(lng && lat){
@@ -52,7 +103,8 @@ const CreateRoute = () => {
                     container: mapContainer.current,
                     style: 'mapbox://styles/mapbox/streets-v11',
                     center: [lng, lat],
-                    zoom: zoom
+                    zoom: zoom,
+                    preserveDrawingBuffer: true
                 });
                 map.current.directions = new MapboxDirections({
                     accessToken: mapboxgl.accessToken,
@@ -83,16 +135,7 @@ const CreateRoute = () => {
             } else toggleFormFilled(false)
         },[startPoint,endPoint,time,distance])
 
-        const onSubmit = (e) => {
-            if(startPoint && endPoint && distance && time){
-                if(data){
-                    dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time))
-                }
-                else{
-                    dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time))
-                }
-            }
-        }
+
         useEffect(() => {
             if (!map.current) return; // wait for map to initialize
             map.current.on('move', () => {
@@ -102,7 +145,12 @@ const CreateRoute = () => {
             });
         });
 
-
+        if(testy){
+            return (<div id = "screenshot-container">
+            {testy}
+        </div>
+            )
+        }
         return (
             <div id = "create-route-page">
                 {formFilled && (
