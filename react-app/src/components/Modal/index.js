@@ -4,6 +4,7 @@ import LoginForm from '../auth/LoginForm';
 import SignupForm from "../auth/SignUpForm"
 import {toggleModalView} from "../../store/session"
 import {useDispatch,useSelector} from "react-redux"
+import "./UserForm.css"
 function FormModal() {
   const dispatch = useDispatch()
   const modalType= useSelector((state)=>state.session.modalType)

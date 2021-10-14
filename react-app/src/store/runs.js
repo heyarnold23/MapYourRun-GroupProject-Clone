@@ -54,10 +54,12 @@ export const getRunsThunk = () => async (dispatch) => {
 
 const initialState = {}
 export default function runsReducer(state = initialState, action) {
-    // const newState = {...state}
+    let newState = {...state}
     switch (action.type) {
         case GET_RUNS:
-            return action.payload
+            newState = {...state, ...action.payload}
+            // return action.payload
+            return newState
         default:
             return state
     }

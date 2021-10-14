@@ -58,5 +58,17 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'age':self.age,
             'weight':self.weight,
-            'height':self.height
+            'height':self.height,
+            "friends":[user.get_friend_info() for user in self.friends_association],
+            "pending_friends":[user.get_friend_info() for user in self.pending_friends_association]
         }
+
+    def get_friend_info(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'age':self.age,
+            'weight':self.weight,
+            'height':self.height
+            }
