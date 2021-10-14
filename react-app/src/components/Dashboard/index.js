@@ -50,9 +50,13 @@ export default function Dashboard() {
             <table id="runs_table">
                 <thead>
                     <tr className="runs_table_rows">
+<<<<<<< HEAD
                         <th className="table_head">Map</th>
                         <th className="table_head">Start Point</th>
                         <th className="table_head">End Point</th>
+=======
+                        <th className="table_head">Route</th>
+>>>>>>> main
                         <th className="table_head">Distance</th>
                         <th className="table_head">Time</th>
                     </tr>
@@ -60,9 +64,13 @@ export default function Dashboard() {
                 <tbody>
                     {runArr.map(run => (
                         <tr key={run.id} className="runs_table_rows">
+<<<<<<< HEAD
                             <td className="table_data"><img className="map">{run?.image_url}</img></td>
                             <td className="table_data">{run?.start_point}</td>
                             <td className="table_data">{run?.end_point}</td>
+=======
+                            <td className="table_data"><img src = {run?.image_url} width="200px" height="100px"></img></td>
+>>>>>>> main
                             <td className="table_data">{run?.distance.toFixed(1)} miles</td>
                             <td className="table_data">
                                 {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
