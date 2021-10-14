@@ -16,12 +16,21 @@ export default function ActivityFeed() {
   const dispatch = useDispatch()
 
   const [showMenu, setShowMenu] = useState(false);
+  const [shifter, setShifter] = useState(false);
+  const [drop, setDrop] = useState(false);
   const [body, setBody] = useState('');
   const [cardId, setCardId] = useState();
   const [commentTest, setCommentTest] = useState(false);
 
+  const runsArr = Object.values(runs)
+  const friendsIdArr = sessionUser.friends.map(friend => friend.id)
+  const friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id) )
 
-  console.log('this is commentsObject',commentsObject);
+
+  // console.log("this is Runs", runsArr);
+  // console.log("this is friendsIdArr", friendsIdArr);
+  // console.log("this is friendsRuns", friendsRuns);
+  // console.log('this is commentsObject',commentsObject);
 
   const openMenu = (id) => {
     // console.log('this is inside openMenu', id);
@@ -35,6 +44,32 @@ export default function ActivityFeed() {
     setShowMenu(false)
     // setBody(comment.body)
   }
+
+  const seeFriends = (id) => {
+    // console.log('this is inside openMenu', id);
+    if (shifter) return;
+    // setCardId(id)
+    setShifter(true);
+    setDrop(false)
+  };
+
+  const seeExplore = (e) => {
+    e.preventDefault()
+    setShifter(false)
+    setDrop(false)
+  }
+
+  const openDrop = (id) => {
+    // console.log('this is inside openMenu', id);
+    if (drop) return;
+    // setCardId(id)
+    setDrop(true);
+  };
+
+  // const seeExplore = (e) => {
+  //   e.preventDefault()
+  //   setShifter(false)
+  // }
 
   const reset = () => {
     setBody('');
@@ -69,7 +104,7 @@ export default function ActivityFeed() {
     dispatch(getCommentsThunk())
   },[dispatch])
 
-
+  /******** If NOT logged in, BELOW will render **********/
   if(!sessionUser){
     return (
       <>
@@ -169,12 +204,138 @@ export default function ActivityFeed() {
       </>
     )
   }
+  /******** If NOT logged in, ABOVE will render **********/
+
+  // console.log(sessionUser.friends.map(friend => friend));
+  // console.log(sessionUser.friends.map(friend => friend.id));
+
+  /******** If Friends is clicked, BELOW will render **********/
+  if (shifter) {
+    return (
+      <>
+        <div id='middle'>
+          <div id='dropdown'>
+                <button onClick={openDrop}>
+                  Friends
+                </button>
+
+                {drop && (
+                  <button onClick={seeExplore}>
+                  Explore
+                  </button>
+                )}
+          </div>
+
+            {friendsRuns.map(friend => {
+
+            return(
+              <div key={friend.id} className='cardDiv' id={friend.id}>
+                <div id='profilePicDiv'>
+                  Picture
+                </div>
+                <div id='mainDetailsDiv'>
+                  <div id='nameDiv'>
+                    <p id='name'>
+                      {friend?.user_name.username} went for a run
+                    </p>
+                  </div>
+                  <div id='screenshot'>
+                    screenshot
+                  </div>
+                  <div id='runDetailsDiv'>
+                    <div className='detailDiv'>
+                      <div className='inDetailDiv'>
+                        {friend.distance}
+                        {friend.id}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Distance(mi)
+                      </div>
+                    </div>
+                    <div className='detailDiv middle'>
+                      <div className='inDetailDiv'>
+                        {friend.time}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Avg Pace(min/mi)
+                      </div>
+                    </div>
+                    <div className='detailDiv'>
+                      <div className='inDetailDiv'>
+                        {friend.time}
+                      </div>
+                      <div className='descriptionDiv'>
+                        Duration
+                      </div>
+                    </div>
+                  </div>
+                  <div id='lastDiv'>
+
+                    {!showMenu && (
+                      <span id='commentsButton' onClick={() => {openMenu(friend?.id)}}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                    {showMenu && (
+                      <span id='commentsButton' onClick={closeMenu}>
+                        <FaRegComments />
+                      </span>
+                    )}
+
+                  </div>
+                  {(showMenu && cardId === friend.id) && (
+                    <>
+                      <CommentsFeed id={friend.id}/>
+                    <div className='commentForm'>
+                      <div className='formPic'>
+                        Picture
+                      </div>
+                      <div className='formField'>
+                      <form onSubmit={(event)=> handleSubmit(event, friend.id)} className='commentInput'>
+                            <textarea
+                                rows='1'
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)}
+                                name="body"
+                                placeholder="Add a comment"
+                            ></textarea>
+                            <div className='formButtonDiv'>
+                              <button className='formButton' type="submit">Submit</button>
+                            </div>
+                      </form>
+                      </div>
+                    </div>
+                  </>
+                  )}
+                </div>
+              </div>
+            )
+            })}
+        </div>
+    </>
+    )
+  }
+  /******** If Friends is clicked, ABOVE will render **********/
+
+
 
   return (
     <>
         <div id='middle'>
           <div id='dropdown'>
-                <button>Explore</button>
+                {/* <button onClick={seeFriends}>
+                  Explore
+                </button> */}
+                <button onClick={openDrop}>
+                  Explore
+                </button>
+
+                {drop && (
+                  <button onClick={seeFriends}>
+                  Friends
+                  </button>
+                )}
           </div>
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
