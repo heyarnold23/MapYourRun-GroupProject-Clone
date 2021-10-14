@@ -23,8 +23,15 @@ export default function ActivityFeed() {
   const [commentTest, setCommentTest] = useState(false);
 
   const runsArr = Object.values(runs)
-  const friendsIdArr = sessionUser.friends.map(friend => friend.id)
-  const friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id) )
+
+  let friendsIdArr;
+  let friendsRuns;
+
+  if (sessionUser) {
+    friendsIdArr = sessionUser.friends.map(friend => friend.id)
+    friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id) )
+  }
+  // const friendsIdArr = sessionUser.friends.map(friend => friend.id)
 
 
   // console.log("this is Runs", runsArr);
