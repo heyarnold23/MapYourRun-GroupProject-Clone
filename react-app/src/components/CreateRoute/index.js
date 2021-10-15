@@ -8,7 +8,9 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import { setRuns } from '../../store/runs';
 import {useLocation} from "react-router-dom"
 import { editRun } from "../../store/runs";
-
+import LoadSpinner from "../LoadSpinner/LoadSpinner";
+import { addModal, toggleModalView } from "../../store/session";
+import FormModal from "../Modal";
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
@@ -20,6 +22,9 @@ const CreateRoute = () => {
     const [formFilled,toggleFormFilled] = useState(false)
     const currentUser = useSelector(state=>state.session.user)
 
+    const [isLoaded, setIsLoaded] = useState(false);
+    const modalType= useSelector((state)=>state.session.modalType)
+    const modalView = useSelector(state => state.session.modalView)
     mapboxgl.accessToken = 'pk.eyJ1Ijoic3RldmVuYmFybmV0dDEiLCJhIjoiY2t0a2w1bDh1MW13cjJvbnh2Nm4xeHg4ZSJ9.tfF8CCQtdVQSCHxliRtaQQ';
 
     const mapContainer = useRef(null);
@@ -33,6 +38,8 @@ const CreateRoute = () => {
 
     console.log("LOCATION STATE OUTER ",location.state)
     useEffect(()=>{
+        dispatch(addModal("loading"))
+        dispatch(toggleModalView(true))
         console.log("LOCATION STATE INNER ",location.state)
         if(!location.state)return
         setData(location.state)
@@ -114,6 +121,7 @@ const CreateRoute = () => {
                     profile: 'mapbox/walking'
                   });
                   map.current.addControl(map.current.directions, 'top-left');
+                setIsLoaded(true)
                 map.current.directions.on("route", e => {
                     // routes is an array of route objects as documented here:
                     // https://docs.mapbox.com/api/navigation/#route-object
@@ -133,6 +141,11 @@ const CreateRoute = () => {
         });
 
         useEffect(()=>{
+            if(isLoaded){
+                dispatch(toggleModalView(false))
+            }
+        },[isLoaded])
+        useEffect(()=>{
             if(startPoint && endPoint && distance && time){
                 toggleFormFilled(true)
                 fly()
@@ -150,6 +163,7 @@ const CreateRoute = () => {
         });
 
         return (
+
             <div id = "create-route-page">
                 {formFilled && (
                 <form onSubmit={onSubmit}>
@@ -162,6 +176,7 @@ const CreateRoute = () => {
                 </form>
                 )}
                 <div ref={mapContainer} className="map-container" />
+                {modalView ? (<FormModal/>):null}
             </div>
 
         )

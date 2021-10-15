@@ -15,6 +15,17 @@
     border-bottom-left-radius: 0px;
 }
 
+#user-form select {
+    width:99%;
+    height:45px;
+    border:none;
+    border-radius:inherit;
+    border-bottom: 1px solid lightgray;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+
 #user-form input:focus {
     outline:none;
     background-color: transparent;
