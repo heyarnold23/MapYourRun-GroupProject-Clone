@@ -59,6 +59,7 @@ table, th, td {
 
 .edit-run-link, .delete-run-button {
     margin: 2rem;
+    transition-duration: .5s;
 }
 
 .edit-run-link {
