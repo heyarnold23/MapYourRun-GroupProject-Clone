@@ -40,3 +40,10 @@
     margin-left: 0;
     text-align: left;
 }
+
+hr {
+    border-color: lightgray;
+    width: 80%;
+    border-top: 1px solid lightgray;
+}
+
