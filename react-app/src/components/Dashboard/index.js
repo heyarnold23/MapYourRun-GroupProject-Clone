@@ -25,9 +25,10 @@ export default function Dashboard() {
         runArr = Object.values(runs)
         runArr = runArr.filter(run => run?.runner_id === sessionUser?.id)
          runArr.map(run => {
-            distance += Math.floor(run.distance)
+            distance += run.distance
         })
-        calories = distance * 102;
+        calories = (distance * 102).toFixed(0);
+        distance = distance.toFixed(1)
     }
 
     useEffect(() => {
