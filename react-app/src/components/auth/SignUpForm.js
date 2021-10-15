@@ -84,6 +84,7 @@ const SignUpForm = () => {
           onChange={updateUsername}
           value={username}
           placeholder="User Name"
+          required
         />
 
 
@@ -93,6 +94,7 @@ const SignUpForm = () => {
           onChange={updateEmail}
           value={email}
           placeholder="Email"
+          required
         />
 
         <input
@@ -101,6 +103,7 @@ const SignUpForm = () => {
           onChange={updatePassword}
           value={password}
           placeholder="Password"
+          required
         />
 
         <input
@@ -110,6 +113,7 @@ const SignUpForm = () => {
           value={repeatPassword}
           required={true}
           placeholder="Repeat Password"
+          required
         />
 
         <input
@@ -118,6 +122,7 @@ const SignUpForm = () => {
           onChange={updateAge}
           value={age}
           placeholder="Age"
+          required
         />
 
         <input
@@ -126,6 +131,7 @@ const SignUpForm = () => {
           onChange={updateWeight}
           value={weight}
           placeholder="Weight"
+          required
         />
 
         <select style = {{borderBottom:0, borderRadius:"10px"}}
@@ -133,6 +139,7 @@ const SignUpForm = () => {
           name='height'
           onChange={updateHeight}
           value={height}
+          required
         >
           <option value="" selected disabled hidden >Height</option>
           <option value="3'1">3'1"</option>

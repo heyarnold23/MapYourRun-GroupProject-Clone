@@ -7,7 +7,7 @@ import {FaRegComments} from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
 import EditCommentForm from '../EditCommentForm';
 import { setRequest } from '../../store/social';
-import {FaUserPlus, BiUserPlus} from 'react-icons/fa'
+import {FaUserPlus} from 'react-icons/fa'
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
