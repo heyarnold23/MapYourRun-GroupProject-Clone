@@ -3,9 +3,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import { getRunsThunk } from '../../store/runs';
 import { NavLink } from 'react-router-dom';
 import './Dashboard.css'
-import { addModal, toggleModalView} from '../../store/session';
+// import { addModal, toggleModalView} from '../../store/session';
 import { deleteRun } from '../../store/runs';
-
+import { FaRegTrashAlt } from 'react-icons/fa'
+import { TiEdit } from 'react-icons/ti'
 
 export default function Dashboard() {
     const sessionUser = useSelector(state => state.session?.user);
@@ -69,8 +70,8 @@ export default function Dashboard() {
                             </td>
                             <td>
                                 <div className="buttons_wrapper">
-                                    <NavLink to = {{pathname:"/new-route",state:run}} className = "edit-run-link">Edit</NavLink>
-                                    <button onClick = {()=>deleteClick(run.id)} className = "delete-run-button">Delete</button>
+                                    <NavLink to = {{pathname:"/new-route",state:run}} className = "edit-run-link"><TiEdit /></NavLink>
+                                    <button onClick = {()=>deleteClick(run.id)} className = "delete-run-button"><FaRegTrashAlt /></button>
                                 </div>
                             </td>
                         </tr>
