@@ -59,6 +59,7 @@ table, th, td {
 
 .edit-run-link, .delete-run-button {
     margin: 2rem;
+    transition-duration: .5s;
 }
 
 .edit-run-link {
@@ -67,7 +68,7 @@ table, th, td {
     border: 1px solid black;
     width: 3rem;
     text-align: center;
-    background-color: #5cdb5c ;
+    background-color: #5cdb5c;
     border-radius: 3px;
     box-shadow: 5px 2px 2px lightgray;
 }
