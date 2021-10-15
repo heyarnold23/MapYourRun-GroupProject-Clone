@@ -26,16 +26,22 @@ export default function ActivityFeed() {
 
   let friendsIdArr;
   let friendsRuns;
+  let moreFriendsIdArr;
+  let moreFriendsRuns;
+  let ultimateFriends;
 
   if (sessionUser) {
-    friendsIdArr = sessionUser.friends.map(friend => friend.id)
+    friendsIdArr = sessionUser.friends.map(friend => friend.id);
+    moreFriendsIdArr = sessionUser.moreFriends.map(friend => friend.id);
     friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id))
+    moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr.includes(run.runner_id))
+    ultimateFriends = [...friendsRuns, ...moreFriendsRuns]
   }
   // const friendsIdArr = sessionUser.friends.map(friend => friend.id)
 
 
   // console.log("this is Runs", runsArr);
-  // console.log("this is friendsIdArr", friendsIdArr);
+  console.log("this is friendsIdArr", friendsIdArr);
   // console.log("this is friendsRuns", friendsRuns);
   // console.log('this is commentsObject',commentsObject);
 
@@ -122,6 +128,11 @@ export default function ActivityFeed() {
 
   }
 
+  const checkFriends = (runner_id) => {
+    console.log(runner_id);
+    return(friendsIdArr.includes(runner_id) || moreFriendsIdArr.includes(runner_id))
+  };
+
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
@@ -148,7 +159,7 @@ export default function ActivityFeed() {
             )}
           </div>
 
-          {friendsRuns.map(friend => {
+          {ultimateFriends.map(friend => {
 
             return (
               <div key={friend.id} className='cardDiv' id={friend.id}>
@@ -275,7 +286,7 @@ export default function ActivityFeed() {
                   <p id='name'>
                     {run?.user_name.username} went for a run
                   </p>
-                  {sessionUser && (
+                  {(sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id) === false) && (
                     <div className='addFriend'>
                       {/* <button onClick={sendRequest}> */}
                       <button onClick={(event) => sendRequest(event, run.runner_id)}>
