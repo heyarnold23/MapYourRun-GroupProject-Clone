@@ -47,3 +47,15 @@ table, th, td {
     text-align: center;
     padding: 2rem;
 }
+
+.buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.edit-run-link, .delete-run-button {
+    margin: 2rem;
+}
