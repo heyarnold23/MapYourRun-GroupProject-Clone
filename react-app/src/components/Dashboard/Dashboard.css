@@ -20,6 +20,7 @@
 table {
     width: 80%;
     border: 1px solid lightgray;
+    margin-bottom: 8rem;
 }
 
 table, th, td {
