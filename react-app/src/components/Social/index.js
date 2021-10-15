@@ -11,6 +11,8 @@ const Social = () => {
     const friends = currentUser.friends
     const moreFriends = currentUser.moreFriends
     const pendingFriends = useSelector(state=>state.social.pending_friends)
+    
+    
 
     useEffect(()=>{
         if(!currentUser)return
@@ -35,6 +37,7 @@ return (
     <div className="outer_wrapper">
         <h1>Friend Requests:</h1>
         <div className="requests_wrapper">
+             {!pendingFriends?.length && (<p>Pending friends will appear here</p>)}
             { pendingFriends && pendingFriends.map(pendingFriend=>{
                 return (<div className="requests" key={pendingFriend.id}>
                    <p className="friend_name"><b>{pendingFriend?.username?.split("")[0].toUpperCase() + pendingFriend?.username?.slice(1)}</b> </p>
@@ -42,9 +45,11 @@ return (
                     <button onClick = {()=>denyClick(pendingFriend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
+            {!pendingFriends && (<h2>Pending friends will appear here</h2>)}
         </div>
         <h1>Friends:</h1>
         <div className="friends_wrapper">
+        {!friends?.length && (<p>Friends will appear here</p>)}
             {friends && friends.map(friend=>{
                 return (<div className="friends" key={friend.id}>
                    <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
