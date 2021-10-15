@@ -154,7 +154,7 @@ export default function ActivityFeed() {
                     </div> */}
                   </div>
                   <div id='screenshot'>
-                  {(<img src = {run?.image_url} width="200px" height="100px"></img>)}
+                  {(<img src = {run?.image_url} width="250px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
@@ -264,7 +264,7 @@ export default function ActivityFeed() {
                     </p>
                   </div>
                   <div id='screenshot'>
-                    {(<img src = {friend?.image_url} width="200px" height="100px"></img>)}
+                    {(<img src = {friend?.image_url} width="250px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
@@ -278,10 +278,10 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv middle'>
                       <div className='inDetailDiv'>
-                      {Math.floor(friend?.time/3600) < 1 ? "" : `${Math.floor(friend?.time/3600)} hour${Math.floor(friend?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(friend?.time/3600) < 1 ? `${(((friend?.time/3600)%1)*60).toFixed(0)} minute${Number(((friend?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((friend?.time/3600)%1)*60).toFixed(0)} minutes`}
+                      {(friend.distance*102).toFixed(1)}
                       </div>
                       <div className='descriptionDiv'>
-                        Avg Pace(min/mi)
+                        Calories Burned(kcal)
                       </div>
                     </div>
                     <div className='detailDiv'>
@@ -383,7 +383,7 @@ export default function ActivityFeed() {
                     </div>
                   </div>
                   <div id='screenshot'>
-                  {(<img src = {run?.image_url} width="200px" height="100px"></img>)}
+                  {(<img src = {run?.image_url} width="250px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
@@ -397,10 +397,10 @@ export default function ActivityFeed() {
                     </div>
                     <div className='detailDiv middle'>
                       <div className='inDetailDiv'>
-                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
+                      {(run.distance*102).toFixed(1)}
                       </div>
                       <div className='descriptionDiv'>
-                        Avg Pace(min/mi)
+                        Calories Burned(kcal)
                       </div>
                     </div>
                     <div className='detailDiv'>
