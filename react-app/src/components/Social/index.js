@@ -35,7 +35,7 @@ const removeFriendClick = (friendId) => {
 
 return (
     <div className="outer_wrapper">
-        <h1>Friend Requests:</h1>
+        <h1>Friend Requests</h1>
         <div className="requests_wrapper">
              {!pendingFriends?.length && (<p>Pending friends will appear here</p>)}
             { pendingFriends && pendingFriends.map(pendingFriend=>{
@@ -47,7 +47,8 @@ return (
             })}
             {!pendingFriends && (<h2>Pending friends will appear here</h2>)}
         </div>
-        <h1>Friends:</h1>
+        <hr></hr>
+        <h1>Friends</h1>
         <div className="friends_wrapper">
         {!friends?.length && (<p>Friends will appear here</p>)}
             {friends && friends.map(friend=>{
