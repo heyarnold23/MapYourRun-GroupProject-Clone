@@ -55,6 +55,7 @@ const LoginForm = () => {
           placeholder='Email'
           value={email}
           onChange={updateEmail}
+          required
         />
         <input style = {{borderBottom:0, borderRadius:"10px"}}
           name='password'
@@ -62,6 +63,7 @@ const LoginForm = () => {
           placeholder='Password'
           value={password}
           onChange={updatePassword}
+          required
         />
       </div>
         <button type='submit'>Login</button>
