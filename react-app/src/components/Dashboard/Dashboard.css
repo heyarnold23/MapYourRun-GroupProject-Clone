@@ -22,6 +22,7 @@
 table {
     width: 80%;
     border: 1px solid lightgray;
+    margin-bottom: 8rem;
 }
 
 table, th, td {
@@ -48,4 +49,43 @@ table, th, td {
 .table_data {
     text-align: center;
     padding: 2rem;
+}
+
+.buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.edit-run-link, .delete-run-button {
+    margin: 2rem;
+    transition-duration: .5s;
+}
+
+.edit-run-link {
+    font-size: 1rem;
+    color: white;
+    border: 1px solid black;
+    width: 3rem;
+    text-align: center;
+    background-color: #5cdb5c;
+    border-radius: 3px;
+    box-shadow: 5px 2px 2px lightgray;
+}
+
+.delete-run-button {
+    font-size: 1rem;
+    color: white;
+    border: 1px solid black;
+    width: 2.5rem;
+    text-align: center;
+    background-color: #c70000;
+    border-radius: 3px;
+    box-shadow: 5px 2px 2px lightgray;
+}
+
+.edit-run-link:hover, .delete-run-button:hover {
+    box-shadow: 7px 3px 3px rgb(100, 99, 99);
 }

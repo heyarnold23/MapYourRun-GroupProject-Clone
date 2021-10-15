@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from "react-redux"
 import { getFriends, getPendingFriends, acceptFriend, denyFriend, removeFriend} from '../../store/social';
-
+import './Social.css'
+import { FaUserCheck, FaUserMinus } from 'react-icons/fa'
 
 const Social = () => {
     const dispatch = useDispatch()
@@ -31,35 +32,39 @@ const removeFriendClick = (friendId) => {
 }
 
 return (
-    <>
-        <h1>Friend Requests</h1>
+    <div className="outer_wrapper">
+        <h1>Friend Requests:</h1>
+        <div className="requests_wrapper">
             { pendingFriends && pendingFriends.map(pendingFriend=>{
-                return (<div>
-                    {pendingFriend.username}
-                    <button onClick = {()=>acceptClick(pendingFriend.id)}>Accept</button>
-                    <button onClick = {()=>denyClick(pendingFriend.id)}>Deny</button>
+                return (<div className="requests" key={pendingFriend.id}>
+                   <p className="friend_name"><b>{pendingFriend?.username?.split("")[0].toUpperCase() + pendingFriend?.username?.slice(1)}</b> </p>
+                    <button onClick = {()=>acceptClick(pendingFriend.id)} className="button_yes"><FaUserCheck /></button>
+                    <button onClick = {()=>denyClick(pendingFriend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
-        <h1>Friends</h1>
+        </div>
+        <h1>Friends:</h1>
+        <div className="friends_wrapper">
             {friends && friends.map(friend=>{
-                return (<div>
-                    {friend.username}
-                    <button onClick = {()=>removeFriendClick(friend.id)}>Remove Friend</button>
+                return (<div className="friends" key={friend.id}>
+                   <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
+                    <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
             {moreFriends && moreFriends.map(friend=>{
-                return (<div>
-                    {friend.username}
-                    <button onClick = {()=>removeFriendClick(friend.id)}>Remove Friend</button>
+                return (<div className="friends" key={friend.id}>
+                    <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
+                    <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
             {justAddedfriends && justAddedfriends.map(friend=>{
-                return (<div>
-                    {friend.username}
-                    <button onClick = {()=>removeFriendClick(friend.id)}>Remove Friend</button>
+                return (<div className="friends" key={friend.id}>
+                    <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
+                    <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
-    </>
+            </div>
+    </div>
 )
 
 }

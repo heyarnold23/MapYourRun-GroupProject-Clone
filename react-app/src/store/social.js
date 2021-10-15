@@ -126,6 +126,7 @@ export const denyFriend = (id,requester_id) => async dispatch => {
 
     if(res.ok){
         const data = await res.json();
+
         dispatch(setPendingFriends({"pending_friends":data.pending_friends}))
         return null;
     } else if (res.status < 500) {
@@ -147,7 +148,13 @@ export const removeFriend = (id,friendId) => async dispatch => {
     })
     if(res.ok){
         const data = await res.json();
-        dispatch(setFriends({"friends":data.friends}))
+        let newFriends = []
+        for(let friend of data.friends){
+            if(Number(friend['id'])!==Number(friendId)){
+                newFriends.push(friend)
+            }
+        }
+        dispatch(setFriends({"friends":newFriends}))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();
