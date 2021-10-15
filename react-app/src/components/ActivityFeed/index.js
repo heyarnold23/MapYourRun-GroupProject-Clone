@@ -7,6 +7,7 @@ import {FaRegComments} from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
 import EditCommentForm from '../EditCommentForm';
 import { setRequest } from '../../store/social';
+import {FaUserPlus, BiUserPlus} from 'react-icons/fa'
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
@@ -377,8 +378,8 @@ export default function ActivityFeed() {
                     </p>
                     <div className='addFriend'>
                       {/* <button onClick={sendRequest}> */}
-                      <button onClick={(event)=> sendRequest(event, run.runner_id)}>
-                        Add Friend
+                      <button className = "add-friend-button" onClick={(event)=> sendRequest(event, run.runner_id)}>
+                        <FaUserPlus/>
                       </button>
                     </div>
                   </div>
