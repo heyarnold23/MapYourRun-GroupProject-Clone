@@ -16,7 +16,7 @@ const Social = () => {
 
     useEffect(()=>{
         if(!currentUser)return
-        // dispatch(getFriends(currentUser.id))
+        dispatch(getFriends(currentUser.id))
         dispatch(getPendingFriends(currentUser.id))
     },[])
 
@@ -30,7 +30,21 @@ const denyClick = (pendingFriendId) => {
 }
 
 const removeFriendClick = (friendId) => {
-    dispatch(removeFriend(currentUser.id,friendId))
+    const map = moreFriends.map(friend => friend.id)
+
+    if (map.includes(friendId)){
+        const data = {
+            id: friendId,
+            friend_id: currentUser.id
+        }
+        dispatch(removeFriend(data))
+    } else{
+        const data = {
+            id: currentUser.id,
+            friend_id:friendId
+        }
+        dispatch(removeFriend(data))
+    }
 }
 
 return (
