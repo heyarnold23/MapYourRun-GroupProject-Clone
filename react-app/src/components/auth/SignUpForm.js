@@ -128,13 +128,18 @@ const SignUpForm = () => {
           placeholder="Weight"
         />
 
-        <input style = {{borderBottom:0, borderRadius:"10px"}}
+        <select style = {{borderBottom:0, borderRadius:"10px"}}
           type='text'
           name='height'
           onChange={updateHeight}
           value={height}
           placeholder="Height"
-        />
+        >
+        <option value="3'1">3'1"</option>
+            <option value="3'2">3'1"</option>
+            <option value="3'3">3'1"</option>
+            <option value="3'4">3'1"</option>
+        </select>
       </div>
       <button type='submit'>Sign Up</button>
     </form>
