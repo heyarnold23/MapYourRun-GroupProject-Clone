@@ -128,110 +128,8 @@ export default function ActivityFeed() {
     return
   },[dispatch])
 
-  /******** If NOT logged in, BELOW will render **********/
-  if(!sessionUser){
-    return (
-      <>
-        <div id='middle'>
-          {/* <div id='dropdown'>
-                <button>Explore</button>
-          </div> */}
-            {Object.keys(runs)?.map(id => {
-            let run = runs[id]
-            // let runId = run.id
-            // console.log('this is runiddddd',runId);
-            return(
-              <div key={run.id} className='cardDiv' id={run.id}>
-                <div id='profilePicDiv'>
-                  Picture
-                </div>
-                <div id='mainDetailsDiv'>
-                  <div id='nameDiv'>
-                    <p id='name'>
-                      {run?.user_name.username} went for a run
-                    </p>
-                    {/* <div className='delete'>
-                    </div> */}
-                  </div>
-                  <div id='screenshot'>
-                  {(<img src = {run?.image_url} width="250px" height="100px"></img>)}
-                  </div>
-                  <div id='runDetailsDiv'>
-                    <div className='detailDiv'>
-                      <div className='inDetailDiv'>
-                        {run.distance.toFixed(1)}
-                        {run.id}
-                      </div>
-                      <div className='descriptionDiv'>
-                        Distance(mi)
-                      </div>
-                    </div>
-                    <div className='detailDiv middle'>
-                      <div className='inDetailDiv'>
-                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
-                      </div>
-                      <div className='descriptionDiv'>
-                        Avg Pace(min/mi)
-                      </div>
-                    </div>
-                    <div className='detailDiv'>
-                      <div className='inDetailDiv'>
-                      {Math.floor(run?.time/3600) < 1 ? "" : `${Math.floor(run?.time/3600)} hour${Math.floor(run?.time/3600) < 2 ? "" : "s"} ` }{Math.floor(run?.time/3600) < 1 ? `${(((run?.time/3600)%1)*60).toFixed(0)} minute${Number(((run?.time/3600)%1)*60).toFixed(0)<2 ? "" : "s"}`:`${(((run?.time/3600)%1)*60).toFixed(0)} minutes`}
-                      </div>
-                      <div className='descriptionDiv'>
-                        Duration
-                      </div>
-                    </div>
-                  </div>
-                  <div id='lastDiv'>
-                    {/* implement a show button functionality here */}
-                    {/* Maybe make a comments component and have it be a child here on show menu */}
 
-                    {!showMenu && (
-                      <span id='commentsButton' onClick={() => {openMenu(run?.id)}}>
-                        <FaRegComments />
-                      </span>
-                    )}
 
-                    {showMenu && (
-                      <span id='commentsButton' onClick={closeMenu}>
-                        <FaRegComments />
-                      </span>
-                    )}
-
-                    {/* <div id='createdDate'>
-                      created
-                    </div> */}
-                  </div>
-                  {/* If conditional here to show comments feed if CommentButton is clicked */}
-                  {/* <div id='comments'>
-                      {run?.comments?.map(comment => comment.body)}
-                  </div> */}
-                  {(showMenu && cardId === run.id) && (
-                    <>
-                      <CommentsFeed id={run.id}/>
-                      <div className='commentForm'>
-                        {/* <div className='formPic'>
-                          Picture
-                        </div> */}
-                        <div className='signInPls'>
-                        Sign in to comment
-                        </div>
-                      </div>
-                  </>
-                  )}
-                </div>
-              </div>
-            )
-            })}
-        </div>
-      </>
-    )
-  }
-  /******** If NOT logged in, ABOVE will render **********/
-
-  // console.log(sessionUser.friends.map(friend => friend));
-  // console.log(sessionUser.friends.map(friend => friend.id));
 
   /******** If Friends is clicked, BELOW will render **********/
   if (shifter) {
@@ -347,6 +245,7 @@ export default function ActivityFeed() {
   return (
     <>
         <div id='middle'>
+        {sessionUser && (
           <div id='dropdown'>
                 {/* <button onClick={seeFriends}>
                   Explore
@@ -361,6 +260,7 @@ export default function ActivityFeed() {
                   </button>
                 )}
           </div>
+        )}
             {Object.keys(runs)?.map(id => {
             let run = runs[id]
             // let runId = run.id
@@ -375,15 +275,17 @@ export default function ActivityFeed() {
                     <p id='name'>
                       {run?.user_name.username} went for a run
                     </p>
+                    {sessionUser && (
                     <div className='addFriend'>
                       {/* <button onClick={sendRequest}> */}
                       <button onClick={(event)=> sendRequest(event, run.runner_id)}>
                         Add Friend
                       </button>
                     </div>
+                    )}
                   </div>
                   <div id='screenshot'>
-                  {(<img src = {run?.image_url} width="250px" height="100px"></img>)}
+                  {(<img src = {run?.image_url} alt='screenshot' width="250px" height="100px"></img>)}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
@@ -439,6 +341,7 @@ export default function ActivityFeed() {
                   {(showMenu && cardId === run.id) && (
                     <>
                       <CommentsFeed id={run.id}/>
+                    {sessionUser && (
                     <div className='commentForm'>
                       <div className='formPic'>
                         Picture
@@ -463,6 +366,7 @@ export default function ActivityFeed() {
                         </button>
                       </div> */}
                     </div>
+                    )}
                   </>
                   )}
                 </div>
