@@ -161,8 +161,8 @@ export default function ActivityFeed() {
                       {friend?.user_name.username} went for a run
                     </p>
                   </div>
-                  <div id='screenshot'>
-                    {(<img src = {friend?.image_url} width="250px" height="100px"></img>)}
+                  <div id='screenshot' style={{ backgroundImage: `url(${friend?.image_url})`}}>
+                    {/* {(<img src = {friend?.image_url} width="250px" height="100px"></img>)} */}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
@@ -284,8 +284,8 @@ export default function ActivityFeed() {
                     </div>
                     )}
                   </div>
-                  <div id='screenshot'>
-                  {(<img src = {run?.image_url} alt='screenshot' width="250px" height="100px"></img>)}
+                  <div id='screenshot' style={{ backgroundImage: `url(${run?.image_url})`}}>
+                  {/* {(<img src = {run?.image_url} alt='screenshot' width="250px" height="100px"></img>)} */}
                   </div>
                   <div id='runDetailsDiv'>
                     <div className='detailDiv'>
