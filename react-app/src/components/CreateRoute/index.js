@@ -11,6 +11,9 @@ import { editRun } from "../../store/runs";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import { addModal, toggleModalView } from "../../store/session";
 import FormModal from "../Modal";
+/* eslint import/no-webpack-loader-syntax: off */
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+mapboxgl.workerClass = MapboxWorker
 
 const CreateRoute = () => {
     const dispatch = useDispatch()
