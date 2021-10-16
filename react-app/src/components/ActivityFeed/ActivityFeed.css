@@ -177,3 +177,7 @@
 height:2em;
 width:2em;
 }
+
+#middle>div:last-of-type{
+    margin-bottom:140px;
+}
