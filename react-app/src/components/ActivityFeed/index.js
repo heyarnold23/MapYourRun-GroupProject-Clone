@@ -164,9 +164,9 @@ export default function ActivityFeed() {
 
             return (
               <div key={friend.id} className='cardDiv' id={friend.id}>
-                <div id='profilePicDiv'>
+                {/* <div id='profilePicDiv'>
                   Picture
-                </div>
+                </div> */}
                 <div id='mainDetailsDiv'>
                   <div id='nameDiv'>
                     <p id='name'>
@@ -222,9 +222,8 @@ export default function ActivityFeed() {
                     <>
                       <CommentsFeed id={friend.id} />
                       <div className='commentForm'>
-                        <div className='formPic'>
-                          Picture
-                        </div>
+                        {/* <div className='formPic'>
+                        </div> */}
                         <div className='formField'>
                           <form onSubmit={(event) => handleSubmit(event, friend.id)} className='commentInput'>
                             <textarea
@@ -279,9 +278,6 @@ export default function ActivityFeed() {
           // console.log('this is runiddddd',runId);
           return (
             <div key={run.id} className='cardDiv' id={run.id}>
-              <div id='profilePicDiv'>
-                Picture
-              </div>
               <div id='mainDetailsDiv'>
                 <div id='nameDiv'>
                   <p id='name'>
@@ -355,9 +351,9 @@ export default function ActivityFeed() {
                     <CommentsFeed id={run.id} />
                     {sessionUser && (
                       <div className='commentForm'>
-                        <div className='formPic'>
+                        {/* <div className='formPic'>
                           Picture
-                        </div>
+                        </div> */}
                         <div className='formField'>
                           <form onSubmit={(event) => handleSubmit(event, run.id)} className='commentInput'>
                             <textarea
