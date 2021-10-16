@@ -19,6 +19,12 @@ def user(id):
     return user.to_dict()
 
 
+@user_routes.route("/<int:id>/more_friends")
+@login_required
+def more_friends(id):
+    user = User.query.get(id)
+    return {'more_friends': [user.get_friend_info() for user in user.other_side_friends_association]}
+
 @user_routes.route("/<int:id>/friends")
 @login_required
 def friends(id):
@@ -66,7 +72,12 @@ def remove_friend(id):
     friend = User.query.get(friend_id)
     user.friends_association.remove(friend)
     db.session.commit()
-    return user.to_dict()
+    try:
+        actual = int(request.json['actual'])
+        final = User.query.get(actual)
+        return final.to_dict()
+    except:
+        return user.to_dict()
 
     #delete from friends
 
