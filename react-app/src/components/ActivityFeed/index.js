@@ -273,10 +273,11 @@ export default function ActivityFeed() {
             )}
           </div>
         )}
-        {Object.keys(runs)?.map(id => {
+        {Object.keys(runs)?.map((id) => {
           let run = runs[id]
           // let runId = run.id
           // console.log('this is runiddddd',runId);
+
           return (
             <div key={run.id} className='cardDiv' id={run.id}>
               <div id='profilePicDiv'>
