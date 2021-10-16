@@ -6,13 +6,16 @@ import CommentsFeed from '../Comments';
 import { FaRegComments } from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
 import EditCommentForm from '../EditCommentForm';
-import { setRequest } from '../../store/social';
+import { getFriends, getMoreFriends, setRequest } from '../../store/social';
 import {FaUserPlus} from 'react-icons/fa'
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const runs = useSelector(store => store?.runs)
   const commentsObject = useSelector(state => state?.comments)
+  const friendsArr = useSelector(state=>state.social.friends)
+  const moreFriendsArr = useSelector(state=>state.social.more_friends)
+  console.log("FRIENDS OBJJJJJ", friendsArr);
 
   const dispatch = useDispatch()
 
@@ -25,15 +28,15 @@ export default function ActivityFeed() {
 
   const runsArr = Object.values(runs)
 
-  let friendsIdArr;
+  let friendsIdArr
   let friendsRuns;
   let moreFriendsIdArr;
   let moreFriendsRuns;
   let ultimateFriends;
 
   if (sessionUser) {
-    friendsIdArr = sessionUser.friends.map(friend => friend.id);
-    moreFriendsIdArr = sessionUser.moreFriends.map(friend => friend.id);
+    friendsIdArr = friendsArr?.map(friend => friend.id);
+    moreFriendsIdArr = moreFriendsArr?.map(friend => friend.id);
     friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id))
     moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr.includes(run.runner_id))
     ultimateFriends = [...friendsRuns, ...moreFriendsRuns]
@@ -137,8 +140,9 @@ export default function ActivityFeed() {
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
-    return
-  }, [dispatch])
+    dispatch(getFriends(sessionUser.id))
+    dispatch(getMoreFriends(sessionUser.id))
+  }, [dispatch, sessionUser.id])
 
 
 
