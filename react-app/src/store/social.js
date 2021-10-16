@@ -150,7 +150,7 @@ export const removeFriend = (data) => async dispatch => {
         const data = await res.json();
         let newFriends = []
         for(let friend of data.friends){
-            if(Number(friend['id'])!==Number(friendId)){
+            if(Number(friend['id'])!==Number(data.friendId)){
                 newFriends.push(friend)
             }
         }

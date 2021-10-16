@@ -51,9 +51,9 @@ export default function CommentsFeed({id}) {
         <>
             {filteredComments.map((comment) =>
             <div key={comment.id}className='commentDiv'>
-                <div className='commentPicDiv'>
+                {/* <div className='commentPicDiv'>
                     Picture
-                </div>
+                </div> */}
                 <div className='nameBodyDiv'>
                     <div className='commentNameDiv'>
                     {comment?.user_name?.username}
