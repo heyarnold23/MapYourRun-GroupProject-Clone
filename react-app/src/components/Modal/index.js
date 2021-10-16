@@ -22,6 +22,8 @@ function FormModal() {
     userForm = (<LoadSpinner/>)
   }
 
+  
+
   return (
     <>
       {modalView && (

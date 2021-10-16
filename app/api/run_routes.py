@@ -59,4 +59,3 @@ def delete_run(id):
     return {
         'deleted_run': run.to_dict()
     }
-

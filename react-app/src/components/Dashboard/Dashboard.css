@@ -84,6 +84,7 @@ table, th, td {
     background-color: #c70000;
     border-radius: 3px;
     box-shadow: 5px 2px 2px lightgray;
+    cursor:pointer;
 }
 
 .edit-run-link:hover, .delete-run-button:hover {
