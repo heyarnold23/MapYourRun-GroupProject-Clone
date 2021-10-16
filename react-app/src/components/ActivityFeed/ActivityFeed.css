@@ -173,10 +173,22 @@
     border:none;
 }
 
+
 .add-friend-button > svg{
-height:2em;
-width:2em;
+    height:2em;
+    width:2em;
 }
+
+.sent-friend-and-friend{
+    background-color: transparent;
+    border:none;
+}
+
+.sent-friend-and-friend > svg{
+    height:2em;
+    width:2em;
+}
+
 
 #middle>div:last-of-type{
     margin-bottom:140px;

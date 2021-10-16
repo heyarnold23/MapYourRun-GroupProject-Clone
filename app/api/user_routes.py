@@ -39,6 +39,13 @@ def pending_friends(id):
     print("\n\n\n\n\n\n\n\n",{'pending_friends': [user.get_friend_info() for user in user.pending_friends_association]})
     return {'pending_friends': [user.get_friend_info() for user in user.pending_friends_association]}
 
+@user_routes.route("/<int:id>/sent_pending_friends")
+@login_required
+def sent_pending_friends(id):
+    user = User.query.get(id)
+    print("\n\n\n\n\n\n\n\n",{'pending_friends': [user.get_friend_info() for user in user.other_side_pending_friends_association]})
+    return {'sent_pending_friends': [user.get_friend_info() for user in user.other_side_pending_friends_association]}
+
 
 @user_routes.route("/<int:id>/friends/accept",methods=["POST"])
 @login_required

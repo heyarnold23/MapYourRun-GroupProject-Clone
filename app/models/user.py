@@ -38,6 +38,9 @@ class User(db.Model, UserMixin):
     pending_friends_association = db.relationship("User", secondary=pending_friends, primaryjoin=(pending_friends.c.acceptor_id == id),
     secondaryjoin=(pending_friends.c.requester_id == id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
 
+    other_side_pending_friends_association = db.relationship("User", secondary=pending_friends, primaryjoin=(pending_friends.c.requester_id == id),
+    secondaryjoin=(pending_friends.c.acceptor_id == id), lazy="dynamic")
+
     user_runs = db.relationship("Run", back_populates="runnings")
     user_comments = db.relationship('Comment', back_populates='author', lazy='subquery')
 

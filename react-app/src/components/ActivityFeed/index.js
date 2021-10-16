@@ -6,15 +6,21 @@ import CommentsFeed from '../Comments';
 import { FaRegComments } from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
 import EditCommentForm from '../EditCommentForm';
-import { getFriends, getMoreFriends, setRequest } from '../../store/social';
-import {FaUserPlus} from 'react-icons/fa'
+import { getFriends, getSentPendingRequests, getPendingFriends, getMoreFriends, setRequest } from '../../store/social';
+import { FaUserPlus } from 'react-icons/fa'
+import { RiUserFollowFill } from 'react-icons/ri'
+import { RiUserShared2Fill } from 'react-icons/ri'
+import { RiUserReceived2Fill } from 'react-icons/ri'
+
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const runs = useSelector(store => store?.runs)
   const commentsObject = useSelector(state => state?.comments)
-  const friendsArr = useSelector(state=>state.social.friends)
-  const moreFriendsArr = useSelector(state=>state.social.more_friends)
+  const friendsArr = useSelector(state => state.social.friends)
+  const moreFriendsArr = useSelector(state => state.social.more_friends)
+  const pendingFriendsArr = useSelector(state => state.social.pending_friends)
+  const sentPendingFriends = useSelector(state => state.social.sent_pending_friends)
   console.log("FRIENDS OBJJJJJ", friendsArr);
 
   const dispatch = useDispatch()
@@ -32,11 +38,15 @@ export default function ActivityFeed() {
   let friendsRuns;
   let moreFriendsIdArr;
   let moreFriendsRuns;
+  let pendingFriendsIdArr;
+  let sentPendingFriendsIdArr;
   let ultimateFriends;
 
   if (sessionUser) {
     friendsIdArr = friendsArr?.map(friend => friend.id);
     moreFriendsIdArr = moreFriendsArr?.map(friend => friend.id);
+    pendingFriendsIdArr = pendingFriendsArr?.map(friend => friend.id);
+    sentPendingFriendsIdArr = sentPendingFriends?.map(friend => friend.id)
     friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id))
     moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr.includes(run.runner_id))
     ultimateFriends = [...friendsRuns, ...moreFriendsRuns]
@@ -133,8 +143,18 @@ export default function ActivityFeed() {
   }
 
   const checkFriends = (runner_id) => {
-    console.log(runner_id);
-    return(friendsIdArr.includes(runner_id) || moreFriendsIdArr.includes(runner_id))
+    // console.log(runner_id);
+    return (friendsIdArr.includes(runner_id) || moreFriendsIdArr.includes(runner_id))
+  };
+
+  const checkPendingFriends = (runner_id) => {
+    // console.log(runner_id);
+    return (pendingFriendsIdArr.includes(runner_id))
+  };
+
+  const checkSentFriends = (runner_id) => {
+    // console.log(runner_id);
+    return (sentPendingFriendsIdArr.includes(runner_id))
   };
 
   useEffect(() => {
@@ -142,6 +162,8 @@ export default function ActivityFeed() {
     dispatch(getCommentsThunk())
     dispatch(getFriends(sessionUser.id))
     dispatch(getMoreFriends(sessionUser.id))
+    dispatch(getSentPendingRequests(sessionUser.id))
+    dispatch(getPendingFriends(sessionUser.id))
   }, [dispatch, sessionUser.id])
 
 
@@ -288,14 +310,33 @@ export default function ActivityFeed() {
                   <p id='name'>
                     {run?.user_name.username} went for a run
                   </p>
-                  {(sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id) === false) && (
+                  {(sessionUser && sessionUser.id !== run.runner_id && checkSentFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserShared2Fill />
+                      </span>
+                    </div>
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkPendingFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserReceived2Fill />
+                      </span>
+                    </div>
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id) === false) ? (
                     <div className='addFriend'>
                       {/* <button onClick={sendRequest}> */}
-                      <button className = "add-friend-button" onClick={(event)=> sendRequest(event, run.runner_id)}>
-                        <FaUserPlus/>
+                      <button className="add-friend-button" onClick={(event) => sendRequest(event, run.runner_id)}>
+                        <FaUserPlus />
                       </button>
                     </div>
-                  )}
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserFollowFill />
+                      </span>
+                    </div>
+                  ) : null
+                  }
                 </div>
                 <div id='screenshot' style={{ backgroundImage: `url(${run?.image_url})` }}>
                   {/* {(<img src = {run?.image_url} alt='screenshot' width="250px" height="100px"></img>)} */}

@@ -1,6 +1,7 @@
 const SET_FRIENDS = "social/SET_FRIENDS"
 const SET_MORE_FRIENDS = "social/SET_MORE_FRIENDS"
 const SET_PENDING_FRIENDS = "social/SET_PENDING_FRIENDS"
+const SET_SENT_PENDING_FRIENDS = "social/SET_SENT_PENDING_FRIENDS"
 const ADD_REQUEST = 'social/ADD_REQUEST'
 
 
@@ -25,6 +26,13 @@ export const setPendingFriends = (pending_friends) => {
     }
 }
 
+export const setSentPendingFriends = (sent_pending_friends) => {
+    return {
+        type: SET_SENT_PENDING_FRIENDS,
+        payload: sent_pending_friends
+    }
+}
+
 export const addRequest = (pendingReq) => ({
     type: ADD_REQUEST,
     pendingReq
@@ -40,6 +48,27 @@ export const getPendingFriends = (id) => async dispatch => {
     if (res.ok) {
         const data = await res.json();
         dispatch(setPendingFriends(data))
+        return null;
+    } else if (res.status < 500) {
+        const data = await res.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const getSentPendingRequests = (id) => async dispatch => {
+    const res = await fetch(`/api/users/${id}/sent_pending_friends`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(setSentPendingFriends(data))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();
@@ -248,6 +277,9 @@ export default function socialReducer(state = initialState, action) {
             newState = { ...state, ...action.payload }
             return newState
         case SET_PENDING_FRIENDS:
+            newState = { ...state, ...action.payload }
+            return newState
+        case SET_SENT_PENDING_FRIENDS:
             newState = { ...state, ...action.payload }
             return newState
         case ADD_REQUEST:
