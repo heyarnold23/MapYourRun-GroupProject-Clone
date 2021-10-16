@@ -89,7 +89,7 @@ const SignUpForm = () => {
 
 
         <input
-          type='text'
+          type='email'
           name='email'
           onChange={updateEmail}
           value={email}
