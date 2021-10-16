@@ -76,8 +76,8 @@ const CreateRoute = () => {
 
         // let northEast = [maxLat+0.1,maxLong+0.1]
         // let southWest = [minLat-0.1,minLong-0.1]
-        let northEast = [maxLat+0.0001,maxLong+0.0001]
-        let southWest = [minLat-0.0001,minLong-0.0001]
+        let northEast = [maxLat+0.002,maxLong+0.002]
+        let southWest = [minLat-0.002,minLong-0.002]
 
         if(maxLat && maxLong && minLat && minLong){
                 map.current.fitBounds([
@@ -91,15 +91,13 @@ const CreateRoute = () => {
 
     const onSubmit = (e) => {
         const image = screenshot()
-        if(startPoint && endPoint && distance && time){
+        if(startPoint && endPoint && distance && time && image && currentUser){
             if(data){
                 dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
             }
             else{
-                console.log("IMAGE: ", image)
                 dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
             }
-
         }
 
 
@@ -133,7 +131,6 @@ const CreateRoute = () => {
                     updateEndPoint(`${map.current.directions.getDestination().geometry.coordinates[0]},${map.current.directions.getDestination().geometry.coordinates[1]}`)
                     setDistance(distance)
                     setTime(distance*60*8)
-                    fly()
 
                 })
 
