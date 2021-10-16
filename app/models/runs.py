@@ -16,9 +16,10 @@ class Run(db.Model):
     distance = db.Column(db.Float, nullable = False)
     time = db.Column(db.Float, nullable = False)
     runner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
+    image_url = db.Column(db.Text, nullable = False)
 
     runnings = db.relationship("User",back_populates = "user_runs")
-    comments = db.relationship("Comment", back_populates = 'run')
+    comments = db.relationship("Comment", back_populates = 'run', cascade="all, delete")
 
 # to dict function here
     def to_dict(self):
@@ -29,6 +30,7 @@ class Run(db.Model):
             'distance': self.distance,
             'time': self.time,
             'runner_id': self.runner_id,
+            'image_url':self.image_url,
             'user_name': self.runnings.to_dict(),
             'comments': [comment.to_dict() for comment in self.comments]
         }

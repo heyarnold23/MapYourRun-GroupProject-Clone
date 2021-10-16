@@ -32,11 +32,14 @@ class User(db.Model, UserMixin):
     friends_association = db.relationship("User", secondary=friends, primaryjoin=(friends.c.runner1_id == id),
     secondaryjoin=(friends.c.runner2_id == id), backref=db.backref("friends", lazy="dynamic"), lazy="dynamic")
 
+    other_side_friends_association = db.relationship("User", secondary=friends, primaryjoin=(friends.c.runner2_id == id),
+    secondaryjoin=(friends.c.runner1_id == id), lazy="dynamic")
+
     pending_friends_association = db.relationship("User", secondary=pending_friends, primaryjoin=(pending_friends.c.acceptor_id == id),
     secondaryjoin=(pending_friends.c.requester_id == id), backref=db.backref("pending_friends", lazy="dynamic"), lazy="dynamic")
 
     user_runs = db.relationship("Run", back_populates="runnings")
-    user_comments = db.relationship('Comment', back_populates='author')
+    user_comments = db.relationship('Comment', back_populates='author', lazy='subquery')
 
 
 
@@ -60,6 +63,7 @@ class User(db.Model, UserMixin):
             'weight':self.weight,
             'height':self.height,
             "friends":[user.get_friend_info() for user in self.friends_association],
+            "moreFriends":[user.get_friend_info() for user in self.other_side_friends_association],
             "pending_friends":[user.get_friend_info() for user in self.pending_friends_association]
         }
 

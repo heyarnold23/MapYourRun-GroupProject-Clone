@@ -1,14 +1,17 @@
 
 #profile-button{
-    width:75px;
-    height:55%;
-    border-radius: 21px;
+    height: 2.5rem;
+    width: 2.5rem;
     cursor:pointer;
-    /* border:1px solid lightgrey; */
     border:none;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgb(245, 240, 240);
+    font-size: 1rem;
+    position: absolute;
+    right: 7rem;
+    top: .8rem ;
+    border-radius: 7px;
+    background-image: linear-gradient(to right, #00d2ff 0%, #358aff 51%, #00d2ff 100%);
 }

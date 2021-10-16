@@ -11,7 +11,7 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
     run_id = db.Column(db.Integer, db.ForeignKey("runs.id"), nullable = False)
 
-    author = db.relationship("User", back_populates='user_comments')
+    author = db.relationship("User", back_populates='user_comments', lazy='subquery')
     run = db.relationship("Run", back_populates='comments')
 
 

@@ -126,6 +126,7 @@ export const denyFriend = (id,requester_id) => async dispatch => {
 
     if(res.ok){
         const data = await res.json();
+
         dispatch(setPendingFriends({"pending_friends":data.pending_friends}))
         return null;
     } else if (res.status < 500) {
@@ -137,17 +138,23 @@ export const denyFriend = (id,requester_id) => async dispatch => {
         return ['An error occurred. Please try again.']
       }
 }
-export const removeFriend = (id,friendId) => async dispatch => {
-    const res = await fetch(`/api/users/${id}/friends`,{
+export const removeFriend = (data) => async dispatch => {
+    const res = await fetch(`/api/users/${data.id}/friends`,{
         method:"DELETE",
         headers: {
             'Content-Type': 'application/json',
           },
-        body:JSON.stringify({friend_id:friendId})
+        body:JSON.stringify({friend_id:data.friend_id, user_id:data.id})
     })
     if(res.ok){
         const data = await res.json();
-        dispatch(setFriends({"friends":data.friends}))
+        let newFriends = []
+        for(let friend of data.friends){
+            if(Number(friend['id'])!==Number(data.friendId)){
+                newFriends.push(friend)
+            }
+        }
+        dispatch(setFriends({"friends":newFriends}))
         return null;
     } else if (res.status < 500) {
         const data = await res.json();

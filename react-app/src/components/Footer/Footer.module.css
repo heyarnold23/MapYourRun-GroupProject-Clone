@@ -1,7 +1,7 @@
 .main{
     display: flex;
     /* margin-top: 5vh; */
-    height: 147px;
+    height: 120px;
     color: white;
     background-color: black;
     justify-content: space-evenly;
@@ -9,7 +9,11 @@
     font-family: 'Urbanist', sans-serif;
     width: 100%;
     margin: 0;
-    border-radius: 10px;
+    align-items: center;
+    padding-top:0;
+    position:fixed;
+    bottom:0
+    /* border-radius: 10px; */
 
 }
 
