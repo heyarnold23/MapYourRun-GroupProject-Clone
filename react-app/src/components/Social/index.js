@@ -8,11 +8,11 @@ const Social = () => {
     const dispatch = useDispatch()
     const currentUser = useSelector(state=>state.session.user)
     const justAddedfriends = useSelector(state=>state.social.friends)
-    const friends = currentUser.friends
+    const friends = useSelector(state=>state.social.friends)
     const moreFriends = currentUser.moreFriends
     const pendingFriends = useSelector(state=>state.social.pending_friends)
-    
-    
+
+
 
     useEffect(()=>{
         if(!currentUser)return
@@ -77,12 +77,12 @@ return (
                     <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
-            {justAddedfriends && justAddedfriends.map(friend=>{
+            {/* {justAddedfriends && justAddedfriends.map(friend=>{
                 return (<div className="friends" key={friend.id}>
                     <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
                     <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
-            })}
+            })} */}
             </div>
     </div>
 )

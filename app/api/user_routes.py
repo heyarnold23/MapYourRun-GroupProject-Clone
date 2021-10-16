@@ -23,7 +23,7 @@ def user(id):
 @login_required
 def friends(id):
     user = User.query.get(id)
-    return {'friends': [user.get_friend_info for user in user.friends_association]}
+    return {'friends': [user.get_friend_info() for user in user.friends_association]}
 
 
 @user_routes.route("/<int:id>/pending_friends")
