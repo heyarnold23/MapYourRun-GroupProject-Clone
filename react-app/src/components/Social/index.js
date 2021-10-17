@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from "react-redux"
-import { getFriends, getPendingFriends, acceptFriend, denyFriend, removeFriend} from '../../store/social';
+import { getFriends, getMoreFriends, getPendingFriends, acceptFriend, denyFriend, removeFriend} from '../../store/social';
 import './Social.css'
 import { FaUserCheck, FaUserMinus } from 'react-icons/fa'
 
 const Social = () => {
     const dispatch = useDispatch()
     const currentUser = useSelector(state=>state.session.user)
-    const justAddedfriends = useSelector(state=>state.social.friends)
-    const friends = currentUser.friends
-    const moreFriends = currentUser.moreFriends
+    const friends = useSelector(state=>state.social.friends)
+    const moreFriends = useSelector(state=>state.social.more_friends)
     const pendingFriends = useSelector(state=>state.social.pending_friends)
-    
-    
+
+console.log("this is MORE FRIENDS", moreFriends);
+console.log("this is FRIENDS", friends);
 
     useEffect(()=>{
         if(!currentUser)return
         dispatch(getFriends(currentUser.id))
+        dispatch(getMoreFriends(currentUser.id))
         dispatch(getPendingFriends(currentUser.id))
     },[])
 
@@ -34,8 +35,8 @@ const removeFriendClick = (friendId) => {
 
     if (map.includes(friendId)){
         const data = {
-            id: friendId,
-            friend_id: currentUser.id
+            other_id: friendId,
+            other_friend_id: currentUser.id
         }
         dispatch(removeFriend(data))
     } else{
@@ -77,12 +78,12 @@ return (
                     <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
-            {justAddedfriends && justAddedfriends.map(friend=>{
+            {/* {justAddedfriends && justAddedfriends.map(friend=>{
                 return (<div className="friends" key={friend.id}>
                     <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
                     <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
-            })}
+            })} */}
             </div>
     </div>
 )

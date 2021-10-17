@@ -1,0 +1,21 @@
+
+.nameBodyDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 80%;
+
+}
+
+.commentNameDiv{
+    margin-bottom: 5px;
+    color: #16b0f1;
+    /* border-bottom: 1px solid #DFE0E5; */
+}
+
+.commentBodyDiv{
+    overflow-wrap: break-word;
+    font-family: 'Urbanist', sans-serif;
+    margin-bottom: 10px;
+    width: 80%;
+}
