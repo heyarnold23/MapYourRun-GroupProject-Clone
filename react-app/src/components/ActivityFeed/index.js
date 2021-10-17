@@ -5,7 +5,6 @@ import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
 import { FaRegComments } from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
-import EditCommentForm from '../EditCommentForm';
 import { getFriends, getSentPendingRequests, getPendingFriends, getMoreFriends, setRequest } from '../../store/social';
 import { FaUserPlus } from 'react-icons/fa'
 import { RiUserFollowFill } from 'react-icons/ri'
@@ -16,7 +15,7 @@ import { RiUserReceived2Fill } from 'react-icons/ri'
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const runs = useSelector(store => store?.runs)
-  const commentsObject = useSelector(state => state?.comments)
+  // const commentsObject = useSelector(state => state?.comments)
   const friendsArr = useSelector(state => state.social.friends)
   const moreFriendsArr = useSelector(state => state.social.more_friends)
   const pendingFriendsArr = useSelector(state => state.social.pending_friends)
@@ -40,27 +39,27 @@ export default function ActivityFeed() {
   let moreFriendsRuns;
   let pendingFriendsIdArr;
   let sentPendingFriendsIdArr;
+  let sentPendingFriendsObj;
   let ultimateFriends;
 
   if (sessionUser) {
     friendsIdArr = friendsArr?.map(friend => friend.id);
     moreFriendsIdArr = moreFriendsArr?.map(friend => friend.id);
     pendingFriendsIdArr = pendingFriendsArr?.map(friend => friend.id);
-    sentPendingFriendsIdArr = sentPendingFriends?.map(friend => friend.id)
-    friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id))
-    moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr.includes(run.runner_id))
+    try {
+      sentPendingFriendsIdArr = sentPendingFriends?.map(friend => friend.id)
+    } catch (error) {
+      sentPendingFriendsObj = Object.values(sentPendingFriends)
+      sentPendingFriendsIdArr = sentPendingFriendsObj?.map(friend => friend.id)
+      console.log("THIS IS OBJECT VALUES SIDE", sentPendingFriendsIdArr);
+    }
+
+    friendsRuns = runsArr.filter(run => friendsIdArr?.includes(run.runner_id))
+    moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr?.includes(run.runner_id))
     ultimateFriends = [...friendsRuns, ...moreFriendsRuns]
   }
-  // const friendsIdArr = sessionUser.friends.map(friend => friend.id)
-
-
-  // console.log("this is Runs", runsArr);
-  console.log("this is friendsIdArr", friendsIdArr);
-  // console.log("this is friendsRuns", friendsRuns);
-  // console.log('this is commentsObject',commentsObject);
 
   const openMenu = (id) => {
-    // console.log('this is inside openMenu', id);
     if (showMenu) return;
     setCardId(id)
     setShowMenu(true);
@@ -69,7 +68,6 @@ export default function ActivityFeed() {
   const closeMenu = (e) => {
     e.preventDefault()
     setShowMenu(false)
-    // setBody(comment.body)
   }
 
   const seeFriends = (id) => {
@@ -144,17 +142,18 @@ export default function ActivityFeed() {
 
   const checkFriends = (runner_id) => {
     // console.log(runner_id);
-    return (friendsIdArr.includes(runner_id) || moreFriendsIdArr.includes(runner_id))
+    return (friendsIdArr?.includes(runner_id) || moreFriendsIdArr?.includes(runner_id))
   };
 
   const checkPendingFriends = (runner_id) => {
     // console.log(runner_id);
-    return (pendingFriendsIdArr.includes(runner_id))
+    return (pendingFriendsIdArr?.includes(runner_id))
   };
 
   const checkSentFriends = (runner_id) => {
-    // console.log(runner_id);
-    return (sentPendingFriendsIdArr.includes(runner_id))
+    if (sentPendingFriendsIdArr) {
+      return (sentPendingFriendsIdArr?.includes(runner_id))
+    }
   };
 
   useEffect(() => {

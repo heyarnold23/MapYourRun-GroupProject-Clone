@@ -35,7 +35,7 @@ export const setSentPendingFriends = (sent_pending_friends) => {
 
 export const addRequest = (pendingReq) => ({
     type: ADD_REQUEST,
-    pendingReq
+    payload: pendingReq
 })
 
 export const getPendingFriends = (id) => async dispatch => {
@@ -268,7 +268,9 @@ export const removeFriend = (data) => async dispatch => {
 const initialState = {}
 export default function socialReducer(state = initialState, action) {
     let newState = { ...state }
-    console.log("PAYLOAD: ", action.payload)
+    // console.log("PAYLOAD: ", action.payload?.id)
+    // console.log({...state.sent_pending_friends});
+
     switch (action.type) {
         case SET_FRIENDS:
             newState = { ...state, ...action.payload }
@@ -285,9 +287,8 @@ export default function socialReducer(state = initialState, action) {
         case ADD_REQUEST:
             return {
                 ...state,
-                [action.pendingReq.id]: action.pendingReq,
-                // ...action.newComment,
-            };
+                sent_pending_friends: {...state.sent_pending_friends, [action.payload.id]: action.payload }
+            }
         default:
             return state
     }
