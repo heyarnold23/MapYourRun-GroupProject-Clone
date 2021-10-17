@@ -8,6 +8,14 @@
 
 #dropdown{
     display: flex;
+    position: relative;
+    top: 35px;
+    right: 245px;
+    padding: 4px;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .cardDiv{
@@ -261,4 +269,21 @@
 
 .descriptionDiv{
     font-size: 12px;
+}
+
+
+.popOut{
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 4px 8px #685e5e;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.popOut:hover{
+    background-color: rgb(233, 233, 233);
 }

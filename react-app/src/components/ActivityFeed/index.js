@@ -163,7 +163,15 @@ export default function ActivityFeed() {
     dispatch(getMoreFriends(sessionUser.id))
     dispatch(getSentPendingRequests(sessionUser.id))
     dispatch(getPendingFriends(sessionUser.id))
-  }, [dispatch, sessionUser.id])
+
+    if (!drop) return;
+    const closeDrop = () => {
+      setDrop(false);
+    };
+    document.addEventListener('click', closeDrop);
+    return () => document.removeEventListener("click", closeDrop);
+
+  }, [dispatch, sessionUser.id, drop])
 
 
 
@@ -174,14 +182,16 @@ export default function ActivityFeed() {
       <>
         <div id='middle'>
           <div id='dropdown'>
-            <button onClick={openDrop}>
+            <div onClick={openDrop}>
               Friends
-            </button>
+            </div>
 
             {drop && (
-              <button onClick={seeExplore}>
+            <div className='popOut'>
+              <div onClick={seeExplore}>
                 Explore
-              </button>
+              </div>
+            </div>
             )}
           </div>
 
@@ -291,14 +301,16 @@ export default function ActivityFeed() {
             {/* <button onClick={seeFriends}>
                   Explore
                 </button> */}
-            <button onClick={openDrop}>
+            <div onClick={openDrop}>
               Explore
-            </button>
+            </div>
 
             {drop && (
-              <button onClick={seeFriends}>
+            <div className='popOut'>
+              <div onClick={seeFriends}>
                 Friends
-              </button>
+              </div>
+            </div>
             )}
           </div>
         )}
