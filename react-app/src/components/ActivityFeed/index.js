@@ -265,6 +265,7 @@ export default function ActivityFeed() {
                               rows='1'
                               value={body}
                               className='textAreaInput'
+                              maxlength='75'
                               onChange={(e) => setBody(e.target.value)}
                               name="body"
                               placeholder="Add a comment"
