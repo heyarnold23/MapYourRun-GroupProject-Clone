@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 #dropdown{
@@ -119,12 +121,7 @@
 
 }
 
-.nameBodyDiv{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
 
-}
 
 .commentPicDiv{
     margin-left: 10px;
@@ -217,4 +214,12 @@
     flex: 1;
     box-shadow: 0 1px 6px 0 rgb(0 0 0 / 15%);
 
+}
+
+.inDetailDiv{
+    font-size: 30px;
+}
+
+.descriptionDiv{
+    font-size: 12px;
 }

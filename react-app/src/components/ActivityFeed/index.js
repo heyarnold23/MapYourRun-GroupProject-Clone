@@ -205,7 +205,7 @@ export default function ActivityFeed() {
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
                         {friend.distance.toFixed(1)}
-                        {friend.id}
+                        {/* {friend.id} */}
                       </div>
                       <div className='descriptionDiv'>
                         Distance(mi)
