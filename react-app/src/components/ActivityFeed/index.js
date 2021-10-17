@@ -195,7 +195,7 @@ export default function ActivityFeed() {
                 <div id='mainDetailsDiv'>
                   <div id='nameDiv'>
                     <p id='name'>
-                      {friend?.user_name.username} went for a run
+                      <span id='nameText'>{friend?.user_name.username}</span> went for a run
                     </p>
                   </div>
                   <div id='screenshot' style={{ backgroundImage: `url(${friend?.image_url})` }}>
@@ -254,12 +254,13 @@ export default function ActivityFeed() {
                             <textarea
                               rows='1'
                               value={body}
+                              className='textAreaInput'
                               onChange={(e) => setBody(e.target.value)}
                               name="body"
                               placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' type="submit">Submit</button>
+                              <button className='formButton' type="submit">POST</button>
                             </div>
                           </form>
                         </div>
@@ -311,7 +312,7 @@ export default function ActivityFeed() {
               <div id='mainDetailsDiv'>
                 <div id='nameDiv'>
                   <p id='name'>
-                    {run?.user_name.username} went for a run
+                    <span id='nameText'>{run?.user_name.username}</span> went for a run
                   </p>
                   {(sessionUser && sessionUser.id !== run.runner_id && checkSentFriends(run.runner_id)) ? (
                     <div className='addFriend'>
@@ -408,12 +409,13 @@ export default function ActivityFeed() {
                             <textarea
                               rows='1'
                               value={body}
+                              className='textAreaInput'
                               onChange={(e) => setBody(e.target.value)}
                               name="body"
                               placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' type="submit">Submit</button>
+                              <button className='formButton' type="submit">POST</button>
                             </div>
                           </form>
                         </div>
