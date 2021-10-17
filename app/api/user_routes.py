@@ -19,11 +19,17 @@ def user(id):
     return user.to_dict()
 
 
+@user_routes.route("/<int:id>/more_friends")
+@login_required
+def more_friends(id):
+    user = User.query.get(id)
+    return {'more_friends': [user.get_friend_info() for user in user.other_side_friends_association]}
+
 @user_routes.route("/<int:id>/friends")
 @login_required
 def friends(id):
     user = User.query.get(id)
-    return {'friends': [user.get_friend_info for user in user.friends_association]}
+    return {'friends': [user.get_friend_info() for user in user.friends_association]}
 
 
 @user_routes.route("/<int:id>/pending_friends")
@@ -32,6 +38,13 @@ def pending_friends(id):
     user = User.query.get(id)
     print("\n\n\n\n\n\n\n\n",{'pending_friends': [user.get_friend_info() for user in user.pending_friends_association]})
     return {'pending_friends': [user.get_friend_info() for user in user.pending_friends_association]}
+
+@user_routes.route("/<int:id>/sent_pending_friends")
+@login_required
+def sent_pending_friends(id):
+    user = User.query.get(id)
+    print("\n\n\n\n\n\n\n\n",{'pending_friends': [user.get_friend_info() for user in user.other_side_pending_friends_association]})
+    return {'sent_pending_friends': [user.get_friend_info() for user in user.other_side_pending_friends_association]}
 
 
 @user_routes.route("/<int:id>/friends/accept",methods=["POST"])
@@ -66,7 +79,12 @@ def remove_friend(id):
     friend = User.query.get(friend_id)
     user.friends_association.remove(friend)
     db.session.commit()
-    return user.to_dict()
+    try:
+        actual = int(request.json['actual'])
+        final = User.query.get(actual)
+        return final.to_dict()
+    except:
+        return user.to_dict()
 
     #delete from friends
 

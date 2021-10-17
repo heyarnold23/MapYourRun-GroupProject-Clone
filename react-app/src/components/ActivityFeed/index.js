@@ -5,14 +5,22 @@ import './ActivityFeed.css'
 import CommentsFeed from '../Comments';
 import { FaRegComments } from 'react-icons/fa'
 import { getCommentsThunk, setComments } from '../../store/comments';
-import EditCommentForm from '../EditCommentForm';
-import { setRequest } from '../../store/social';
-import {FaUserPlus} from 'react-icons/fa'
+import { getFriends, getSentPendingRequests, getPendingFriends, getMoreFriends, setRequest } from '../../store/social';
+import { FaUserPlus } from 'react-icons/fa'
+import { RiUserFollowFill } from 'react-icons/ri'
+import { RiUserShared2Fill } from 'react-icons/ri'
+import { RiUserReceived2Fill } from 'react-icons/ri'
+
 
 export default function ActivityFeed() {
   const sessionUser = useSelector(state => state.session.user);
   const runs = useSelector(store => store?.runs)
-  const commentsObject = useSelector(state => state?.comments)
+  // const commentsObject = useSelector(state => state?.comments)
+  const friendsArr = useSelector(state => state.social.friends)
+  const moreFriendsArr = useSelector(state => state.social.more_friends)
+  const pendingFriendsArr = useSelector(state => state.social.pending_friends)
+  const sentPendingFriends = useSelector(state => state.social.sent_pending_friends)
+  console.log("FRIENDS OBJJJJJ", friendsArr);
 
   const dispatch = useDispatch()
 
@@ -25,29 +33,33 @@ export default function ActivityFeed() {
 
   const runsArr = Object.values(runs)
 
-  let friendsIdArr;
+  let friendsIdArr
   let friendsRuns;
   let moreFriendsIdArr;
   let moreFriendsRuns;
+  let pendingFriendsIdArr;
+  let sentPendingFriendsIdArr;
+  let sentPendingFriendsObj;
   let ultimateFriends;
 
   if (sessionUser) {
-    friendsIdArr = sessionUser.friends.map(friend => friend.id);
-    moreFriendsIdArr = sessionUser.moreFriends.map(friend => friend.id);
-    friendsRuns = runsArr.filter(run => friendsIdArr.includes(run.runner_id))
-    moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr.includes(run.runner_id))
+    friendsIdArr = friendsArr?.map(friend => friend.id);
+    moreFriendsIdArr = moreFriendsArr?.map(friend => friend.id);
+    pendingFriendsIdArr = pendingFriendsArr?.map(friend => friend.id);
+    try {
+      sentPendingFriendsIdArr = sentPendingFriends?.map(friend => friend.id)
+    } catch (error) {
+      sentPendingFriendsObj = Object.values(sentPendingFriends)
+      sentPendingFriendsIdArr = sentPendingFriendsObj?.map(friend => friend.id)
+      console.log("THIS IS OBJECT VALUES SIDE", sentPendingFriendsIdArr);
+    }
+
+    friendsRuns = runsArr.filter(run => friendsIdArr?.includes(run.runner_id))
+    moreFriendsRuns = runsArr.filter(run => moreFriendsIdArr?.includes(run.runner_id))
     ultimateFriends = [...friendsRuns, ...moreFriendsRuns]
   }
-  // const friendsIdArr = sessionUser.friends.map(friend => friend.id)
-
-
-  // console.log("this is Runs", runsArr);
-  console.log("this is friendsIdArr", friendsIdArr);
-  // console.log("this is friendsRuns", friendsRuns);
-  // console.log('this is commentsObject',commentsObject);
 
   const openMenu = (id) => {
-    // console.log('this is inside openMenu', id);
     if (showMenu) return;
     setCardId(id)
     setShowMenu(true);
@@ -56,7 +68,6 @@ export default function ActivityFeed() {
   const closeMenu = (e) => {
     e.preventDefault()
     setShowMenu(false)
-    // setBody(comment.body)
   }
 
   const seeFriends = (id) => {
@@ -130,15 +141,37 @@ export default function ActivityFeed() {
   }
 
   const checkFriends = (runner_id) => {
-    console.log(runner_id);
-    return(friendsIdArr.includes(runner_id) || moreFriendsIdArr.includes(runner_id))
+    // console.log(runner_id);
+    return (friendsIdArr?.includes(runner_id) || moreFriendsIdArr?.includes(runner_id))
+  };
+
+  const checkPendingFriends = (runner_id) => {
+    // console.log(runner_id);
+    return (pendingFriendsIdArr?.includes(runner_id))
+  };
+
+  const checkSentFriends = (runner_id) => {
+    if (sentPendingFriendsIdArr) {
+      return (sentPendingFriendsIdArr?.includes(runner_id))
+    }
   };
 
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
-    return
-  }, [dispatch])
+    dispatch(getFriends(sessionUser.id))
+    dispatch(getMoreFriends(sessionUser.id))
+    dispatch(getSentPendingRequests(sessionUser.id))
+    dispatch(getPendingFriends(sessionUser.id))
+
+    if (!drop) return;
+    const closeDrop = () => {
+      setDrop(false);
+    };
+    document.addEventListener('click', closeDrop);
+    return () => document.removeEventListener("click", closeDrop);
+
+  }, [dispatch, sessionUser.id, drop])
 
 
 
@@ -149,18 +182,20 @@ export default function ActivityFeed() {
       <>
         <div id='middle'>
           <div id='dropdown'>
-            <button onClick={openDrop}>
+            <div onClick={openDrop}>
               Friends
-            </button>
+            </div>
 
             {drop && (
-              <button onClick={seeExplore}>
+            <div className='popOut'>
+              <div onClick={seeExplore}>
                 Explore
-              </button>
+              </div>
+            </div>
             )}
           </div>
 
-          {ultimateFriends.map(friend => {
+          {ultimateFriends.length > 0 ? (ultimateFriends.map(friend => {
 
             return (
               <div key={friend.id} className='cardDiv' id={friend.id}>
@@ -170,7 +205,7 @@ export default function ActivityFeed() {
                 <div id='mainDetailsDiv'>
                   <div id='nameDiv'>
                     <p id='name'>
-                      {friend?.user_name.username} went for a run
+                      <span id='nameText'>{friend?.user_name.username}</span> went for a run
                     </p>
                   </div>
                   <div id='screenshot' style={{ backgroundImage: `url(${friend?.image_url})` }}>
@@ -180,7 +215,7 @@ export default function ActivityFeed() {
                     <div className='detailDiv'>
                       <div className='inDetailDiv'>
                         {friend.distance.toFixed(1)}
-                        {friend.id}
+                        {/* {friend.id} */}
                       </div>
                       <div className='descriptionDiv'>
                         Distance(mi)
@@ -229,12 +264,14 @@ export default function ActivityFeed() {
                             <textarea
                               rows='1'
                               value={body}
+                              className='textAreaInput'
+                              maxlength='75'
                               onChange={(e) => setBody(e.target.value)}
                               name="body"
                               placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' type="submit">Submit</button>
+                              <button className='formButton' type="submit">POST</button>
                             </div>
                           </form>
                         </div>
@@ -244,7 +281,11 @@ export default function ActivityFeed() {
                 </div>
               </div>
             )
-          })}
+          })): (<div className='getSomeFriendsDiv'>
+                  <span className='getSomeFriendsText'>
+                    Add some friends to liven up this feed!
+                  </span>
+                </div>)}
         </div>
       </>
     )
@@ -261,14 +302,16 @@ export default function ActivityFeed() {
             {/* <button onClick={seeFriends}>
                   Explore
                 </button> */}
-            <button onClick={openDrop}>
+            <div onClick={openDrop}>
               Explore
-            </button>
+            </div>
 
             {drop && (
-              <button onClick={seeFriends}>
+            <div className='popOut'>
+              <div onClick={seeFriends}>
                 Friends
-              </button>
+              </div>
+            </div>
             )}
           </div>
         )}
@@ -282,16 +325,35 @@ export default function ActivityFeed() {
               <div id='mainDetailsDiv'>
                 <div id='nameDiv'>
                   <p id='name'>
-                    {run?.user_name.username} went for a run
+                    <span id='nameText'>{run?.user_name.username}</span> went for a run
                   </p>
-                  {(sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id) === false) && (
+                  {(sessionUser && sessionUser.id !== run.runner_id && checkSentFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserShared2Fill />
+                      </span>
+                    </div>
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkPendingFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserReceived2Fill />
+                      </span>
+                    </div>
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id) === false) ? (
                     <div className='addFriend'>
                       {/* <button onClick={sendRequest}> */}
-                      <button className = "add-friend-button" onClick={(event)=> sendRequest(event, run.runner_id)}>
-                        <FaUserPlus/>
+                      <button className="add-friend-button" onClick={(event) => sendRequest(event, run.runner_id)}>
+                        <FaUserPlus />
                       </button>
                     </div>
-                  )}
+                  ) : (sessionUser && sessionUser.id !== run.runner_id && checkFriends(run.runner_id)) ? (
+                    <div className='addFriend'>
+                      <span className="sent-friend-and-friend">
+                        <RiUserFollowFill />
+                      </span>
+                    </div>
+                  ) : null
+                  }
                 </div>
                 <div id='screenshot' style={{ backgroundImage: `url(${run?.image_url})` }}>
                   {/* {(<img src = {run?.image_url} alt='screenshot' width="250px" height="100px"></img>)} */}
@@ -360,12 +422,13 @@ export default function ActivityFeed() {
                             <textarea
                               rows='1'
                               value={body}
+                              className='textAreaInput'
                               onChange={(e) => setBody(e.target.value)}
                               name="body"
                               placeholder="Add a comment"
                             ></textarea>
                             <div className='formButtonDiv'>
-                              <button className='formButton' type="submit">Submit</button>
+                              <button className='formButton' type="submit">POST</button>
                             </div>
                           </form>
                         </div>

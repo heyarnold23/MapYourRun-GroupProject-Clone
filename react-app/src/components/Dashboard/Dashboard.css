@@ -1,6 +1,8 @@
 #title {
     text-align: center;
     font-size: 4rem;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .runs {
@@ -12,6 +14,8 @@
     justify-content: space-between;
     width:80%;
     margin:auto;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 #line {
@@ -23,6 +27,7 @@ table {
     width: 80%;
     border: 1px solid lightgray;
     margin-bottom: 8rem;
+    font-family: 'Roboto', sans-serif;
 }
 
 table, th, td {
