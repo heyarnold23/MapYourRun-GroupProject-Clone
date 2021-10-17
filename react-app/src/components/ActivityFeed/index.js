@@ -185,7 +185,7 @@ export default function ActivityFeed() {
             )}
           </div>
 
-          {ultimateFriends.map(friend => {
+          {ultimateFriends.length > 0 ? (ultimateFriends.map(friend => {
 
             return (
               <div key={friend.id} className='cardDiv' id={friend.id}>
@@ -269,7 +269,11 @@ export default function ActivityFeed() {
                 </div>
               </div>
             )
-          })}
+          })): (<div className='getSomeFriendsDiv'>
+                  <span className='getSomeFriendsText'>
+                    Add some friends to liven up this feed!
+                  </span>
+                </div>)}
         </div>
       </>
     )

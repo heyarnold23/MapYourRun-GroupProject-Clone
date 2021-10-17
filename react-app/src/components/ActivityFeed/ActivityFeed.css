@@ -193,3 +193,28 @@
 #middle>div:last-of-type{
     margin-bottom:140px;
 }
+
+.getSomeFriendsDiv{
+    display: flex;
+    height: 500px;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+.getSomeFriendsText{
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+
+
+    width: 630px;
+    height: 252px;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    flex: 1;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 15%);
+
+}
