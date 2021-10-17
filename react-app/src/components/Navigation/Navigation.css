@@ -9,6 +9,9 @@
     padding:0;
     width:65%;
     margin:auto;
+    font-family: 'Roboto', sans-serif;
+    color: #6d717a;
+    font-size: 14px;
 }
 
 #navbar-list-container{
@@ -51,7 +54,7 @@
     left: 7rem;
   }
 
- 
+
 
 
 #profile-button:hover{
