@@ -15,6 +15,8 @@ import FormModal from "../Modal";
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 mapboxgl.workerClass = MapboxWorker
 
+
+
 const CreateRoute = () => {
     const dispatch = useDispatch()
     const location = useLocation()

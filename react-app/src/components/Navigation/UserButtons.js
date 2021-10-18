@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch ,useSelector} from 'react-redux';
-import {addModal,toggleModalView} from "../../store/session"
+import {addModal,toggleModalView, login} from "../../store/session"
 import LogoutButton from "../auth/LogoutButton"
 import FormModal from "../Modal"
 import "./UserButtons.css"
@@ -48,11 +48,16 @@ function UserButtons({ user }) {
                 dispatch(addModal("login"))
               }}>Log In</button>
             </div>
-            <div style ={{paddingTop:"5px",}}>
+            <div style ={{paddingTop:"5px",paddingBottom:"5px"}}>
               <button onClick = {()=>{
                 dispatch(toggleModalView(true))
                 dispatch(addModal("signup"))
               }}>Sign Up</button>
+            </div>
+            <div style ={{paddingTop:"5px",paddingBottom:"5px", borderBottom:"none"}}>
+              <button onClick = {()=>{
+                dispatch(login("demo@aa.io","password"))
+              }}>Demo User</button>
             </div>
           </div>
           </div>
@@ -66,13 +71,13 @@ function UserButtons({ user }) {
       <>
         <button id = "profile-button" onClick={openMenu}>
           <div id = "hamburger-icon">
-            ☰ 
+            ☰
           </div>
         </button>
         {showMenu && (
           <div id = "profile-dropdown-outer" style = {{height:"35px"}}>
           <div className="profile-dropdown">
-            <div>
+            <div style = {{borderBottom:"none"}}>
               <LogoutButton/>
             </div>
           </div>
