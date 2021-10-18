@@ -1,7 +1,7 @@
 .main{
     display: flex;
     /* margin-top: 5vh; */
-    height: 120px;
+    height: 90px;
     color: white;
     background-color: black;
     justify-content: space-evenly;
@@ -19,6 +19,7 @@
 
 
 .column{
+    padding-top:5px;
     width: 1;
 }
 
@@ -31,7 +32,7 @@
 .icons{
     color: white;
     text-decoration: none;
-    padding-top: 20px;
+    padding-top: 4px;
 }
 
 .icon{

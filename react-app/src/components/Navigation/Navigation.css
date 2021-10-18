@@ -75,7 +75,7 @@
     top:68px;
     right:115px;
     border-radius: 10px;
-    height:70px;
+    height:90px;
     background-color:white;
     box-shadow: 0px 1px 12px lightgrey;
     display:flex;
@@ -100,7 +100,6 @@
 #login-div{
     /* border-bottom:1px solid black; */
     padding-bottom:5px;
-    border-bottom:1px solid lightgrey;
 }
 
 .profile-dropdown > div {
@@ -111,8 +110,13 @@
     justify-content: center;
     align-items: center;
     cursor:pointer;
+    border-bottom: 1px solid lightgrey;
 
 }
+
+/* .profile-dropdown:last-child{
+    border:none;
+} */
 
 .profile-dropdown button {
     width:100%;
