@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getCommentsThunk} from'../../store/comments'
 import EditCommentForm from '../EditCommentForm';
-
+import './Comments.css'
 
 
 export default function CommentsFeed({id}) {
@@ -51,9 +51,9 @@ export default function CommentsFeed({id}) {
         <>
             {filteredComments.map((comment) =>
             <div key={comment.id}className='commentDiv'>
-                <div className='commentPicDiv'>
+                {/* <div className='commentPicDiv'>
                     Picture
-                </div>
+                </div> */}
                 <div className='nameBodyDiv'>
                     <div className='commentNameDiv'>
                     {comment?.user_name?.username}
@@ -73,26 +73,6 @@ export default function CommentsFeed({id}) {
             )}
         </>
 
-        // <div className='commentDiv'>
-        //     <div className='commentPicDiv'>
-        //         Picture
-        //     </div>
-            // {/* <div className='nameBodyDiv'>
-            //     <div className='commentNameDiv'>
-            //     {comment?.user_name?.username}
-            //     </div>
-            //     <div className='commentBodyDiv'>
-            //     {comment.body}
-            //     </div>
-            // </div>
-            // {sessionUser.id === comment?.user_name?.id ?
-            //     // setShowEditMenu(true) &&
-            //     <EditCommentForm comment={comment}/> : null
-            // }
-            // <div className='commentCreatedDiv'>
-            //     created
-            // </div> */}
-        // </div>
     )
 
 }

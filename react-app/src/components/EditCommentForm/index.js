@@ -72,7 +72,7 @@ export default function EditCommentForm ({comment}) {
             {showMenu && (
             <>
                 <div id='commentForm'>
-                    <form onSubmit={handleSubmit}>
+                    <form className='insideForm'onSubmit={handleSubmit}>
                     {/* <ul>
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul> */}
@@ -82,9 +82,10 @@ export default function EditCommentForm ({comment}) {
                             onChange={updateBody}
                             name="body"
                             placeholder="Add a comment"
+                            maxlength='75'
                         ></textarea>
-                        <button className='submitCancel' onClick={!openMenu}type="submit">Submit</button>
-                        <button className='submitCancel' onClick={closeMenu}>Cancel</button>
+                        <button className='submitCancel' onClick={!openMenu}type="submit">POST</button>
+                        <button className='submitCancel' onClick={closeMenu}>CANCEL</button>
                     </form>
                 </div>
             </>
