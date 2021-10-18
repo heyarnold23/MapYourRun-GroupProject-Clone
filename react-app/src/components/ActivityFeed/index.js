@@ -230,7 +230,7 @@ export default function ActivityFeed() {
                       </div>
                     </div>
                     <div className='detailDiv'>
-                      <div className='inDetailDiv'>
+                      <div className='inDetailDiv' style = {{textAlign:"center"}}>
                         {Math.floor(friend?.time / 3600) < 1 ? "" : `${Math.floor(friend?.time / 3600)} hour${Math.floor(friend?.time / 3600) < 2 ? "" : "s"} `}{Math.floor(friend?.time / 3600) < 1 ? `${(((friend?.time / 3600) % 1) * 60).toFixed(0)} minute${Number(((friend?.time / 3600) % 1) * 60).toFixed(0) < 2 ? "" : "s"}` : `${(((friend?.time / 3600) % 1) * 60).toFixed(0)} minutes`}
                       </div>
                       <div className='descriptionDiv'>
@@ -376,8 +376,8 @@ export default function ActivityFeed() {
                       Calories Burned(kcal)
                     </div>
                   </div>
-                  <div className='detailDiv'>
-                    <div className='inDetailDiv'>
+                  <div className='detailDiv' >
+                    <div className='inDetailDiv' style = {{textAlign:"center"}}>
                       {Math.floor(run?.time / 3600) < 1 ? "" : `${Math.floor(run?.time / 3600)} hour${Math.floor(run?.time / 3600) < 2 ? "" : "s"} `}{Math.floor(run?.time / 3600) < 1 ? `${(((run?.time / 3600) % 1) * 60).toFixed(0)} minute${Number(((run?.time / 3600) % 1) * 60).toFixed(0) < 2 ? "" : "s"}` : `${(((run?.time / 3600) % 1) * 60).toFixed(0)} minutes`}
                     </div>
                     <div className='descriptionDiv'>
