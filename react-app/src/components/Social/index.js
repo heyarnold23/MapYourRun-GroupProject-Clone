@@ -56,8 +56,8 @@ return (
             { pendingFriends && pendingFriends.map(pendingFriend=>{
                 return (<div className="requests" key={pendingFriend.id}>
                    <p className="friend_name"><b>{pendingFriend?.username?.split("")[0].toUpperCase() + pendingFriend?.username?.slice(1)}</b> </p>
-                    <button onClick = {()=>acceptClick(pendingFriend.id)} className="button_yes"><FaUserCheck /></button>
-                    <button onClick = {()=>denyClick(pendingFriend.id)} className="button_no"><FaUserMinus /></button>
+                    <button style = {{cursor:"pointer"}} onClick = {()=>acceptClick(pendingFriend.id)} className="button_yes"><FaUserCheck /></button>
+                    <button style = {{cursor:"pointer"}} onClick = {()=>denyClick(pendingFriend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
             {!pendingFriends && (<h2>Pending friends will appear here</h2>)}
@@ -69,13 +69,13 @@ return (
             {friends && friends.map(friend=>{
                 return (<div className="friends" key={friend.id}>
                    <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
-                    <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
+                    <button style = {{cursor:"pointer"}} onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
             {moreFriends && moreFriends.map(friend=>{
                 return (<div className="friends" key={friend.id}>
                     <p className="friend_name"><b> {friend?.username?.split("")[0].toUpperCase() + friend?.username?.slice(1)} </b></p>
-                    <button onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
+                    <button style = {{cursor:"pointer"}} onClick = {()=>removeFriendClick(friend.id)} className="button_no"><FaUserMinus /></button>
                 </div>)
             })}
             {/* {justAddedfriends && justAddedfriends.map(friend=>{
