@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import { getRunsThunk } from '../../store/runs';
+import { addModal, toggleModalView } from '../../store/session';
 import { NavLink } from 'react-router-dom';
 import './Dashboard.css'
 // import { addModal, toggleModalView} from '../../store/session';
 import { deleteRun } from '../../store/runs';
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { TiEdit } from 'react-icons/ti'
+import FormModal from "../Modal";
 
 export default function Dashboard() {
     const sessionUser = useSelector(state => state.session?.user);
     const dispatch = useDispatch()
+    const [isLoaded, setIsLoaded] = useState(false);
     const runs = useSelector(store => store?.runs)
+    const modalView = useSelector(state => state.session.modalView)
     let runArr;
     let distance = 0;
     let calories = 0;
@@ -20,6 +24,11 @@ export default function Dashboard() {
         dispatch(deleteRun(runId))
         return
     }
+
+    useEffect(()=>{
+        dispatch(addModal("loading"))
+        dispatch(toggleModalView(true))
+    },[])
 
     if(runs) {
         runArr = Object.values(runs)
@@ -31,11 +40,20 @@ export default function Dashboard() {
         distance = distance.toFixed(1)
     }
 
+    if(runArr.length && !isLoaded)setIsLoaded(true)
+
+    useEffect(()=>{
+        if(isLoaded){
+            dispatch(toggleModalView(false))
+        }
+    },[isLoaded])
+
     useEffect(() => {
         dispatch(getRunsThunk())
         return
       },[dispatch])
 
+      if(modalView) return (<FormModal/>)
     return (
         <>
         <div>
@@ -80,6 +98,7 @@ export default function Dashboard() {
                 </tbody>
             </table>
         </div>
+
         </>
     )
 
