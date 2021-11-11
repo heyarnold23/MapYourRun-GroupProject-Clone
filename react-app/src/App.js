@@ -31,6 +31,7 @@ function App() {
       <Switch>
         <Route exact path = "/">
           <HomePage />
+          <Footer />
         </Route>
         <Route exact path = "/new-route">
           <CreateRoute />
@@ -45,7 +46,7 @@ function App() {
           <Social />
         </Route>
       </Switch>
-      <Footer />
+
     </BrowserRouter>
   );
 }
