@@ -4,7 +4,7 @@
 
 ## What is MapYourRun?
 
-[MapYourRun]() is a full stack app utilizing PostgreSQL, Flask, and React/Redux. MapYourRun allows logged in users to create running routes by interacting with a map, keep track of their created running routes, as well as interact with others in a social media like manner with the 'Activity Feed'.
+[MapYourRun](https://map-your-run-clone.herokuapp.com/) is a full stack app utilizing PostgreSQL, Flask, and React/Redux. MapYourRun allows logged in users to create running routes by interacting with a map, keep track of their created running routes, as well as interact with others in a social media like manner with the 'Activity Feed'.
 
 ## Features
 
