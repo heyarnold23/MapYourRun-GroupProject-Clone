@@ -1,134 +1,63 @@
-# Flask React Project
+# MapYourRun
 
-This is the starter for the Flask React project.
+![GIF of MapYourRun splash page](https://i.ibb.co/vc28xVP/ezgif-7-6f63c89c200c.gif)
 
-## Getting started
+## What is MapYourRun?
 
-1. Clone this repository (only this branch)
+[MapYourRun]() is a full stack app utilizing PostgreSQL, Flask, and React/Redux. MapYourRun allows logged in users to create running routes by interacting with a map, keep track of their created running routes, as well as interact with others in a social media like manner with the 'Activity Feed'.
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+## Features
 
-2. Install dependencies
+### Routes
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+Logged in users can create routes via interacting with our integrated MapBox API
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+![GIF of routes feature]()
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+### Dashboard
 
-   ```bash
-   pipenv shell
-   ```
+Logged in users are able to view their created routes and stats via the dashboard.
 
-   ```bash
-   flask db upgrade
-   ```
+![GIF of dashboard feature]()
 
-   ```bash
-   flask seed all
-   ```
+### Comments
 
-   ```bash
-   flask run
-   ```
+Logged in users are able to comment on other user's routes
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+![GIF of comment feature]()
 
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
+### Friends
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+Logged in users are able to friend each other on the Activity Feed.
 
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
+![GIF of friend feature]()
 
-## Deploy to Heroku
+## Application Architecture
 
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
+MapYourRun is built on a React frontend with a Flask backend, using PostgreSQL as a database.
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+## Frontend Overview
 
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
+Unravel does the vast majority of its application logic on the backend, but display/interaction logic on the frontend is managed using several technologies.
 
-   ```bash
-   heroku login
-   ```
+### Frontend Technologies Used
 
-6. Login to the heroku container registry
+- React 
+- Redux
+- MapBox API
+   - The MapBox API was implemented to allow users to seamlessly create routes.
 
-   ```bash
-   heroku container:login
-   ```
 
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
+## Backend Overview
 
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
+MapYourRun uses a Flask server with a PostgreSQL database.
 
-9. Release your docker container to heroku
+### Backend Technologies Used
 
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
+- Flask
+- SQLAlchemy
+- PostgreSQL
 
-10. set up your database
+## Conclusion and Next Steps
 
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
-
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
-
-12. profit
-
-### For M1 Mac users
-
-(Replaces **Step 8**)
-
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
-
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
-
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
-
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-
-3. Use docker to push the image to the Heroku container registry:
-
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+So far we are pleased with the way MapYourRun has turned out. At this moment, we plan to touch up some styling on the page and perhaps implement pagination for the activity feed. 
