@@ -36,10 +36,6 @@ Logged in users are able to friend each other on the Activity Feed and see pendi
 
 MapYourRun is built on a React frontend with a Flask backend, using PostgreSQL as a database.
 
-## Frontend Overview
-
-Unravel does the vast majority of its application logic on the backend, but display/interaction logic on the frontend is managed using several technologies.
-
 ### Frontend Technologies Used
 
 - React 
