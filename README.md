@@ -12,25 +12,25 @@
 
 Logged in users can create routes via interacting with our integrated MapBox API
 
-![GIF of routes feature]()
+![GIF of routes feature](https://i.ibb.co/j8FYGVN/ezgif-7-9aa649732de7.gif)
 
 ### Dashboard
 
 Logged in users are able to view their created routes and stats via the dashboard.
 
-![GIF of dashboard feature]()
+![GIF of dashboard feature](https://i.ibb.co/HNTDqYd/ezgif-7-1e9f8cb68d0f.gif)
 
 ### Comments
 
 Logged in users are able to comment on other user's routes
 
-![GIF of comment feature]()
+![GIF of comment feature](https://i.ibb.co/mHJZwnz/ezgif-7-d3257d535762.gif)
 
-### Friends
+### Friends/Social
 
-Logged in users are able to friend each other on the Activity Feed.
+Logged in users are able to friend each other on the Activity Feed and see pending/incoming requests under the Social tab.
 
-![GIF of friend feature]()
+![GIF of friend feature](https://i.ibb.co/R7T4G72/ezgif-7-0c2e78b80740.gif)
 
 ## Application Architecture
 
