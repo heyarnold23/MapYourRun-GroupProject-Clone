@@ -106,6 +106,7 @@ const CreateRoute = () => {
         const image = screenshot()
         if(startPoint && endPoint && distance && time && image && currentUser){
             if(data){
+                await dispatch(toggleModalView(true))
                 await dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
                 history.push({
                     pathname: '/dashboard',
@@ -114,6 +115,7 @@ const CreateRoute = () => {
                 await refreshPage()
             }
             else{
+                await dispatch(toggleModalView(true))
                 await dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
                 history.push({
                     pathname: '/dashboard',
