@@ -61,6 +61,10 @@ table, th, td {
     padding: 4rem;
 } */
 
+#noRoutes{
+    text-align: center;
+}
+
 #table_div{
     display: flex;
     justify-content: center;
