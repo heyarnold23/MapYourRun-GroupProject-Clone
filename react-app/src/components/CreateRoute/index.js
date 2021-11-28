@@ -106,6 +106,7 @@ const CreateRoute = () => {
         const image = screenshot()
         if(startPoint && endPoint && distance && time && image && currentUser){
             if(data){
+                await dispatch(toggleModalView(true))
                 await dispatch(editRun(data.id,currentUser.id,startPoint,endPoint,distance,time,image))
                 history.push({
                     pathname: '/dashboard',
@@ -114,6 +115,7 @@ const CreateRoute = () => {
                 await refreshPage()
             }
             else{
+                await dispatch(toggleModalView(true))
                 await dispatch(setRuns(currentUser.id,startPoint,endPoint,distance,time,image))
                 history.push({
                     pathname: '/dashboard',
@@ -196,6 +198,34 @@ const CreateRoute = () => {
                 )}
                 <div ref={mapContainer} className="map-container" />
                 {modalView ? (<FormModal/>):null}
+                {location.state ?
+                    <div id="instructionsDiv">
+                        <div id="instructionsHeader">
+                            EDIT ROUTE
+                        </div>
+                        <ul id="instructions">
+                            <li id="list">
+                                Click anywhere to mark point A (start).
+                            </li>
+                            <li id="list">
+                                Click again to plot point B (end).
+                            </li>
+                        </ul>
+                    </div>
+                    : <div id="instructionsDiv">
+                        <div id="instructionsHeader">
+                            CREATE A ROUTE
+                        </div>
+                        <ul id="instructions">
+                            <li id="list">
+                                Click anywhere to mark point A (start).
+                            </li>
+                            <li id="list">
+                                Click again to plot point B (end).
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
 
         )

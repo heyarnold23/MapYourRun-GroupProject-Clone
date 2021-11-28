@@ -8,6 +8,45 @@
     height:100%;
     z-index: 0.9;
 }
+#instructionsDiv{
+    position:fixed;
+    left:8px;
+    top:100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+
+    /* background-color: whitesmoke; */
+    background-color: black;
+    color: white;
+    width: 295px;
+    height: 119px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#instructionsHeader{
+    font-weight: bold;
+    font-size: 20px;
+    width: 60%;
+    text-align: center;
+    border-bottom: 1px solid white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#instructions{
+    /* padding: 5px; */
+    padding-left: 20px;
+    margin-top: 0px;
+}
+
+#list{
+    margin-top: 10px;
+    /* padding-bottom: 5px; */
+}
 
 .mapboxgl-canvas-container{
     height:100%;
