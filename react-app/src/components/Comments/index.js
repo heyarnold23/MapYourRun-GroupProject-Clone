@@ -19,33 +19,6 @@ export default function CommentsFeed({id}) {
     const comments = useSelector(store => store?.comments)
     const commentsArr = Object.values(comments)
     const filteredComments = commentsArr.filter(comment => comment.run_id === id)
-    console.log('this is filteredComments', filteredComments);
-
-
-    if(!sessionUser){
-        return (
-            <>
-                {filteredComments.map((comment) =>
-                <div key={comment.id}className='commentDiv'>
-                    <div className='commentPicDiv'>
-                        Picture
-                    </div>
-                    <div className='nameBodyDiv'>
-                        <div className='commentNameDiv'>
-                        {comment?.user_name?.username}
-                        </div>
-                        <div className='commentBodyDiv'>
-                        {comment.body}
-                        </div>
-                    </div>
-                </div>
-                )}
-            </>
-        )
-    }
-
-
-
 
     return (
         <>
@@ -62,10 +35,15 @@ export default function CommentsFeed({id}) {
                     {comment.body}
                     </div>
                 </div>
-                {sessionUser.id === comment?.user_name?.id ?
-                    // setShowEditMenu(true) &&
-                    <EditCommentForm comment={comment}/> : null
-                }
+                {sessionUser ?
+                    <>
+                        {sessionUser.id === comment?.user_name?.id ?
+                            // setShowEditMenu(true) &&
+                            <EditCommentForm comment={comment}/> : null
+                        }
+                    </>
+                : null}
+
                 {/* <div className='commentCreatedDiv'>
                     created
                 </div> */}
