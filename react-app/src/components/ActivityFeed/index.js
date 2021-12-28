@@ -20,7 +20,6 @@ export default function ActivityFeed() {
   const moreFriendsArr = useSelector(state => state.social.more_friends)
   const pendingFriendsArr = useSelector(state => state.social.pending_friends)
   const sentPendingFriends = useSelector(state => state.social.sent_pending_friends)
-  console.log("FRIENDS OBJJJJJ", friendsArr);
 
   const dispatch = useDispatch()
 
@@ -159,10 +158,10 @@ export default function ActivityFeed() {
   useEffect(() => {
     dispatch(getRunsThunk())
     dispatch(getCommentsThunk())
-    dispatch(getFriends(sessionUser.id))
-    dispatch(getMoreFriends(sessionUser.id))
-    dispatch(getSentPendingRequests(sessionUser.id))
-    dispatch(getPendingFriends(sessionUser.id))
+    dispatch(getFriends(sessionUser?.id))
+    dispatch(getMoreFriends(sessionUser?.id))
+    dispatch(getSentPendingRequests(sessionUser?.id))
+    dispatch(getPendingFriends(sessionUser?.id))
 
     if (!drop) return;
     const closeDrop = () => {
@@ -171,7 +170,7 @@ export default function ActivityFeed() {
     document.addEventListener('click', closeDrop);
     return () => document.removeEventListener("click", closeDrop);
 
-  }, [dispatch, sessionUser.id, drop])
+  }, [dispatch, sessionUser?.id, drop])
 
 
 
